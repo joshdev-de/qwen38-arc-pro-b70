@@ -22,7 +22,7 @@ No other engine tested matched that combination.
 - **Tuning:** batch size, cache precision, slot count and the Intel backend switches made no
   measurable difference.
 - **Thinking:** keep it on. With thinking off the model fails most multi-step questions.
-- **Vision:** costs context cache, most of which comes back by limiting images to 1 megapixel.
+- **Vision:** costs context cache; limiting images to about 1 megapixel recovers roughly half of it.
 - **Power:** a 180 W cap costs 2% of decode speed and saves about a quarter of the power.
 - **Fan bug:** the B70's stuck-fan problem can be worked around without touching driver or firmware.
 
