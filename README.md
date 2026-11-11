@@ -33,6 +33,7 @@ No other engine tested matched that combination.
 - [How the numbers were measured](#how-the-numbers-were-measured)
 - [Known gaps](#known-gaps)
 - [Sources](#sources)
+- [Licence](#licence)
 
 ## Recommended setup
 
@@ -431,7 +432,6 @@ them before running elsewhere.
   not determined.
 - Intel llm-scaler was tested with pre-quantized weights only, not its load-time `sym_int4` path.
 - The power-cap udev rule and the latest fan-workaround change were not verified in service.
-- No licence file is included yet.
 
 ## Sources
 
@@ -443,3 +443,7 @@ them before running elsewhere.
 - [OpenVINO/Qwen3.8-27B-int4-ov model card](https://huggingface.co/OpenVINO/Qwen3.8-27B-int4-ov)
 - [openvino.genai issue #4343 (VLM prefix caching)](https://github.com/openvinotoolkit/openvino.genai/issues/4343)
 - [HaberstrohSystems AutoRound build](https://huggingface.co/HaberstrohSystems/Qwen3.8-27B-int4-g128-sym-autoround)
+
+## Licence
+
+[MIT](LICENSE)
