@@ -2,7 +2,7 @@
 
 A measured comparison of inference engines, 4-bit builds and server settings for running
 Qwen3.8-27B on one Intel Arc Pro B70 (32 GB), aimed at agent use (Hermes Agent, agentic coding)
-with a few occasional extra users. Everything here was measured on one machine on
+with a few occasional extra users. Everything here was measured in one Proxmox virtual machine on
 10–11 November 2026; the scripts to repeat it are in this repository.
 
 **Short version:** upstream vLLM (XPU image v0.33.0) with `RedHatAI/Qwen3.8-27B-INT4` and
@@ -64,7 +64,9 @@ Headline numbers for this setup:
 | Component | Detail |
 |---|---|
 | GPU | One Intel Arc Pro B70, 32 GB (30.3 GiB usable) |
-| CPU / RAM | AMD EPYC 7443P, 256 GB |
+| Host | Proxmox VE; the server runs in a KVM virtual machine with the B70 passed through |
+| CPU | 12 of the 24 cores of an AMD EPYC 7443P assigned to the VM |
+| RAM | 128 GB assigned to the VM |
 | OS | Fedora, kernel 7.3.3, `xe` driver |
 | Containers | Rootless Podman |
 | Client | Hermes Agent on another machine, plus Open WebUI |
