@@ -10,8 +10,38 @@ with a few occasional extra users. Everything here was measured in one Proxmox v
 across four clients, a 196k-token context, working prefix caching and clean streamed tool calls.
 No other engine tested matched that combination.
 
+## Key findings
+
+- **Engine:** vLLM is the best all-rounder. llama.cpp (SYCL) matches it for one client but has
+  about two-thirds of the four-client throughput. OpenVINO Model Server is slightly faster for one
+  stream but cannot combine MTP with prefix caching, which agents need.
+- **Weights:** every 19 GB 4-bit build runs at the same speed within 2%, with no measurable
+  accuracy difference. An AutoRound build is about 4% faster but needs a non-default backend.
+- **MTP depth:** 3 tokens is the best general setting. 4 tokens is faster on predictable output
+  and slower on prose and under concurrency. Published figures of 84 tokens/s are a best case.
+- **Tuning:** batch size, cache precision, slot count and the Intel backend switches made no
+  measurable difference.
+- **Thinking:** keep it on. With thinking off the model fails most multi-step questions.
+- **Vision:** costs context cache, most of which comes back by limiting images to 1 megapixel.
+- **Power:** a 180 W cap costs 2% of decode speed and saves about a quarter of the power.
+- **Fan bug:** the B70's stuck-fan problem can be worked around without touching driver or firmware.
+
+## Terms used here
+
+| Term | Meaning |
+|---|---|
+| Decode | Generating the answer, measured in tokens per second |
+| Prefill | Reading the prompt before the first answer token |
+| Cold prompt | A prompt the server has not seen, so nothing is cached |
+| Prefix cache | Reuse of an already-read prompt prefix, so only the new part is read |
+| Context cache | Memory holding the processed prompt (the KV cache); its size limits context and concurrency |
+| MTP | Multi-token prediction: the model guesses several tokens ahead and keeps the correct ones |
+| Canary | A 12-question sanity check run after every change |
+
 ## Contents
 
+- [Key findings](#key-findings)
+- [Terms used here](#terms-used-here)
 - [Recommended setup](#recommended-setup)
 - [Test system](#test-system)
 - [Quick start](#quick-start)
@@ -49,15 +79,18 @@ No other engine tested matched that combination.
 
 Headline numbers for this setup:
 
+| Measurement | Default power (312 W) | With the 180 W cap |
+|---|---|---|
+| Decode, one client (mixed code / prose / JSON) | 68.2 tokens/s | 66.7 tokens/s |
+| Decode, four clients, total | 166.5 tokens/s | 158.7 tokens/s |
+| Cold 75k-token prompt | 63 s | 86 s |
+
 | Measurement | Result |
 |---|---|
-| Decode, one client (mixed code / prose / JSON) | 67–68 tokens/s |
-| Decode, four clients | 43–45 tokens/s each, 165–175 tokens/s total |
-| Cold 75k-token prompt | 63 s (86 s with the 180 W cap) |
 | Cold 187k-token prompt | 268 s, 3 of 3 planted values retrieved |
-| Cached 16k-token prompt | 1.1 s (8.6 s cold) |
+| 16k-token prompt, cold and then cached | 8.6 s, then 1.1 s |
 | Streamed tool calls | 16 of 16 clean, thinking on and off |
-| Idle power with model loaded | about 7–11 W |
+| Idle power with the model loaded | about 7 W in deep idle |
 
 ## Test system
 
@@ -72,6 +105,9 @@ Headline numbers for this setup:
 | Client | Hermes Agent on another machine, plus Open WebUI |
 
 ## Quick start
+
+Requirements: a Linux host with the `xe` driver and a working `/dev/dri` render node, Podman,
+Python 3, and the Hugging Face CLI (`hf`). The commands assume rootless Podman.
 
 1. Download the weights (about 19 GB):
 
@@ -106,8 +142,9 @@ The server listens on port 8000 on all interfaces over plain HTTP. Put it behind
 TLS proxy if the network is not trusted.
 
 `./start-qwen38.sh` without arguments starts the existing container if it is stopped. The container
-uses `--restart unless-stopped`, so it also comes back after a crash or reboot (with
-`podman-restart.service` and user lingering enabled).
+uses `--restart unless-stopped`, so it restarts after a crash. For it to come back after a reboot
+under rootless Podman, enable `podman-restart.service` for the user and turn on lingering
+(`loginctl enable-linger`).
 
 ## Server settings explained
 
@@ -138,20 +175,33 @@ Notes:
 
 ## Results
 
-Unless stated otherwise, every server ran with a 196k context, 4 slots, MTP 3 and an 8-bit context
-cache. "Decode" is `speedbench.py`: temperature 0, thinking off, fixed code, prose and JSON prompts.
-See [How the numbers were measured](#how-the-numbers-were-measured) for the accuracy tests and their limits.
+Unless stated otherwise:
+
+- Every server ran with a 196k context, 4 slots, MTP 3 and an 8-bit context cache.
+- Speeds are in tokens per second.
+- "Decode" is `speedbench.py`: temperature 0, thinking off, fixed code, prose and JSON prompts.
+- "Accuracy" is the number of correct answers out of 80 generated questions.
+
+See [How the numbers were measured](#how-the-numbers-were-measured) for the tests and their limits.
 
 ### Engines
 
-| Engine | Decode, 1 client | 4 clients total | Cold 75k prompt | Prefix cache | Verdict |
-|---|---|---|---|---|---|
-| **vLLM XPU v0.33.0** | 67.4 | 167–174 | 63 s | Works (81–86% hits in agent use) | Best overall |
-| Intel llm-scaler-vllm 0.26.0-b2 | 64.7 | 156 | 63–66 s | Off by default; 65% hits when enabled | Slower, 5-minute starts, stalls of 13–17 s at each new batch size |
-| llama.cpp SYCL (build b12242), Q4_K_M | 66.1 | 112 | 94 s | Not tested | Same single-client speed, weaker concurrency |
-| OpenVINO Model Server 2026.5, int4-ov | 71.3 | 88 | 99 s | Not together with MTP | Fast for one stream only |
+| Engine | Decode, 1 client | 4 clients total | Cold 75k prompt | Prefix cache |
+|---|---|---|---|---|
+| **vLLM XPU v0.33.0** | 67.4 | 167–174 | 63 s | Works (81–86% hits in agent use) |
+| Intel llm-scaler-vllm 0.26.0-b2 | 64.7 | 156 | 63–66 s | Off by default; 65% hits when enabled |
+| llama.cpp SYCL (build b12242), Q4_K_M | 66.1 | 112 | 94 s | Not tested |
+| OpenVINO Model Server 2026.5, int4-ov | 71.3 | 88 | 99 s | Not together with MTP |
 
 All four passed the canary (12/12), streamed tool calls (8/8) and retrieval from a 75k-token prompt.
+
+- **vLLM** is the only engine with full speed, concurrency and a working prefix cache together.
+- **llm-scaler** is Intel's own vLLM build. It was slightly slower, took about five minutes to
+  start, and stalled for 13–17 s on the first request at each new batch size after a restart.
+- **llama.cpp** is the best fallback: same single-client speed, simpler to run, weaker with
+  several clients and slower at reading long prompts.
+- **OpenVINO Model Server** suits a single user who does not need caching; see
+  [the details below](#openvino-model-server-in-detail).
 
 Engines that were not tested because they wrap one of the above or lack a B70 backend: llama.cpp
 with Vulkan (reported well below SYCL), Ollama and LM Studio (llama.cpp underneath), IPEX-LLM,
@@ -235,8 +285,12 @@ prose, slower than MTP 3. MTP 4 also costs 16% of four-client throughput.
 
 ### OpenVINO Model Server in detail
 
-`openvino/model_server:weekly` (2026.5.0) with `OpenVINO/Qwen3.8-27B-int4-ov` and its built-in MTP
-draft; see `run_ovms.sh`. Under rootless Podman it needs `--user 0`. It loads in about 30 s.
+OpenVINO Model Server (OVMS) is fast for one stream, but on this model prefix caching and MTP
+do not work together, so it is a poor fit for agents.
+
+Tested: `openvino/model_server:weekly` (2026.5.0) with `OpenVINO/Qwen3.8-27B-int4-ov` and its
+built-in MTP draft; see `run_ovms.sh`. Under rootless Podman it needs `--user 0`. It loads in
+about 30 s.
 
 | | vLLM | OVMS with MTP | OVMS without MTP |
 |---|---|---|---|
@@ -268,7 +322,8 @@ difference to speed.
 
 ### Vision input
 
-Removing `--language-model-only` enables images. The text path is unchanged (67.3 tokens/s).
+Removing `--language-model-only` enables image input. Text speed is unchanged (67.3 tokens/s),
+but the context cache shrinks unless the image size is limited.
 
 | Configuration | Context cache |
 |---|---|
@@ -283,7 +338,8 @@ suffer; remove the flag for full-size images.
 
 ### Reasoning effort
 
-`evalset.py`, 4 parallel requests, temperature 0, on the recommended setup.
+Higher effort was more accurate for a modest token cost. Measured with `evalset.py`, 4 parallel
+requests, temperature 0, on the recommended setup; cells show correct answers.
 
 | Effort | Easy questions (240) | Chained questions (120) | Median tokens per question (easy / chained) |
 |---|---|---|---|
@@ -292,12 +348,14 @@ suffer; remove the flag for full-size images.
 | medium | 233 | 111 | 167 / 472 |
 | xhigh | 238 | 116 | 170 / 494 |
 
-- Accuracy rises with effort for 13–18% more tokens from `low` to `xhigh`.
+- From `low` to `xhigh`, correct answers rose from 339 to 354 of 360 for 13–18% more tokens.
+  `medium` (344) is within noise of either.
 - At `xhigh`, one of 360 questions reasoned until the 12,000-token limit without answering.
 - Keep thinking on for anything with more than one step.
 
 ### Another model: Qwen3.6-35B-A3B
 
+Much faster, but it thinks far longer and sometimes never answers. Tested:
 `palmfuture/Qwen3.6-35B-A3B-GPTQ-Int4` on the same vLLM image (131k context, MTP 3).
 
 | | Qwen3.8-27B | Qwen3.6-35B-A3B |
@@ -319,16 +377,29 @@ The `xe` driver exposes a sustained power limit at
 It is writable by root and takes effect immediately. Card power was read from `energy1_input`
 by `powerbench.sh`.
 
-| Cap | Decode: W, tokens/s, tokens/Wh | 4 clients: W, tokens/s, tokens/Wh | Cold 75k prompt: s, Wh | Peak package / VRAM | Fan peak |
-|---|---|---|---|---|---|
-| 312 W (default) | 236, 68.2, 1,040 | 253, 166.5, 2,370 | 63, 5.4 | 68 °C / 82 °C | 3,926 rpm |
-| 260 W | 236, 68.2, 1,040 | 249, 167.7, 2,420 | 68, 4.9 | 65 °C / 82 °C | 3,215 rpm |
-| 220 W | 220, 67.6, 1,110 | 220, 160.9, 2,630 | 75, 4.6 | 63 °C / 82 °C | 2,911 rpm |
-| 200 W | 200, 67.3, 1,210 | 200, 161.6, 2,910 | 79, 4.4 | 62 °C / 80 °C | 2,679 rpm |
-| **180 W** | 180, 66.7, 1,330 | 180, 158.7, 3,170 | 86, 4.3 | 61 °C / 78 °C | about 2,500 rpm |
-| 150 W | 150, 64.4, 1,540 | 150, 148.0, 3,550 | 102, 4.2 | 59 °C / 72 °C | 2,196 rpm |
+Speed and efficiency:
 
-- Decoding draws about 236 W and only prompt reading reaches the default cap.
+| Cap | Decode | Decode, tokens per Wh | 4 clients total | 4 clients, tokens per Wh | Cold 75k prompt |
+|---|---|---|---|---|---|
+| 312 W (default) | 68.2 | 1,040 | 166.5 | 2,370 | 63 s |
+| 260 W | 68.2 | 1,040 | 167.7 | 2,420 | 68 s |
+| 220 W | 67.6 | 1,110 | 160.9 | 2,630 | 75 s |
+| 200 W | 67.3 | 1,210 | 161.6 | 2,910 | 79 s |
+| **180 W** | 66.7 | 1,330 | 158.7 | 3,170 | 86 s |
+| 150 W | 64.4 | 1,540 | 148.0 | 3,550 | 102 s |
+
+Power, heat and noise:
+
+| Cap | Card power: decode / 4 clients / prefill | Energy for the 75k prompt | Peak package / VRAM | Fan peak |
+|---|---|---|---|---|
+| 312 W (default) | 236 / 253 / 310 W | 5.4 Wh | 68 °C / 82 °C | 3,926 rpm |
+| 260 W | 236 / 249 / 260 W | 4.9 Wh | 65 °C / 82 °C | 3,215 rpm |
+| 220 W | 220 / 220 / 220 W | 4.6 Wh | 63 °C / 82 °C | 2,911 rpm |
+| 200 W | 200 / 200 / 200 W | 4.4 Wh | 62 °C / 80 °C | 2,679 rpm |
+| **180 W** | 180 / 180 / 180 W | 4.3 Wh | 61 °C / 78 °C | about 2,500 rpm |
+| 150 W | 150 / 150 / 150 W | 4.2 Wh | 59 °C / 72 °C | 2,196 rpm |
+
+- Without a cap, decoding draws about 236 W; only prompt reading reaches the default limit.
 - The knee is near 180 W: it costs 2% of decode speed, 5% of four-client throughput and 23 s on a
   cold 75k prompt, for about 55 W less while decoding. Below it, each watt saved costs roughly
   twice as much speed.

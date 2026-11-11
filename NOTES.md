@@ -96,7 +96,7 @@ llama.cpp GGUF of Qwen3.6 (~/models/qwen36-gguf) was downloaded but not run: the
 Symptom seen here: after a load, all hwmon temps frozen (pkg 58 C), fan ~2100 rpm, card 42 W while idle.
 Holding /sys/kernel/debug/dri/0000:01:00.0/forcewake_all open briefly refreshes telemetry: a 0.5 s hold
 every 10 s gave fan ~48 rpm and 7 W idle. Files: b70-telemetry-kick.sh + .service; install with
-./install-b70-kick.sh (root systemd service; not installed by Claude - blocked by permissions).
+./install-b70-kick.sh (root systemd service).
 Remove: sudo systemctl disable --now b70-telemetry-kick && sudo rm /usr/local/sbin/b70-telemetry-kick.sh /etc/systemd/system/b70-telemetry-kick.service
 
 ## vLLM tuning + alternative 4-bit builds (2026-11-11, exp.sh / sweep1.sh / sweep2.sh, results/tune/)
@@ -190,7 +190,7 @@ Production server (vision on, MTP 3, 4 seqs); speedbench 600 tok, parbench p4 76
 | 180 (chosen) | 180 / 66.7 / 1330 | 180 / 158.7 / 3170 | 86 / 4.3 | 61 / 78 | ~2500 |
 | 150 | 150 / 64.4 / 1540 | 150 / 148.0 / 3550 | 102 / 4.2 | 59 / 72 | 2196 |
 Canary 12/12 at 180 and 150 W. Knee at ~180 W: 200->180 costs 0.9% decode, 180->150 costs 3.4%.
-User set 180 W on 2026-11-11 (manually, with sudo tee). Persistence: 99-b70-power-cap.rules (udev) ->
+180 W set on 2026-11-11 (sudo tee). Persistence: 99-b70-power-cap.rules (udev) ->
 `sudo install -m 644 ~/llm-b70-eval/99-b70-power-cap.rules /etc/udev/rules.d/ && sudo udevadm control --reload`
 (not yet confirmed installed / not yet verified across a reboot). Revert: echo 312000000 into power1_cap, remove the rule.
 
