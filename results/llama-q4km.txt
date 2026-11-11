@@ -1,0 +1,10 @@
+=== llama-q4km (2026-11-10T20:10:45Z)
+median decode 53.04 t/s (min 48.00, max 54.12), median TTFT 0.686s, median e2e 3.081s
+p=1: per-request decode  50.3 t/s (min 50.3), TTFT max 0.23s, aggregate  48.3 t/s
+p=2: per-request decode  42.1 t/s (min 40.2), TTFT max 0.49s, aggregate  74.9 t/s
+p=4: per-request decode  32.0 t/s (min 31.5), TTFT max 1.01s, aggregate 112.3 t/s
+llama-q4km think_off: 29/80  (31s, 260 completion tokens)
+llama-q4km think_on: 79/80  (109s, 13262 completion tokens)
+score 12/12
+8/8 streamed cases clean
+prompt 75064 tok, 94s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3

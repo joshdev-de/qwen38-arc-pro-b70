@@ -1,0 +1,9 @@
+=== ar-w4a16  13:35:13  MTP=3 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS=-e VLLM_XPU_INC_WNA16_BACKEND=w4a16 EXTRA= MODEL=Qwen3.8-27B-AutoRound
+KV cache size: 213,704 tokens
+ar-w4a16         code  66.4  prose  60.4  json  83.7  | mean  70.2 t/s (spread 60.4-83.7)
+mann ar-w4a16       count  85.8 (min 85.8 max 85.9, 502 tok in, TTFT 0.32s) | code  68.4 (min 68.3 max 68.4, 672 tok in, TTFT 0.35s) | prose  58.5 (min 58.5 max 58.5, 452 tok in, TTFT 0.26s)
+      1 (EngineCore pid=163) INFO 11-11 13:36:11 [core.py:139] Initializing a V1 LLM engine (v0.33.0) with config: model='/model', speculative_config=SpeculativeConfig(method='mtp', model='/model', num_spec_tokens=3), tokenizer='/model', skip_tokeniz
+      1 (EngineCore pid=163) INFO 11-11 13:36:14 [inc_ark_ops.py:25] Successfully imported auto_round_kernel.
+      1 (EngineCore pid=163) INFO 11-11 13:36:14 [inc_ark_ops.py:37] Successfully loaded auto_round_kernel backend library.
+p=4: per-request decode  46.9 t/s (min 45.2), TTFT max 0.21s, aggregate 176.6 t/s
+Mean acceptance length: 2.52 Per-position acceptance rate: 0.772, 0.471, 0.277,  

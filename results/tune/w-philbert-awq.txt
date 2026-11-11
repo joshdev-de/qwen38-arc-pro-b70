@@ -1,0 +1,9 @@
+=== w-philbert-awq  10:48:53  MTP=3 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS= EXTRA= MODEL=Qwen3.8-27B-W4A16-AWQ
+KV cache size: 203,731 tokens
+w-philbert-awq   code  66.2  prose  57.4  json  78.9  | mean  67.5 t/s (spread 57.4-78.9)
+p=4: per-request decode  44.9 t/s (min 42.9), TTFT max 0.22s, aggregate 166.0 t/s
+prompt 75064 tok, 64s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3
+tune-w-philbert-awq think_off: 27/80  (9s, 271 completion tokens)
+tune-w-philbert-awq think_on: 80/80  (62s, 12656 completion tokens)
+score 12/12
+Mean acceptance length: 3.51 Per-position acceptance rate: 0.925, 0.829, 0.759,  

@@ -1,0 +1,4 @@
+=== base-312W cap=312000000 18:01:28
+speed         91s  card avg 236.3 W (peak5s 239.3)  pkg avg 144.1 W  pkg max 62 C  vram max 80 C  fan max 2728 rpm | base-312W        code  67.8  prose  58.4  json  78.5  | mean  68.2 t/s (spread 58.4-78.5)
+par4          33s  card avg 253.0 W (peak5s 268.0)  pkg avg 155.1 W  pkg max 64 C  vram max 82 C  fan max 3099 rpm | p=4: per-request decode  43.1 t/s (min 42.0), TTFT max 0.17s, aggregate 166.5 t/s
+prefill       63s  card avg 310.2 W (peak5s 313.8)  pkg avg 201.9 W  pkg max 68 C  vram max 82 C  fan max 3926 rpm | prompt 74957 tok, 63s, got 'Rotterdam=4086, Quito=5581, Osaka=1163', want {'Rotterdam': '4086', 'Quito': '5581', 'Osaka': '1163'}, 3/3

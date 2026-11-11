@@ -1,0 +1,9 @@
+=== batch8k  10:11:12  MTP=3 BATCH=8192 SEQS=4 KVD=fp8 SPEC= ENVS= EXTRA= MODEL=RedHat-INT4
+KV cache size: 202,306 tokens
+batch8k          code  66.8  prose  57.9  json  77.5  | mean  67.4 t/s (spread 57.9-77.6)
+p=4: per-request decode  44.2 t/s (min 43.4), TTFT max 0.17s, aggregate 169.4 t/s
+prompt 75064 tok, 63s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3
+tune-batch8k think_off: 30/80  (9s, 253 completion tokens)
+tune-batch8k think_on: 77/80  (59s, 12355 completion tokens)
+score 12/12
+Mean acceptance length: 3.57 Per-position acceptance rate: 0.941, 0.851, 0.782,  

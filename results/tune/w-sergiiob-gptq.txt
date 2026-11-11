@@ -1,0 +1,9 @@
+=== w-sergiiob-gptq  11:08:57  MTP=3 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS= EXTRA= MODEL=Qwen3.8-27B-GPTQ-Int4-MTP
+KV cache size: 199,457 tokens
+w-sergiiob-gptq  code  67.3  prose  53.7  json  77.5  | mean  66.2 t/s (spread 53.7-77.5)
+p=4: per-request decode  43.8 t/s (min 42.3), TTFT max 0.64s, aggregate 153.4 t/s
+prompt 75064 tok, 64s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3
+tune-w-sergiiob-gptq think_off: 25/80  (9s, 251 completion tokens)
+tune-w-sergiiob-gptq think_on: 78/80  (68s, 14340 completion tokens)
+score 12/12
+Mean acceptance length: 3.62 Per-position acceptance rate: 0.958, 0.874, 0.785,  

@@ -1,0 +1,1139 @@
+{
+ "tag": "vllm-rh-int4",
+ "think_off": {
+  "score": 30,
+  "n": 80,
+  "secs": 9,
+  "tokens": 253,
+  "rows": [
+   {
+    "expr": "int('333', 8) - 10",
+    "want": "209",
+    "got": "211",
+    "ok": false,
+    "tokens": 4
+   },
+   {
+    "expr": "sorted(['pear', 'apple', 'kiwi', 'mango', 'banana'], key=len)[1]",
+    "want": "kiwi",
+    "got": "kiwi",
+    "ok": true,
+    "tokens": 3
+   },
+   {
+    "expr": "sum(i*i for i in range(5) if i % 2 == 1)",
+    "want": "10",
+    "got": "10",
+    "ok": true,
+    "tokens": 3
+   },
+   {
+    "expr": "[1, 1, 2, 3, 5, 8, 13, 21, 34][4:8][0]",
+    "want": "5",
+    "got": "5",
+    "ok": true,
+    "tokens": 2
+   },
+   {
+    "expr": "sorted(['banana', 'kiwi', 'apple', 'cherry', 'fig'], key=len)[1]",
+    "want": "kiwi",
+    "got": "kiwi",
+    "ok": true,
+    "tokens": 3
+   },
+   {
+    "expr": "sorted(['mango', 'lemon', 'kiwi', 'cherry', 'date'], key=len)[0]",
+    "want": "kiwi",
+    "got": "kiwi",
+    "ok": true,
+    "tokens": 3
+   },
+   {
+    "expr": "'-'.join(sorted('pqtuio'))",
+    "want": "i-o-p-q-t-u",
+    "got": "i-o-p-q-t-u",
+    "ok": true,
+    "tokens": 7
+   },
+   {
+    "expr": "max([31, 55, 23, 18, 16, 42], key=lambda v: v % 8)",
+    "want": "31",
+    "got": "55",
+    "ok": false,
+    "tokens": 3
+   },
+   {
+    "expr": "int('1202', 8) - 95",
+    "want": "547",
+    "got": "62",
+    "ok": false,
+    "tokens": 3
+   },
+   {
+    "expr": "sum(i*i for i in range(13) if i % 2 == 0)",
+    "want": "364",
+    "got": "164",
+    "ok": false,
+    "tokens": 4
+   },
+   {
+    "expr": "[x * 3 for x in range(6) if x != 3][-2]",
+    "want": "12",
+    "got": "12",
+    "ok": true,
+    "tokens": 3
+   },
+   {
+    "expr": "155 // 9 + 701 % 22",
+    "want": "36",
+    "got": "17",
+    "ok": false,
+    "tokens": 3
+   },
+   {
+    "expr": "177 // 24 + 320 % 11",
+    "want": "8",
+    "got": "10",
+    "ok": false,
+    "tokens": 3
+   },
+   {
+    "expr": "sum(i*i for i in range(10) if i % 2 == 0)",
+    "want": "120",
+    "got": "100",
+    "ok": false,
+    "tokens": 4
+   },
+   {
+    "expr": "max([30, 3, 27, 18, 43, 52], key=lambda v: v % 5)",
+    "want": "3",
+    "got": "52",
+    "ok": false,
+    "tokens": 3
+   },
+   {
+    "expr": "378 // 11 + 407 % 11",
+    "want": "34",
+    "got": "34",
+    "ok": true,
+    "tokens": 3
+   },
+   {
+    "expr": "int('216', 8) - 82",
+    "want": "60",
+    "got": "10",
+    "ok": false,
+    "tokens": 3
+   },
+   {
+    "expr": "'date'.upper().replace('O', 'y')",
+    "want": "DATE",
+    "got": "DATE",
+    "ok": true,
+    "tokens": 2
+   },
+   {
+    "expr": "sum(1 for c in 'mango cherry lemon cherry' if c in 'aeiou')",
+    "want": "6",
+    "got": "7",
+    "ok": false,
+    "tokens": 2
+   },
+   {
+    "expr": "[1, 1, 2, 3, 5, 8, 13, 21, 34][2:8][2]",
+    "want": "5",
+    "got": "8",
+    "ok": false,
+    "tokens": 2
+   },
+   {
+    "expr": "'-'.join(sorted('itoqwr'))",
+    "want": "i-o-q-r-t-w",
+    "got": "i-o-q-r-t-w",
+    "ok": true,
+    "tokens": 7
+   },
+   {
+    "expr": "sum(range(4, 90, 6))",
+    "want": "690",
+    "got": "120",
+    "ok": false,
+    "tokens": 4
+   },
+   {
+    "expr": "'lemongrape'[::-2]",
+    "want": "eagoe",
+    "got": "eg",
+    "ok": false,
+    "tokens": 2
+   },
+   {
+    "expr": "bin(226).count('1')",
+    "want": "4",
+    "got": "3",
+    "ok": false,
+    "tokens": 2
+   },
+   {
+    "expr": "'bananapear'[::-2]",
+    "want": "reaaa",
+    "got": "anpe",
+    "ok": false,
+    "tokens": 3
+   },
+   {
+    "expr": "sum(map(int, str(97653941)))",
+    "want": "44",
+    "got": "44",
+    "ok": true,
+    "tokens": 3
+   },
+   {
+    "expr": "[x * 5 for x in range(3) if x != 1][-2]",
+    "want": "0",
+    "got": "10",
+    "ok": false,
+    "tokens": 3
+   },
+   {
+    "expr": "bin(74).count('1')",
+    "want": "3",
+    "got": "4",
+    "ok": false,
+    "tokens": 2
+   },
+   {
+    "expr": "max([52, 3, 15, 33, 54, 6], key=lambda v: v % 10)",
+    "want": "6",
+    "got": "54",
+    "ok": false,
+    "tokens": 3
+   },
+   {
+    "expr": "max([30, 5, 38, 17, 55, 58], key=lambda v: v % 11)",
+    "want": "30",
+    "got": "58",
+    "ok": false,
+    "tokens": 3
+   },
+   {
+    "expr": "bin(101).count('1')",
+    "want": "4",
+    "got": "3",
+    "ok": false,
+    "tokens": 2
+   },
+   {
+    "expr": "'fig'.upper().replace('O', 'z')",
+    "want": "FIG",
+    "got": "FIG",
+    "ok": true,
+    "tokens": 2
+   },
+   {
+    "expr": "8 ** 2 - 75 * 8",
+    "want": "-536",
+    "got": "-584",
+    "ok": false,
+    "tokens": 5
+   },
+   {
+    "expr": "698 // 13 + 409 % 8",
+    "want": "54",
+    "got": "54",
+    "ok": true,
+    "tokens": 3
+   },
+   {
+    "expr": "sum({k: len(k) for k in ['mango', 'banana', 'lemon', 'grape']}.values()) - len('grape')",
+    "want": "16",
+    "got": "14",
+    "ok": false,
+    "tokens": 3
+   },
+   {
+    "expr": "[x * 3 for x in range(4) if x != 1][-1]",
+    "want": "9",
+    "got": "9",
+    "ok": true,
+    "tokens": 2
+   },
+   {
+    "expr": "sum(map(int, str(74291556)))",
+    "want": "39",
+    "got": "38",
+    "ok": false,
+    "tokens": 3
+   },
+   {
+    "expr": "sorted(['date', 'banana', 'apple', 'pear', 'grape'], key=len)[0]",
+    "want": "date",
+    "got": "apple",
+    "ok": false,
+    "tokens": 2
+   },
+   {
+    "expr": "sorted(['banana', 'fig', 'apple', 'mango', 'grape'], key=len)[2]",
+    "want": "mango",
+    "got": "apple",
+    "ok": false,
+    "tokens": 2
+   },
+   {
+    "expr": "bin(471).count('1')",
+    "want": "7",
+    "got": "4",
+    "ok": false,
+    "tokens": 2
+   },
+   {
+    "expr": "'cherry'.upper().replace('U', 'z')",
+    "want": "CHERRY",
+    "got": "CHERRY",
+    "ok": true,
+    "tokens": 3
+   },
+   {
+    "expr": "max([28, 21, 44, 37, 55, 10], key=lambda v: v % 13)",
+    "want": "37",
+    "got": "55",
+    "ok": false,
+    "tokens": 3
+   },
+   {
+    "expr": "sorted(['cherry', 'pear', 'grape', 'fig', 'mango'], key=len)[2]",
+    "want": "grape",
+    "got": "grape",
+    "ok": true,
+    "tokens": 3
+   },
+   {
+    "expr": "'-'.join(sorted('wutpei'))",
+    "want": "e-i-p-t-u-w",
+    "got": "e-i-p-t-u-w",
+    "ok": true,
+    "tokens": 7
+   },
+   {
+    "expr": "'apple'.upper().replace('I', 'y')",
+    "want": "APPLE",
+    "got": "APPLE",
+    "ok": true,
+    "tokens": 2
+   },
+   {
+    "expr": "10 ** 2 - 58 * 6",
+    "want": "-248",
+    "got": "-238",
+    "ok": false,
+    "tokens": 5
+   },
+   {
+    "expr": "sum(i*i for i in range(6) if i % 3 == 1)",
+    "want": "17",
+    "got": "10",
+    "ok": false,
+    "tokens": 3
+   },
+   {
+    "expr": "max([28, 54, 44, 53, 31, 12], key=lambda v: v % 11)",
+    "want": "54",
+    "got": "54",
+    "ok": true,
+    "tokens": 3
+   },
+   {
+    "expr": "(30 ^ 46) & 105",
+    "want": "32",
+    "got": "1",
+    "ok": false,
+    "tokens": 2
+   },
+   {
+    "expr": "sum({k: len(k) for k in ['pear', 'date', 'fig', 'kiwi']}.values()) - len('kiwi')",
+    "want": "11",
+    "got": "10",
+    "ok": false,
+    "tokens": 3
+   },
+   {
+    "expr": "(94 ^ 13) & 122",
+    "want": "82",
+    "got": "10",
+    "ok": false,
+    "tokens": 3
+   },
+   {
+    "expr": "int('1410', 8) - 23",
+    "want": "753",
+    "got": "757",
+    "ok": false,
+    "tokens": 4
+   },
+   {
+    "expr": "sum(i*i for i in range(10) if i % 3 == 0)",
+    "want": "126",
+    "got": "0",
+    "ok": false,
+    "tokens": 2
+   },
+   {
+    "expr": "sum(map(int, str(79922368)))",
+    "want": "46",
+    "got": "48",
+    "ok": false,
+    "tokens": 3
+   },
+   {
+    "expr": "[x * 4 for x in range(5) if x != 2][-2]",
+    "want": "12",
+    "got": "12",
+    "ok": true,
+    "tokens": 3
+   },
+   {
+    "expr": "sum(1 for c in 'pear banana kiwi mango' if c in 'aeiou')",
+    "want": "9",
+    "got": "8",
+    "ok": false,
+    "tokens": 2
+   },
+   {
+    "expr": "len(set('dfffhebbdef'))",
+    "want": "5",
+    "got": "5",
+    "ok": true,
+    "tokens": 2
+   },
+   {
+    "expr": "sum(map(int, str(4808974)))",
+    "want": "40",
+    "got": "44",
+    "ok": false,
+    "tokens": 3
+   },
+   {
+    "expr": "'apple'.upper().replace('A', 'x')",
+    "want": "xPPLE",
+    "got": "xPPLE",
+    "ok": true,
+    "tokens": 4
+   },
+   {
+    "expr": "sum(map(int, str(43011305)))",
+    "want": "17",
+    "got": "17",
+    "ok": true,
+    "tokens": 3
+   },
+   {
+    "expr": "'-'.join(sorted('yuwoep'))",
+    "want": "e-o-p-u-w-y",
+    "got": "e-o-p-u-w-y",
+    "ok": true,
+    "tokens": 7
+   },
+   {
+    "expr": "(84 ^ 38) & 74",
+    "want": "66",
+    "got": "10",
+    "ok": false,
+    "tokens": 3
+   },
+   {
+    "expr": "'-'.join(sorted('wqyutp'))",
+    "want": "p-q-t-u-w-y",
+    "got": "p-q-t-u-w-y",
+    "ok": true,
+    "tokens": 7
+   },
+   {
+    "expr": "589 // 22 + 801 % 28",
+    "want": "43",
+    "got": "26",
+    "ok": false,
+    "tokens": 3
+   },
+   {
+    "expr": "sum(map(int, str(72445946)))",
+    "want": "41",
+    "got": "43",
+    "ok": false,
+    "tokens": 3
+   },
+   {
+    "expr": "[1, 1, 2, 3, 5, 8, 13, 21, 34][1:6][2]",
+    "want": "3",
+    "got": "3",
+    "ok": true,
+    "tokens": 2
+   },
+   {
+    "expr": "5 ** 4 - 74 * 8",
+    "want": "33",
+    "got": "1",
+    "ok": false,
+    "tokens": 2
+   },
+   {
+    "expr": "[x * 3 for x in range(6) if x != 1][-2]",
+    "want": "12",
+    "got": "12",
+    "ok": true,
+    "tokens": 3
+   },
+   {
+    "expr": "sorted(['date', 'grape', 'apple', 'cherry', 'mango'], key=len)[0]",
+    "want": "date",
+    "got": "apple",
+    "ok": false,
+    "tokens": 2
+   },
+   {
+    "expr": "[x * 3 for x in range(4) if x != 2][-2]",
+    "want": "3",
+    "got": "3",
+    "ok": true,
+    "tokens": 2
+   },
+   {
+    "expr": "sum(1 for c in 'cherry apple cherry apple' if c in 'aeiou')",
+    "want": "6",
+    "got": "8",
+    "ok": false,
+    "tokens": 2
+   },
+   {
+    "expr": "max([28, 22, 10, 32, 44, 49], key=lambda v: v % 8)",
+    "want": "22",
+    "got": "49",
+    "ok": false,
+    "tokens": 3
+   },
+   {
+    "expr": "sum(i*i for i in range(10) if i % 4 == 1)",
+    "want": "107",
+    "got": "14",
+    "ok": false,
+    "tokens": 3
+   },
+   {
+    "expr": "sum(range(6, 34, 7))",
+    "want": "66",
+    "got": "105",
+    "ok": false,
+    "tokens": 4
+   },
+   {
+    "expr": "sum(i*i for i in range(8) if i % 2 == 0)",
+    "want": "56",
+    "got": "40",
+    "ok": false,
+    "tokens": 3
+   },
+   {
+    "expr": "'-'.join(sorted('etqorp'))",
+    "want": "e-o-p-q-r-t",
+    "got": "e-o-p-q-r-t",
+    "ok": true,
+    "tokens": 7
+   },
+   {
+    "expr": "[1, 1, 2, 3, 5, 8, 13, 21, 34][3:7][1]",
+    "want": "5",
+    "got": "8",
+    "ok": false,
+    "tokens": 2
+   },
+   {
+    "expr": "sum(range(12, 44, 4))",
+    "want": "208",
+    "got": "330",
+    "ok": false,
+    "tokens": 4
+   },
+   {
+    "expr": "'mangopear'[::-1]",
+    "want": "raepognam",
+    "got": "raepgnam",
+    "ok": false,
+    "tokens": 5
+   },
+   {
+    "expr": "bin(323).count('1')",
+    "want": "4",
+    "got": "4",
+    "ok": true,
+    "tokens": 2
+   }
+  ]
+ },
+ "think_on": {
+  "score": 77,
+  "n": 80,
+  "secs": 59,
+  "tokens": 12361,
+  "rows": [
+   {
+    "expr": "int('333', 8) - 10",
+    "want": "209",
+    "got": "209",
+    "ok": true,
+    "tokens": 126
+   },
+   {
+    "expr": "sorted(['pear', 'apple', 'kiwi', 'mango', 'banana'], key=len)[1]",
+    "want": "kiwi",
+    "got": "kiwi",
+    "ok": true,
+    "tokens": 253
+   },
+   {
+    "expr": "sum(i*i for i in range(5) if i % 2 == 1)",
+    "want": "10",
+    "got": "10",
+    "ok": true,
+    "tokens": 93
+   },
+   {
+    "expr": "[1, 1, 2, 3, 5, 8, 13, 21, 34][4:8][0]",
+    "want": "5",
+    "got": "5",
+    "ok": true,
+    "tokens": 141
+   },
+   {
+    "expr": "sorted(['banana', 'kiwi', 'apple', 'cherry', 'fig'], key=len)[1]",
+    "want": "kiwi",
+    "got": "kiwi",
+    "ok": true,
+    "tokens": 162
+   },
+   {
+    "expr": "sorted(['mango', 'lemon', 'kiwi', 'cherry', 'date'], key=len)[0]",
+    "want": "kiwi",
+    "got": "kiwi",
+    "ok": true,
+    "tokens": 194
+   },
+   {
+    "expr": "'-'.join(sorted('pqtuio'))",
+    "want": "i-o-p-q-t-u",
+    "got": "i-o-p-q-t-u",
+    "ok": true,
+    "tokens": 96
+   },
+   {
+    "expr": "max([31, 55, 23, 18, 16, 42], key=lambda v: v % 8)",
+    "want": "31",
+    "got": "31",
+    "ok": true,
+    "tokens": 189
+   },
+   {
+    "expr": "int('1202', 8) - 95",
+    "want": "547",
+    "got": "547",
+    "ok": true,
+    "tokens": 154
+   },
+   {
+    "expr": "sum(i*i for i in range(13) if i % 2 == 0)",
+    "want": "364",
+    "got": "364",
+    "ok": true,
+    "tokens": 168
+   },
+   {
+    "expr": "[x * 3 for x in range(6) if x != 3][-2]",
+    "want": "12",
+    "got": "12",
+    "ok": true,
+    "tokens": 144
+   },
+   {
+    "expr": "155 // 9 + 701 % 22",
+    "want": "36",
+    "got": "36",
+    "ok": true,
+    "tokens": 151
+   },
+   {
+    "expr": "177 // 24 + 320 % 11",
+    "want": "8",
+    "got": "8",
+    "ok": true,
+    "tokens": 97
+   },
+   {
+    "expr": "sum(i*i for i in range(10) if i % 2 == 0)",
+    "want": "120",
+    "got": "120",
+    "ok": true,
+    "tokens": 162
+   },
+   {
+    "expr": "max([30, 3, 27, 18, 43, 52], key=lambda v: v % 5)",
+    "want": "3",
+    "got": "3",
+    "ok": true,
+    "tokens": 190
+   },
+   {
+    "expr": "378 // 11 + 407 % 11",
+    "want": "34",
+    "got": "34",
+    "ok": true,
+    "tokens": 151
+   },
+   {
+    "expr": "int('216', 8) - 82",
+    "want": "60",
+    "got": "60",
+    "ok": true,
+    "tokens": 117
+   },
+   {
+    "expr": "'date'.upper().replace('O', 'y')",
+    "want": "DATE",
+    "got": "DATE",
+    "ok": true,
+    "tokens": 64
+   },
+   {
+    "expr": "sum(1 for c in 'mango cherry lemon cherry' if c in 'aeiou')",
+    "want": "6",
+    "got": "6",
+    "ok": true,
+    "tokens": 175
+   },
+   {
+    "expr": "[1, 1, 2, 3, 5, 8, 13, 21, 34][2:8][2]",
+    "want": "5",
+    "got": "5",
+    "ok": true,
+    "tokens": 179
+   },
+   {
+    "expr": "'-'.join(sorted('itoqwr'))",
+    "want": "i-o-q-r-t-w",
+    "got": "i-o-q-r-t-w",
+    "ok": true,
+    "tokens": 78
+   },
+   {
+    "expr": "sum(range(4, 90, 6))",
+    "want": "690",
+    "got": "690",
+    "ok": true,
+    "tokens": 235
+   },
+   {
+    "expr": "'lemongrape'[::-2]",
+    "want": "eagoe",
+    "got": "eagoe",
+    "ok": true,
+    "tokens": 172
+   },
+   {
+    "expr": "bin(226).count('1')",
+    "want": "4",
+    "got": "4",
+    "ok": true,
+    "tokens": 195
+   },
+   {
+    "expr": "'bananapear'[::-2]",
+    "want": "reaaa",
+    "got": "reaaa",
+    "ok": true,
+    "tokens": 145
+   },
+   {
+    "expr": "sum(map(int, str(97653941)))",
+    "want": "44",
+    "got": "44",
+    "ok": true,
+    "tokens": 186
+   },
+   {
+    "expr": "[x * 5 for x in range(3) if x != 1][-2]",
+    "want": "0",
+    "got": "10",
+    "ok": false,
+    "tokens": 91
+   },
+   {
+    "expr": "bin(74).count('1')",
+    "want": "3",
+    "got": "3",
+    "ok": true,
+    "tokens": 185
+   },
+   {
+    "expr": "max([52, 3, 15, 33, 54, 6], key=lambda v: v % 10)",
+    "want": "6",
+    "got": "6",
+    "ok": true,
+    "tokens": 187
+   },
+   {
+    "expr": "max([30, 5, 38, 17, 55, 58], key=lambda v: v % 11)",
+    "want": "30",
+    "got": "30",
+    "ok": true,
+    "tokens": 157
+   },
+   {
+    "expr": "bin(101).count('1')",
+    "want": "4",
+    "got": "4",
+    "ok": true,
+    "tokens": 204
+   },
+   {
+    "expr": "'fig'.upper().replace('O', 'z')",
+    "want": "FIG",
+    "got": "FIG",
+    "ok": true,
+    "tokens": 64
+   },
+   {
+    "expr": "8 ** 2 - 75 * 8",
+    "want": "-536",
+    "got": "-536",
+    "ok": true,
+    "tokens": 92
+   },
+   {
+    "expr": "698 // 13 + 409 % 8",
+    "want": "54",
+    "got": "54",
+    "ok": true,
+    "tokens": 107
+   },
+   {
+    "expr": "sum({k: len(k) for k in ['mango', 'banana', 'lemon', 'grape']}.values()) - len('grape')",
+    "want": "16",
+    "got": "16",
+    "ok": true,
+    "tokens": 190
+   },
+   {
+    "expr": "[x * 3 for x in range(4) if x != 1][-1]",
+    "want": "9",
+    "got": "9",
+    "ok": true,
+    "tokens": 122
+   },
+   {
+    "expr": "sum(map(int, str(74291556)))",
+    "want": "39",
+    "got": "39",
+    "ok": true,
+    "tokens": 185
+   },
+   {
+    "expr": "sorted(['date', 'banana', 'apple', 'pear', 'grape'], key=len)[0]",
+    "want": "date",
+    "got": "date",
+    "ok": true,
+    "tokens": 200
+   },
+   {
+    "expr": "sorted(['banana', 'fig', 'apple', 'mango', 'grape'], key=len)[2]",
+    "want": "mango",
+    "got": "mango",
+    "ok": true,
+    "tokens": 199
+   },
+   {
+    "expr": "bin(471).count('1')",
+    "want": "7",
+    "got": "7",
+    "ok": true,
+    "tokens": 370
+   },
+   {
+    "expr": "'cherry'.upper().replace('U', 'z')",
+    "want": "CHERRY",
+    "got": "CHERRY",
+    "ok": true,
+    "tokens": 62
+   },
+   {
+    "expr": "max([28, 21, 44, 37, 55, 10], key=lambda v: v % 13)",
+    "want": "37",
+    "got": "37",
+    "ok": true,
+    "tokens": 162
+   },
+   {
+    "expr": "sorted(['cherry', 'pear', 'grape', 'fig', 'mango'], key=len)[2]",
+    "want": "grape",
+    "got": "grape",
+    "ok": true,
+    "tokens": 150
+   },
+   {
+    "expr": "'-'.join(sorted('wutpei'))",
+    "want": "e-i-p-t-u-w",
+    "got": "e-i-p-t-u-w",
+    "ok": true,
+    "tokens": 80
+   },
+   {
+    "expr": "'apple'.upper().replace('I', 'y')",
+    "want": "APPLE",
+    "got": "APPLE",
+    "ok": true,
+    "tokens": 65
+   },
+   {
+    "expr": "10 ** 2 - 58 * 6",
+    "want": "-248",
+    "got": "-248",
+    "ok": true,
+    "tokens": 98
+   },
+   {
+    "expr": "sum(i*i for i in range(6) if i % 3 == 1)",
+    "want": "17",
+    "got": "17",
+    "ok": true,
+    "tokens": 173
+   },
+   {
+    "expr": "max([28, 54, 44, 53, 31, 12], key=lambda v: v % 11)",
+    "want": "54",
+    "got": "54",
+    "ok": true,
+    "tokens": 107
+   },
+   {
+    "expr": "(30 ^ 46) & 105",
+    "want": "32",
+    "got": "32",
+    "ok": true,
+    "tokens": 276
+   },
+   {
+    "expr": "sum({k: len(k) for k in ['pear', 'date', 'fig', 'kiwi']}.values()) - len('kiwi')",
+    "want": "11",
+    "got": "11",
+    "ok": true,
+    "tokens": 182
+   },
+   {
+    "expr": "(94 ^ 13) & 122",
+    "want": "82",
+    "got": "82",
+    "ok": true,
+    "tokens": 292
+   },
+   {
+    "expr": "int('1410', 8) - 23",
+    "want": "753",
+    "got": "753",
+    "ok": true,
+    "tokens": 151
+   },
+   {
+    "expr": "sum(i*i for i in range(10) if i % 3 == 0)",
+    "want": "126",
+    "got": "126",
+    "ok": true,
+    "tokens": 145
+   },
+   {
+    "expr": "sum(map(int, str(79922368)))",
+    "want": "46",
+    "got": "46",
+    "ok": true,
+    "tokens": 186
+   },
+   {
+    "expr": "[x * 4 for x in range(5) if x != 2][-2]",
+    "want": "12",
+    "got": "12",
+    "ok": true,
+    "tokens": 132
+   },
+   {
+    "expr": "sum(1 for c in 'pear banana kiwi mango' if c in 'aeiou')",
+    "want": "9",
+    "got": "9",
+    "ok": true,
+    "tokens": 178
+   },
+   {
+    "expr": "len(set('dfffhebbdef'))",
+    "want": "5",
+    "got": "5",
+    "ok": true,
+    "tokens": 90
+   },
+   {
+    "expr": "sum(map(int, str(4808974)))",
+    "want": "40",
+    "got": "40",
+    "ok": true,
+    "tokens": 147
+   },
+   {
+    "expr": "'apple'.upper().replace('A', 'x')",
+    "want": "xPPLE",
+    "got": "xPPLE",
+    "ok": true,
+    "tokens": 47
+   },
+   {
+    "expr": "sum(map(int, str(43011305)))",
+    "want": "17",
+    "got": "17",
+    "ok": true,
+    "tokens": 157
+   },
+   {
+    "expr": "'-'.join(sorted('yuwoep'))",
+    "want": "e-o-p-u-w-y",
+    "got": "e-e-o-p-u-w",
+    "ok": false,
+    "tokens": 71
+   },
+   {
+    "expr": "(84 ^ 38) & 74",
+    "want": "66",
+    "got": "66",
+    "ok": true,
+    "tokens": 251
+   },
+   {
+    "expr": "'-'.join(sorted('wqyutp'))",
+    "want": "p-q-t-u-w-y",
+    "got": "p-q-t-u-w-y",
+    "ok": true,
+    "tokens": 98
+   },
+   {
+    "expr": "589 // 22 + 801 % 28",
+    "want": "43",
+    "got": "43",
+    "ok": true,
+    "tokens": 106
+   },
+   {
+    "expr": "sum(map(int, str(72445946)))",
+    "want": "41",
+    "got": "41",
+    "ok": true,
+    "tokens": 185
+   },
+   {
+    "expr": "[1, 1, 2, 3, 5, 8, 13, 21, 34][1:6][2]",
+    "want": "3",
+    "got": "3",
+    "ok": true,
+    "tokens": 166
+   },
+   {
+    "expr": "5 ** 4 - 74 * 8",
+    "want": "33",
+    "got": "33",
+    "ok": true,
+    "tokens": 78
+   },
+   {
+    "expr": "[x * 3 for x in range(6) if x != 1][-2]",
+    "want": "12",
+    "got": "12",
+    "ok": true,
+    "tokens": 144
+   },
+   {
+    "expr": "sorted(['date', 'grape', 'apple', 'cherry', 'mango'], key=len)[0]",
+    "want": "date",
+    "got": "date",
+    "ok": true,
+    "tokens": 220
+   },
+   {
+    "expr": "[x * 3 for x in range(4) if x != 2][-2]",
+    "want": "3",
+    "got": "3",
+    "ok": true,
+    "tokens": 125
+   },
+   {
+    "expr": "sum(1 for c in 'cherry apple cherry apple' if c in 'aeiou')",
+    "want": "6",
+    "got": "6",
+    "ok": true,
+    "tokens": 173
+   },
+   {
+    "expr": "max([28, 22, 10, 32, 44, 49], key=lambda v: v % 8)",
+    "want": "22",
+    "got": "22",
+    "ok": true,
+    "tokens": 152
+   },
+   {
+    "expr": "sum(i*i for i in range(10) if i % 4 == 1)",
+    "want": "107",
+    "got": "107",
+    "ok": true,
+    "tokens": 229
+   },
+   {
+    "expr": "sum(range(6, 34, 7))",
+    "want": "66",
+    "got": "66",
+    "ok": true,
+    "tokens": 143
+   },
+   {
+    "expr": "sum(i*i for i in range(8) if i % 2 == 0)",
+    "want": "56",
+    "got": "56",
+    "ok": true,
+    "tokens": 136
+   },
+   {
+    "expr": "'-'.join(sorted('etqorp'))",
+    "want": "e-o-p-q-r-t",
+    "got": "e-e-o-p-q-r",
+    "ok": false,
+    "tokens": 103
+   },
+   {
+    "expr": "[1, 1, 2, 3, 5, 8, 13, 21, 34][3:7][1]",
+    "want": "5",
+    "got": "5",
+    "ok": true,
+    "tokens": 146
+   },
+   {
+    "expr": "sum(range(12, 44, 4))",
+    "want": "208",
+    "got": "208",
+    "ok": true,
+    "tokens": 187
+   },
+   {
+    "expr": "'mangopear'[::-1]",
+    "want": "raepognam",
+    "got": "raepognam",
+    "ok": true,
+    "tokens": 141
+   },
+   {
+    "expr": "bin(323).count('1')",
+    "want": "4",
+    "got": "4",
+    "ok": true,
+    "tokens": 257
+   }
+  ]
+ }
+}

@@ -1,0 +1,10 @@
+=== scaler-gptq (2026-11-10T21:13:27Z)
+median decode 56.66 t/s (min 51.92, max 57.69), median TTFT 0.328s, median e2e 2.571s
+p=1: per-request decode  46.2 t/s (min 46.2), TTFT max 0.14s, aggregate  45.2 t/s
+p=2: per-request decode  42.2 t/s (min 38.5), TTFT max 17.54s, aggregate  21.7 t/s
+p=4: per-request decode  42.0 t/s (min 13.3), TTFT max 13.29s, aggregate  52.6 t/s
+scaler-gptq think_off: 25/80  (14s, 251 completion tokens)
+scaler-gptq think_on: 79/80  (71s, 14510 completion tokens)
+score 12/12
+8/8 streamed cases clean
+prompt 75064 tok, 63s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3

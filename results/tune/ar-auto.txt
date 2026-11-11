@@ -1,0 +1,7 @@
+=== ar-auto  14:11:22  MTP=3 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS= EXTRA= MODEL=Qwen3.8-27B-AutoRound
+START FAILED
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.12/site-packages/vllm/entrypoints/launchers/api_server/entry.py", line 60, in build_async_engine_client
+    async with build_async_engine_client_from_engine_args(
+  File "/usr/lib/python3.12/contextlib.py", line 210, in __aenter__

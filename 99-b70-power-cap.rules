@@ -1,0 +1,2 @@
+# Arc Pro B70: sustained power cap in microwatts (driver default 312000000). Applied whenever the xe hwmon device appears.
+ACTION=="add", SUBSYSTEM=="hwmon", KERNELS=="0000:01:00.0", ATTR{name}=="xe", ATTR{power1_cap}="180000000"

@@ -1,0 +1,10 @@
+=== scaler-rh (2026-11-10T21:35:54Z)
+median decode 48.98 t/s (min 48.07, max 49.99), median TTFT 0.321s, median e2e 2.916s
+p=1: per-request decode  49.1 t/s (min 49.1), TTFT max 0.14s, aggregate  48.0 t/s
+p=2: per-request decode  45.0 t/s (min 43.6), TTFT max 0.23s, aggregate  84.2 t/s
+p=4: per-request decode  40.8 t/s (min 40.4), TTFT max 0.28s, aggregate 155.5 t/s
+scaler-rh think_off: 30/80  (9s, 252 completion tokens)
+scaler-rh think_on: 77/80  (61s, 12429 completion tokens)
+score 12/12
+8/8 streamed cases clean
+prompt 75064 tok, 66s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3

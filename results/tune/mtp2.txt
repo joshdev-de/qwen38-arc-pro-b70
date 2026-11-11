@@ -1,0 +1,9 @@
+=== mtp2  09:55:30  MTP=2 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS= EXTRA= MODEL=RedHat-INT4
+KV cache size: 209,715 tokens
+mtp2             code  62.4  prose  58.5  json  69.7  | mean  63.6 t/s (spread 58.5-69.7)
+p=4: per-request decode  45.4 t/s (min 44.4), TTFT max 0.65s, aggregate 160.2 t/s
+prompt 75064 tok, 63s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3
+tune-mtp2 think_off: 30/80  (8s, 253 completion tokens)
+tune-mtp2 think_on: 77/80  (64s, 12384 completion tokens)
+score 12/12
+Mean acceptance length: 2.80 Per-position acceptance rate: 0.932, 0.868,  

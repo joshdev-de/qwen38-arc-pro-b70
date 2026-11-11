@@ -1,0 +1,51 @@
+=== w-philbert-awq  10:48:53  MTP=3 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS= EXTRA= MODEL=Qwen3.8-27B-W4A16-AWQ
+KV cache size: 203,731 tokens
+w-philbert-awq   code  66.2  prose  57.4  json  78.9  | mean  67.5 t/s (spread 57.4-78.9)
+p=4: per-request decode  44.9 t/s (min 42.9), TTFT max 0.22s, aggregate 166.0 t/s
+prompt 75064 tok, 64s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3
+tune-w-philbert-awq think_off: 27/80  (9s, 271 completion tokens)
+tune-w-philbert-awq think_on: 80/80  (62s, 12656 completion tokens)
+score 12/12
+Mean acceptance length: 3.51 Per-position acceptance rate: 0.925, 0.829, 0.759,  
+=== w-pearsonkyle-gptq  10:55:32  MTP=3 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS= EXTRA= MODEL=Qwen3.8-27B-GPTQ-W4A16
+KV cache size: 206,580 tokens
+w-pearsonkyle-gptq code  66.7  prose  56.2  json  78.9  | mean  67.2 t/s (spread 56.2-78.9)
+p=4: per-request decode  44.3 t/s (min 42.9), TTFT max 0.66s, aggregate 155.1 t/s
+prompt 75064 tok, 63s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3
+tune-w-pearsonkyle-gptq think_off: 28/80  (9s, 260 completion tokens)
+tune-w-pearsonkyle-gptq think_on: 76/80  (63s, 13112 completion tokens)
+score 12/12
+Mean acceptance length: 3.65 Per-position acceptance rate: 0.941, 0.882, 0.824,  
+=== w-cyankiwi-awq  11:02:08  MTP=3 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS= EXTRA= MODEL=Qwen3.8-27B-AWQ-INT4
+KV cache size: 154,043 tokens
+w-cyankiwi-awq   code  61.9  prose  52.4  json  73.4  | mean  62.6 t/s (spread 52.4-73.4)
+p=4: per-request decode  39.4 t/s (min 38.7), TTFT max 0.18s, aggregate 151.2 t/s
+prompt 75064 tok, 65s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3
+tune-w-cyankiwi-awq think_off: 29/80  (10s, 249 completion tokens)
+tune-w-cyankiwi-awq think_on: 78/80  (66s, 12205 completion tokens)
+score 12/12
+Mean acceptance length: 3.65 Per-position acceptance rate: 0.965, 0.872, 0.814,  
+=== w-sergiiob-gptq  11:08:57  MTP=3 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS= EXTRA= MODEL=Qwen3.8-27B-GPTQ-Int4-MTP
+KV cache size: 199,457 tokens
+w-sergiiob-gptq  code  67.3  prose  53.7  json  77.5  | mean  66.2 t/s (spread 53.7-77.5)
+p=4: per-request decode  43.8 t/s (min 42.3), TTFT max 0.64s, aggregate 153.4 t/s
+prompt 75064 tok, 64s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3
+tune-w-sergiiob-gptq think_off: 25/80  (9s, 251 completion tokens)
+tune-w-sergiiob-gptq think_on: 78/80  (68s, 14340 completion tokens)
+score 12/12
+Mean acceptance length: 3.62 Per-position acceptance rate: 0.958, 0.874, 0.785,  
+=== dspark7  11:15:55  MTP=0 BATCH=4096 SEQS=4 KVD=fp8 SPEC={"model":"/spec","num_speculative_tokens":7,"method":"dspark"} ENVS= EXTRA= MODEL=RedHat-INT4
+START FAILED
+  File "/opt/venv/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1393, in launch_core_engines
+    wait_for_engine_startup(
+  File "/opt/venv/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1473, in wait_for_engine_startup
+    raise RuntimeError(
+RuntimeError: Engine core initialization failed. See root cause above. Failed core proc(s): {}
+=== dspark4  11:18:18  MTP=0 BATCH=4096 SEQS=4 KVD=fp8 SPEC={"model":"/spec","num_speculative_tokens":4,"method":"dspark"} ENVS= EXTRA= MODEL=RedHat-INT4
+START FAILED
+  File "/opt/venv/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1393, in launch_core_engines
+    wait_for_engine_startup(
+  File "/opt/venv/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1473, in wait_for_engine_startup
+    raise RuntimeError(
+RuntimeError: Engine core initialization failed. See root cause above. Failed core proc(s): {}
+SWEEP2 DONE

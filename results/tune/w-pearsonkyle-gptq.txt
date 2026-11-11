@@ -1,0 +1,9 @@
+=== w-pearsonkyle-gptq  10:55:32  MTP=3 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS= EXTRA= MODEL=Qwen3.8-27B-GPTQ-W4A16
+KV cache size: 206,580 tokens
+w-pearsonkyle-gptq code  66.7  prose  56.2  json  78.9  | mean  67.2 t/s (spread 56.2-78.9)
+p=4: per-request decode  44.3 t/s (min 42.9), TTFT max 0.66s, aggregate 155.1 t/s
+prompt 75064 tok, 63s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3
+tune-w-pearsonkyle-gptq think_off: 28/80  (9s, 260 completion tokens)
+tune-w-pearsonkyle-gptq think_on: 76/80  (63s, 13112 completion tokens)
+score 12/12
+Mean acceptance length: 3.65 Per-position acceptance rate: 0.941, 0.882, 0.824,  

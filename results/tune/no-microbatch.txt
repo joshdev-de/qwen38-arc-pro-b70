@@ -1,0 +1,9 @@
+=== no-microbatch  10:35:18  MTP=3 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS=-e VLLM_XPU_PP_MICROBATCH=0 EXTRA= MODEL=RedHat-INT4
+KV cache size: 206,580 tokens
+no-microbatch    code  66.9  prose  57.9  json  77.6  | mean  67.4 t/s (spread 57.9-77.6)
+p=4: per-request decode  44.2 t/s (min 43.4), TTFT max 0.17s, aggregate 169.3 t/s
+prompt 75064 tok, 63s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3
+tune-no-microbatch think_off: 30/80  (9s, 253 completion tokens)
+tune-no-microbatch think_on: 77/80  (59s, 12432 completion tokens)
+score 12/12
+Mean acceptance length: 3.51 Per-position acceptance rate: 0.921, 0.832, 0.759,  

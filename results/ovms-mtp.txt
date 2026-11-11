@@ -1,0 +1,10 @@
+=== ovms-mtp (2026-11-11T15:26:26Z)
+median decode 54.61 t/s (min 47.62, max 57.26), median TTFT 0.362s, median e2e 2.686s
+p=1: per-request decode  48.3 t/s (min 48.3), TTFT max 0.19s, aggregate  46.8 t/s
+p=2: per-request decode  40.0 t/s (min 39.5), TTFT max 0.86s, aggregate  70.0 t/s
+p=4: per-request decode  36.6 t/s (min 35.3), TTFT max 4.97s, aggregate  88.2 t/s
+ovms-mtp think_off: 23/80  (17s, 278 completion tokens)
+ovms-mtp think_on: 79/80  (146s, 17284 completion tokens)
+score 12/12
+8/8 streamed cases clean
+prompt 75064 tok, 99s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3

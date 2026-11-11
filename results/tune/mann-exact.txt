@@ -1,0 +1,9 @@
+=== mann-exact  13:53:52  MTP=4 BATCH=8192 SEQS=1 KVD=fp8 SPEC= ENVS= EXTRA=--no-enable-prefix-caching MODEL=Qwen3.8-27B-GPTQ-Int4-MTP
+KV cache size: 146,410 tokens
+mann-exact       code  67.3  prose  55.1  json  85.5  | mean  69.3 t/s (spread 55.1-85.5)
+mann mann-exact     count  88.3 (min 88.3 max 88.4, 502 tok in, TTFT 0.32s) | code  69.3 (min 69.3 max 69.3, 672 tok in, TTFT 0.40s) | prose  42.6 (min 42.6 max 42.6, 452 tok in, TTFT 0.26s)
+      1 (EngineCore pid=164) INFO 11-11 13:54:51 [core.py:139] Initializing a V1 LLM engine (v0.33.0) with config: model='/model', speculative_config=SpeculativeConfig(method='mtp', model='/model', num_spec_tokens=4), tokenizer='/model', skip_tokeniz
+      1 (EngineCore pid=164) INFO 11-11 13:54:54 [auto_gptq.py:352] Using XPUwNa16LinearKernel for AutoGPTQLinearMethod
+      1 (EngineCore pid=164) INFO 11-11 13:54:54 [__init__.py:945] Using XPUwNa16LinearKernel for mixed-precision linear
+p=4: per-request decode  46.1 t/s (min 42.6), TTFT max 17.42s, aggregate  45.0 t/s
+Mean acceptance length: 2.54 Per-position acceptance rate: 0.702, 0.433, 0.275, 0.129,  

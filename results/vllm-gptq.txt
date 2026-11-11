@@ -1,0 +1,10 @@
+=== vllm-gptq (2026-11-10T21:21:42Z)
+median decode 59.06 t/s (min 50.95, max 61.86), median TTFT 0.308s, median e2e 2.458s
+p=1: per-request decode  46.5 t/s (min 46.5), TTFT max 0.13s, aggregate  45.6 t/s
+p=2: per-request decode  47.1 t/s (min 45.2), TTFT max 0.18s, aggregate  87.9 t/s
+p=4: per-request decode  43.6 t/s (min 39.1), TTFT max 0.22s, aggregate 152.0 t/s
+vllm-gptq think_off: 26/80  (9s, 251 completion tokens)
+vllm-gptq think_on: 77/80  (67s, 14421 completion tokens)
+score 12/12
+8/8 streamed cases clean
+prompt 75064 tok, 64s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3

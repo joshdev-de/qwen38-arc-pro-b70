@@ -1,0 +1,7 @@
+=== ar-ark  13:33:56  MTP=3 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS=-e VLLM_XPU_INC_WNA16_BACKEND=ark EXTRA= MODEL=Qwen3.8-27B-AutoRound
+START FAILED
+  File "/opt/venv/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1393, in launch_core_engines
+    wait_for_engine_startup(
+  File "/opt/venv/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1473, in wait_for_engine_startup
+    raise RuntimeError(
+RuntimeError: Engine core initialization failed. See root cause above. Failed core proc(s): {}

@@ -1,0 +1,87 @@
+=== base  09:48:48  MTP=3 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS= EXTRA= MODEL=RedHat-INT4
+KV cache size: 206,580 tokens
+base             code  66.9  prose  57.9  json  77.5  | mean  67.4 t/s (spread 57.9-77.6)
+p=4: per-request decode  45.3 t/s (min 44.7), TTFT max 0.17s, aggregate 174.3 t/s
+prompt 75064 tok, 63s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3
+tune-base think_off: 30/80  (9s, 251 completion tokens)
+tune-base think_on: 77/80  (59s, 12370 completion tokens)
+score 12/12
+Mean acceptance length: 3.64 Per-position acceptance rate: 0.964, 0.879, 0.794,  
+=== mtp2  09:55:30  MTP=2 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS= EXTRA= MODEL=RedHat-INT4
+KV cache size: 209,715 tokens
+mtp2             code  62.4  prose  58.5  json  69.7  | mean  63.6 t/s (spread 58.5-69.7)
+p=4: per-request decode  45.4 t/s (min 44.4), TTFT max 0.65s, aggregate 160.2 t/s
+prompt 75064 tok, 63s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3
+tune-mtp2 think_off: 30/80  (8s, 253 completion tokens)
+tune-mtp2 think_on: 77/80  (64s, 12384 completion tokens)
+score 12/12
+Mean acceptance length: 2.80 Per-position acceptance rate: 0.932, 0.868,  
+=== mtp4  10:02:23  MTP=4 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS= EXTRA= MODEL=RedHat-INT4
+KV cache size: 198,043 tokens
+mtp4             code  68.6  prose  55.1  json  86.6  | mean  70.1 t/s (spread 55.1-86.6)
+p=4: per-request decode  40.2 t/s (min 37.8), TTFT max 0.22s, aggregate 147.2 t/s
+prompt 75064 tok, 63s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3
+tune-mtp4 think_off: 31/80  (10s, 252 completion tokens)
+tune-mtp4 think_on: 77/80  (60s, 12392 completion tokens)
+score 12/12
+Mean acceptance length: 4.22 Per-position acceptance rate: 0.940, 0.850, 0.749, 0.677,  
+=== mtp5  10:08:55  MTP=5 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS= EXTRA= MODEL=RedHat-INT4
+START FAILED
+  File "/opt/venv/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1393, in launch_core_engines
+    wait_for_engine_startup(
+  File "/opt/venv/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1473, in wait_for_engine_startup
+    raise RuntimeError(
+RuntimeError: Engine core initialization failed. See root cause above. Failed core proc(s): {}
+=== batch8k  10:11:12  MTP=3 BATCH=8192 SEQS=4 KVD=fp8 SPEC= ENVS= EXTRA= MODEL=RedHat-INT4
+KV cache size: 202,306 tokens
+batch8k          code  66.8  prose  57.9  json  77.5  | mean  67.4 t/s (spread 57.9-77.6)
+p=4: per-request decode  44.2 t/s (min 43.4), TTFT max 0.17s, aggregate 169.4 t/s
+prompt 75064 tok, 63s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3
+tune-batch8k think_off: 30/80  (9s, 253 completion tokens)
+tune-batch8k think_on: 77/80  (59s, 12355 completion tokens)
+score 12/12
+Mean acceptance length: 3.57 Per-position acceptance rate: 0.941, 0.851, 0.782,  
+=== batch16k  10:17:38  MTP=3 BATCH=16384 SEQS=4 KVD=fp8 SPEC= ENVS= EXTRA= MODEL=RedHat-INT4
+START FAILED
+  File "/opt/venv/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1393, in launch_core_engines
+    wait_for_engine_startup(
+  File "/opt/venv/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1473, in wait_for_engine_startup
+    raise RuntimeError(
+RuntimeError: Engine core initialization failed. See root cause above. Failed core proc(s): {}
+=== kv-f16  10:19:55  MTP=3 BATCH=4096 SEQS=4 KVD=auto SPEC= ENVS= EXTRA= MODEL=RedHat-INT4
+KV cache size: 185,117 tokens
+kv-f16           code  66.9  prose  57.9  json  77.6  | mean  67.5 t/s (spread 57.9-77.6)
+p=4: per-request decode  45.4 t/s (min 43.6), TTFT max 0.17s, aggregate 170.1 t/s
+prompt 75064 tok, 63s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3
+tune-kv-f16 think_off: 31/80  (9s, 253 completion tokens)
+tune-kv-f16 think_on: 76/80  (59s, 12307 completion tokens)
+score 12/12
+Mean acceptance length: 3.51 Per-position acceptance rate: 0.921, 0.832, 0.758,  
+=== seqs1  10:26:25  MTP=3 BATCH=4096 SEQS=1 KVD=fp8 SPEC= ENVS= EXTRA= MODEL=RedHat-INT4
+KV cache size: 208,005 tokens
+seqs1            code  66.9  prose  57.9  json  77.6  | mean  67.5 t/s (spread 57.9-77.6)
+p=4: per-request decode  52.1 t/s (min 46.9), TTFT max 14.74s, aggregate  50.7 t/s
+prompt 75064 tok, 64s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3
+tune-seqs1 think_off: 30/80  (17s, 253 completion tokens)
+tune-seqs1 think_on: 76/80  (179s, 12295 completion tokens)
+score 12/12
+Mean acceptance length: 3.57 Per-position acceptance rate: 0.936, 0.856, 0.782,  
+=== no-microbatch  10:35:18  MTP=3 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS=-e VLLM_XPU_PP_MICROBATCH=0 EXTRA= MODEL=RedHat-INT4
+KV cache size: 206,580 tokens
+no-microbatch    code  66.9  prose  57.9  json  77.6  | mean  67.4 t/s (spread 57.9-77.6)
+p=4: per-request decode  44.2 t/s (min 43.4), TTFT max 0.17s, aggregate 169.3 t/s
+prompt 75064 tok, 63s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3
+tune-no-microbatch think_off: 30/80  (9s, 253 completion tokens)
+tune-no-microbatch think_on: 77/80  (59s, 12432 completion tokens)
+score 12/12
+Mean acceptance length: 3.51 Per-position acceptance rate: 0.921, 0.832, 0.759,  
+=== no-sampler-kernel  10:41:48  MTP=3 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS=-e VLLM_XPU_USE_SAMPLER_KERNEL=0 EXTRA= MODEL=RedHat-INT4
+KV cache size: 205,156 tokens
+no-sampler-kernel code  66.9  prose  57.9  json  77.6  | mean  67.4 t/s (spread 57.9-77.6)
+p=4: per-request decode  45.8 t/s (min 42.6), TTFT max 0.17s, aggregate 166.2 t/s
+prompt 75064 tok, 63s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3
+tune-no-sampler-kernel think_off: 30/80  (9s, 253 completion tokens)
+tune-no-sampler-kernel think_on: 76/80  (59s, 12349 completion tokens)
+score 12/12
+Mean acceptance length: 3.71 Per-position acceptance rate: 0.978, 0.907, 0.827,  
+SWEEP1 DONE

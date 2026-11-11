@@ -1,0 +1,10 @@
+=== llama-ud-q5kxl (2026-11-10T20:26:52Z)
+median decode 44.89 t/s (min 42.86, max 48.75), median TTFT 0.715s, median e2e 3.545s
+p=1: per-request decode  41.1 t/s (min 41.1), TTFT max 0.24s, aggregate  39.7 t/s
+p=2: per-request decode  36.5 t/s (min 35.5), TTFT max 0.49s, aggregate  66.7 t/s
+p=4: per-request decode  28.7 t/s (min 27.3), TTFT max 1.13s, aggregate 101.1 t/s
+llama-ud-q5kxl think_off: 31/80  (31s, 263 completion tokens)
+llama-ud-q5kxl think_on: 80/80  (112s, 12132 completion tokens)
+score 12/12
+8/8 streamed cases clean
+prompt 75064 tok, 98s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3

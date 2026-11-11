@@ -1,0 +1,4 @@
+=== cap-150W cap=150000000 18:59:38
+speed         97s  card avg 150.5 W (peak5s 159.9)  pkg avg  78.1 W  pkg max 57 C  vram max 70 C  fan max 1851 rpm | cap-150W         code  64.2  prose  55.2  json  73.9  | mean  64.4 t/s (spread 55.1-73.9)
+par4          36s  card avg 150.0 W (peak5s 151.4)  pkg avg  78.4 W  pkg max 57 C  vram max 72 C  fan max 1896 rpm | p=4: per-request decode  37.8 t/s (min 37.4), TTFT max 0.26s, aggregate 148.0 t/s
+prefill      101s  card avg 150.0 W (peak5s 151.3)  pkg avg  97.9 W  pkg max 59 C  vram max 72 C  fan max 2196 rpm | prompt 75059 tok, 102s, got 'Rotterdam=1545, Quito=5599, Osaka=9285', want {'Rotterdam': '1545', 'Quito': '5599', 'Osaka': '9285'}, 3/3

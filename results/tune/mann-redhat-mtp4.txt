@@ -1,0 +1,9 @@
+=== mann-redhat-mtp4  13:46:43  MTP=4 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS= EXTRA= MODEL=RedHat-INT4
+KV cache size: 198,043 tokens
+mann-redhat-mtp4 code  68.6  prose  55.5  json  86.5  | mean  70.2 t/s (spread 55.5-86.6)
+mann mann-redhat-mtp4 count  88.4 (min 88.4 max 88.4, 502 tok in, TTFT 0.31s) | code  65.4 (min 65.4 max 65.4, 672 tok in, TTFT 0.40s) | prose  46.0 (min 46.0 max 46.0, 452 tok in, TTFT 0.32s)
+      1 (EngineCore pid=163) INFO 11-11 13:47:40 [core.py:139] Initializing a V1 LLM engine (v0.33.0) with config: model='/model', speculative_config=SpeculativeConfig(method='mtp', model='/model', num_spec_tokens=4), tokenizer='/model', skip_tokeniz
+      1 (EngineCore pid=163) INFO 11-11 13:47:43 [compressed_tensors_wNa16.py:153] Using XPUwNa16LinearKernel for CompressedTensorsWNA16
+      1 (EngineCore pid=163) INFO 11-11 13:47:43 [__init__.py:945] Using XPUwNa16LinearKernel for mixed-precision linear
+p=4: per-request decode  38.1 t/s (min 35.9), TTFT max 0.18s, aggregate 140.4 t/s
+Mean acceptance length: 2.59 Per-position acceptance rate: 0.724, 0.447, 0.253, 0.171,  

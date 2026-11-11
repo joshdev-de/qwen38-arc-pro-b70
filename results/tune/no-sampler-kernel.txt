@@ -1,0 +1,9 @@
+=== no-sampler-kernel  10:41:48  MTP=3 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS=-e VLLM_XPU_USE_SAMPLER_KERNEL=0 EXTRA= MODEL=RedHat-INT4
+KV cache size: 205,156 tokens
+no-sampler-kernel code  66.9  prose  57.9  json  77.6  | mean  67.4 t/s (spread 57.9-77.6)
+p=4: per-request decode  45.8 t/s (min 42.6), TTFT max 0.17s, aggregate 166.2 t/s
+prompt 75064 tok, 63s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3
+tune-no-sampler-kernel think_off: 30/80  (9s, 253 completion tokens)
+tune-no-sampler-kernel think_on: 76/80  (59s, 12349 completion tokens)
+score 12/12
+Mean acceptance length: 3.71 Per-position acceptance rate: 0.978, 0.907, 0.827,  

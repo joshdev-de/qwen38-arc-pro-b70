@@ -1,0 +1,66 @@
+mann prod-mtp3      count  81.1 (min 81.1 max 81.1, 502 tok in, TTFT 0.31s) | code  64.7 (min 64.7 max 64.7, 672 tok in, TTFT 0.42s) | prose  49.1 (min 49.0 max 49.1, 452 tok in, TTFT 0.30s)
+=== ar-auto  13:32:40  MTP=3 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS= EXTRA= MODEL=Qwen3.8-27B-AutoRound
+START FAILED
+  File "/opt/venv/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1393, in launch_core_engines
+    wait_for_engine_startup(
+  File "/opt/venv/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1473, in wait_for_engine_startup
+    raise RuntimeError(
+RuntimeError: Engine core initialization failed. See root cause above. Failed core proc(s): {}
+=== ar-ark  13:33:56  MTP=3 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS=-e VLLM_XPU_INC_WNA16_BACKEND=ark EXTRA= MODEL=Qwen3.8-27B-AutoRound
+START FAILED
+  File "/opt/venv/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1393, in launch_core_engines
+    wait_for_engine_startup(
+  File "/opt/venv/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1473, in wait_for_engine_startup
+    raise RuntimeError(
+RuntimeError: Engine core initialization failed. See root cause above. Failed core proc(s): {}
+=== ar-w4a16  13:35:13  MTP=3 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS=-e VLLM_XPU_INC_WNA16_BACKEND=w4a16 EXTRA= MODEL=Qwen3.8-27B-AutoRound
+KV cache size: 213,704 tokens
+ar-w4a16         code  66.4  prose  60.4  json  83.7  | mean  70.2 t/s (spread 60.4-83.7)
+mann ar-w4a16       count  85.8 (min 85.8 max 85.9, 502 tok in, TTFT 0.32s) | code  68.4 (min 68.3 max 68.4, 672 tok in, TTFT 0.35s) | prose  58.5 (min 58.5 max 58.5, 452 tok in, TTFT 0.26s)
+      1 (EngineCore pid=163) INFO 11-11 13:36:11 [core.py:139] Initializing a V1 LLM engine (v0.33.0) with config: model='/model', speculative_config=SpeculativeConfig(method='mtp', model='/model', num_spec_tokens=3), tokenizer='/model', skip_tokeniz
+      1 (EngineCore pid=163) INFO 11-11 13:36:14 [inc_ark_ops.py:25] Successfully imported auto_round_kernel.
+      1 (EngineCore pid=163) INFO 11-11 13:36:14 [inc_ark_ops.py:37] Successfully loaded auto_round_kernel backend library.
+p=4: per-request decode  46.9 t/s (min 45.2), TTFT max 0.21s, aggregate 176.6 t/s
+Mean acceptance length: 2.52 Per-position acceptance rate: 0.772, 0.471, 0.277,  
+=== ar-w4a8  13:39:52  MTP=3 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS=-e VLLM_XPU_INC_WNA16_BACKEND=w4a8 EXTRA= MODEL=Qwen3.8-27B-AutoRound
+KV cache size: 213,704 tokens
+ar-w4a8          code  66.3  prose  53.1  json  75.6  | mean  65.0 t/s (spread 53.1-75.6)
+mann ar-w4a8        count  79.2 (min 79.1 max 79.2, 502 tok in, TTFT 0.26s) | code  63.1 (min 63.1 max 63.1, 672 tok in, TTFT 0.28s) | prose  52.8 (min 52.8 max 52.8, 452 tok in, TTFT 0.26s)
+      1 (EngineCore pid=163) INFO 11-11 13:40:50 [core.py:139] Initializing a V1 LLM engine (v0.33.0) with config: model='/model', speculative_config=SpeculativeConfig(method='mtp', model='/model', num_spec_tokens=3), tokenizer='/model', skip_tokeniz
+      1 (EngineCore pid=163) INFO 11-11 13:40:53 [inc_ark_ops.py:25] Successfully imported auto_round_kernel.
+      1 (EngineCore pid=163) INFO 11-11 13:40:53 [inc_ark_ops.py:37] Successfully loaded auto_round_kernel backend library.
+p=4: per-request decode  38.6 t/s (min 37.8), TTFT max 0.20s, aggregate 147.5 t/s
+Mean acceptance length: 2.61 Per-position acceptance rate: 0.778, 0.465, 0.368,  
+=== ar-mtp4  13:45:26  MTP=4 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS= EXTRA= MODEL=Qwen3.8-27B-AutoRound
+START FAILED
+  File "/opt/venv/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1393, in launch_core_engines
+    wait_for_engine_startup(
+  File "/opt/venv/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1473, in wait_for_engine_startup
+    raise RuntimeError(
+RuntimeError: Engine core initialization failed. See root cause above. Failed core proc(s): {}
+=== mann-redhat-mtp4  13:46:43  MTP=4 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS= EXTRA= MODEL=RedHat-INT4
+KV cache size: 198,043 tokens
+mann-redhat-mtp4 code  68.6  prose  55.5  json  86.5  | mean  70.2 t/s (spread 55.5-86.6)
+mann mann-redhat-mtp4 count  88.4 (min 88.4 max 88.4, 502 tok in, TTFT 0.31s) | code  65.4 (min 65.4 max 65.4, 672 tok in, TTFT 0.40s) | prose  46.0 (min 46.0 max 46.0, 452 tok in, TTFT 0.32s)
+      1 (EngineCore pid=163) INFO 11-11 13:47:40 [core.py:139] Initializing a V1 LLM engine (v0.33.0) with config: model='/model', speculative_config=SpeculativeConfig(method='mtp', model='/model', num_spec_tokens=4), tokenizer='/model', skip_tokeniz
+      1 (EngineCore pid=163) INFO 11-11 13:47:43 [compressed_tensors_wNa16.py:153] Using XPUwNa16LinearKernel for CompressedTensorsWNA16
+      1 (EngineCore pid=163) INFO 11-11 13:47:43 [__init__.py:945] Using XPUwNa16LinearKernel for mixed-precision linear
+p=4: per-request decode  38.1 t/s (min 35.9), TTFT max 0.18s, aggregate 140.4 t/s
+Mean acceptance length: 2.59 Per-position acceptance rate: 0.724, 0.447, 0.253, 0.171,  
+=== mann-sergiiob-mtp4  13:51:30  MTP=4 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS= EXTRA= MODEL=Qwen3.8-27B-GPTQ-Int4-MTP
+START FAILED
+  File "/opt/venv/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1393, in launch_core_engines
+    wait_for_engine_startup(
+  File "/opt/venv/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1473, in wait_for_engine_startup
+    raise RuntimeError(
+RuntimeError: Engine core initialization failed. See root cause above. Failed core proc(s): {}
+=== mann-exact  13:53:52  MTP=4 BATCH=8192 SEQS=1 KVD=fp8 SPEC= ENVS= EXTRA=--no-enable-prefix-caching MODEL=Qwen3.8-27B-GPTQ-Int4-MTP
+KV cache size: 146,410 tokens
+mann-exact       code  67.3  prose  55.1  json  85.5  | mean  69.3 t/s (spread 55.1-85.5)
+mann mann-exact     count  88.3 (min 88.3 max 88.4, 502 tok in, TTFT 0.32s) | code  69.3 (min 69.3 max 69.3, 672 tok in, TTFT 0.40s) | prose  42.6 (min 42.6 max 42.6, 452 tok in, TTFT 0.26s)
+      1 (EngineCore pid=164) INFO 11-11 13:54:51 [core.py:139] Initializing a V1 LLM engine (v0.33.0) with config: model='/model', speculative_config=SpeculativeConfig(method='mtp', model='/model', num_spec_tokens=4), tokenizer='/model', skip_tokeniz
+      1 (EngineCore pid=164) INFO 11-11 13:54:54 [auto_gptq.py:352] Using XPUwNa16LinearKernel for AutoGPTQLinearMethod
+      1 (EngineCore pid=164) INFO 11-11 13:54:54 [__init__.py:945] Using XPUwNa16LinearKernel for mixed-precision linear
+p=4: per-request decode  46.1 t/s (min 42.6), TTFT max 17.42s, aggregate  45.0 t/s
+Mean acceptance length: 2.54 Per-position acceptance rate: 0.702, 0.433, 0.275, 0.129,  
+SWEEP3 DONE

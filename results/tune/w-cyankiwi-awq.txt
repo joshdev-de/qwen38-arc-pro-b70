@@ -1,0 +1,9 @@
+=== w-cyankiwi-awq  11:02:08  MTP=3 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS= EXTRA= MODEL=Qwen3.8-27B-AWQ-INT4
+KV cache size: 154,043 tokens
+w-cyankiwi-awq   code  61.9  prose  52.4  json  73.4  | mean  62.6 t/s (spread 52.4-73.4)
+p=4: per-request decode  39.4 t/s (min 38.7), TTFT max 0.18s, aggregate 151.2 t/s
+prompt 75064 tok, 65s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3
+tune-w-cyankiwi-awq think_off: 29/80  (10s, 249 completion tokens)
+tune-w-cyankiwi-awq think_on: 78/80  (66s, 12205 completion tokens)
+score 12/12
+Mean acceptance length: 3.65 Per-position acceptance rate: 0.965, 0.872, 0.814,  

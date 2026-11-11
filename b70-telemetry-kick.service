@@ -1,0 +1,12 @@
+[Unit]
+Description=Arc Pro B70 stale temperature/fan workaround (IGCIT #1574)
+After=multi-user.target
+
+[Service]
+ExecStart=/usr/local/sbin/b70-telemetry-kick.sh
+Restart=always
+RestartSec=5
+Nice=10
+
+[Install]
+WantedBy=multi-user.target

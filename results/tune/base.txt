@@ -1,0 +1,9 @@
+=== base  09:48:48  MTP=3 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS= EXTRA= MODEL=RedHat-INT4
+KV cache size: 206,580 tokens
+base             code  66.9  prose  57.9  json  77.5  | mean  67.4 t/s (spread 57.9-77.6)
+p=4: per-request decode  45.3 t/s (min 44.7), TTFT max 0.17s, aggregate 174.3 t/s
+prompt 75064 tok, 63s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3
+tune-base think_off: 30/80  (9s, 251 completion tokens)
+tune-base think_on: 77/80  (59s, 12370 completion tokens)
+score 12/12
+Mean acceptance length: 3.64 Per-position acceptance rate: 0.964, 0.879, 0.794,  

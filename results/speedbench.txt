@@ -1,0 +1,7 @@
+vllm-gptq        code  67.4  prose  58.3  json  79.1  | mean  68.3 t/s (spread 58.3-79.1)
+vllm-gptq        code  67.4  prose  58.3  json  79.0  | mean  68.3 t/s (spread 58.3-79.1)
+scaler-rh        code  63.7  prose  55.9  json  74.4  | mean  64.7 t/s (spread 55.9-74.5)
+scaler-gptq      code  64.6  prose  55.9  json  75.8  | mean  65.4 t/s (spread 55.8-75.8)
+llama-q4km       code  64.6  prose  58.3  json  75.3  | mean  66.1 t/s (spread 58.1-75.7)
+vllm-rh-int4     code  66.8  prose  57.9  json  77.5  | mean  67.4 t/s (spread 57.9-77.5)
+vllm-q36-gptq    code 144.2  prose 123.0  json 176.4  | mean 147.9 t/s (spread 123.0-176.5)

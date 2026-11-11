@@ -1,0 +1,9 @@
+=== seqs1  10:26:25  MTP=3 BATCH=4096 SEQS=1 KVD=fp8 SPEC= ENVS= EXTRA= MODEL=RedHat-INT4
+KV cache size: 208,005 tokens
+seqs1            code  66.9  prose  57.9  json  77.6  | mean  67.5 t/s (spread 57.9-77.6)
+p=4: per-request decode  52.1 t/s (min 46.9), TTFT max 14.74s, aggregate  50.7 t/s
+prompt 75064 tok, 64s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3
+tune-seqs1 think_off: 30/80  (17s, 253 completion tokens)
+tune-seqs1 think_on: 76/80  (179s, 12295 completion tokens)
+score 12/12
+Mean acceptance length: 3.57 Per-position acceptance rate: 0.936, 0.856, 0.782,  
