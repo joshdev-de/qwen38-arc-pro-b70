@@ -3,16 +3,23 @@
 A measured comparison of inference engines, 4-bit builds and server settings for running
 Qwen3.8-27B on one Intel Arc Pro B70 (32 GB), aimed at agent use (Hermes Agent, agentic coding)
 with a few occasional extra users. Everything here was measured in one Proxmox virtual machine on
-10–11 November 2026; the scripts to repeat it are in this repository.
+10–12 November 2026; the scripts to repeat it are in this repository.
 
 **Short version:** upstream vLLM (XPU image v0.33.0) with `RedHatAI/Qwen3.8-27B-INT4` and
 3-token MTP speculative decoding gives about 67 tokens/s for one client, about 165–175 tokens/s
 across four clients, a 196k-token context, working prefix caching and clean streamed tool calls.
 No other engine tested matched that combination.
 
+**The target use case is several agents running in parallel** on one card, so throughput under
+concurrency counts for more here than single-client speed. That is why vLLM stays the
+recommendation even though the 125B Qwen3.8-Flash-Next on Strata or XeStrata, tested on
+12 November, is faster for a single client: with four clients vLLM delivers about twice their
+throughput and no queueing.
+
 ## Key findings
 
-- **Engine:** vLLM is the best all-rounder. llama.cpp (SYCL) matches it for one client but has
+- **Engine:** vLLM is the best all-rounder and the best fit for parallel agents, the use case
+  aimed for here. llama.cpp (SYCL) matches it for one client but has
   about two-thirds of the four-client throughput. OpenVINO Model Server is slightly faster for one
   stream but cannot combine MTP with prefix caching, which agents need.
 - **Weights:** every 19 GB 4-bit build runs at the same speed within 2%, with no measurable
@@ -449,12 +456,18 @@ at `medium` and 116 at `xhigh`.
 
 | Situation | Choice |
 |---|---|
-| Several people or agents at once | vLLM with Qwen3.8-27B (the recommended setup above) |
+| Several agents or people at once (the use case this setup aims for) | vLLM with Qwen3.8-27B, the recommended setup |
 | One user, long prompts, a B70 | XeStrata with Swift 1.5 or the original model |
 | One user, prefer the actively developed project | Upstream Strata with the original model |
 
-The recommended setup at the top of this README is unchanged. The Flash-Next runs are a
-single evening of testing; vision, the other quants and day-to-day agent use are untested.
+**Conclusion for this repository:** vLLM with Qwen3.8-27B remains the recommended setup,
+because the use case aimed for is several agents working in parallel. At four clients it
+delivers 159 tokens/s with a 0.2 s wait for the first token, against 76–87 tokens/s for the
+Strata engines with four slots, or 37–56 s of queueing without them. Strata and XeStrata are
+the better choice only when one agent or one person uses the card at a time.
+
+The Flash-Next runs are a single evening of testing; vision, the other quants and day-to-day
+agent use are untested.
 
 **Setup notes**
 
