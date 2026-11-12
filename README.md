@@ -22,9 +22,10 @@ No other engine tested matched that combination.
 - **Tuning:** batch size, cache precision, slot count and the Intel backend switches made no
   measurable difference.
 - **Thinking:** keep it on. With thinking off the model fails most multi-step questions.
-- **Bigger model, other engine:** the 125B Qwen3.8-Flash-Next on Strata or XeStrata decodes 18%
-  faster for one client and reads long prompts twice as fast, but manages half the throughput
-  with four clients.
+- **Bigger model, other engine:** the 125B Qwen3.8-Flash-Next on Strata or XeStrata decodes up
+  to 18% faster for one client, reads long prompts twice as fast and is as accurate, but
+  manages half the throughput with four clients. Upstream Strata now matches the XeStrata fork
+  on speed; the fork is easier to set up on a B70.
 - **Vision:** costs context cache; limiting images to about 1 megapixel recovers roughly half of it.
 - **Power:** a 180 W cap costs 2% of decode speed and saves about a quarter of the power.
 - **Fan bug:** the B70's stuck-fan problem can be worked around without touching driver or firmware.
@@ -38,6 +39,8 @@ No other engine tested matched that combination.
 | Cold prompt | A prompt the server has not seen, so nothing is cached |
 | Prefix cache | Reuse of an already-read prompt prefix, so only the new part is read |
 | Context cache | Memory holding the processed prompt (the KV cache); its size limits context and concurrency |
+| Mixture of experts | A model built from many small sub-networks (experts), of which only a few run per token |
+| Drafter | A small helper that guesses the next tokens so the main model can check several at once; MTP and DFlash2 are two kinds |
 | MTP | Multi-token prediction: the model guesses several tokens ahead and keeps the correct ones |
 | Canary | A 12-question sanity check run after every change |
 
@@ -376,80 +379,100 @@ thinks about four times as long, and 4 of 80 questions ran to the token limit wi
 
 ### Another model: Qwen3.8-Flash-Next on Strata and XeStrata
 
-A 125B mixture-of-experts model on the same single card: faster than the 27B for one client and
-at reading long prompts, equally accurate on these tests, but about half the throughput with
-four clients. Suggested by a reader; tested on 2026-11-12.
+A 125B mixture-of-experts model on the same single card. For one client it is faster than the
+27B on vLLM, reads long prompts more than twice as fast, and scores the same on the accuracy
+tests. With four clients it reaches about half of vLLM's throughput. Suggested by a reader of
+this repo; tested on 2026-11-12.
+
+**What was tested**
 
 - **Model:** [Qwen3.8-Flash-Next](https://github.com/QwenLM/Qwen3.8-Flash-Next) activates about
-  6B of its 125B parameters per token. Tested as UkisAI's Swift 1.5 fine-tune (trained to think
-  less), 3-bit `IQ3_XXS` GGUF, 76 GB.
-- **Engines:** [Strata](https://github.com/Niko1221/Strata) keeps every expert in RAM (40 GB
-  here) and the most-used ones in VRAM (about 13,900 of 24,576 on the B70).
-  [XeStrata](https://github.com/MistVVK/XeStrata) is a fork developed on an Arc Pro B70.
-- **Settings:** 196k context, 8-bit KV cache, 180 W power cap, same test scripts as above.
-  Accuracy runs used one client at a time.
+  6B of its 125B parameters per token. Two 3-bit `IQ3_XXS` GGUF sets of 76 GB each: the original
+  ([ISTA-DASLab](https://huggingface.co/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF)) and
+  UkisAI's [Swift 1.5](https://huggingface.co/ukisai/Swift-1.5-Qwen3.8-Flash-Next-GSQ-RCO-GGUF)
+  fine-tune, which is trained to think less.
+- **Engines:** [Strata](https://github.com/Niko1221/Strata) 0.2.13 (image
+  `ghcr.io/niko1221/strata:0.2.13-sycl`) and its fork
+  [XeStrata](https://github.com/MistVVK/XeStrata) 0.2.2, which is developed on an Arc Pro B70.
+  Both keep every expert in RAM (40 GB here) and the most-used ones in VRAM (about 13,900 of
+  24,576 on the B70).
+- **Settings:** 196k context, 8-bit KV cache, 180 W power cap, the same test scripts as the
+  other sections (`stratabench.sh`). Accuracy runs used one client at a time and reasoning
+  effort `low`.
 
-| | vLLM, Qwen3.8-27B INT4 | XeStrata 0.2.2 | Strata 0.2.13, as set up | Strata 0.2.13 + draft layer |
-|---|---|---|---|---|
-| Decode, one client (tokens/s) | 66.7 | 79.0 | 48.9 | 79.9 |
-| 4 clients total, default (tokens/s) | 158.7 | 62.5 (queued) | 41.4 (queued) | not run |
-| 4 clients total, 4 slots (tokens/s) | 158.7 | 86.9 | not run | 75.7 |
-| One client with 4 slots enabled (tokens/s) | 66.7 | 78.0 | not run | 67.2 |
-| Cold 75k prompt | 86 s | 37 s | 41 s | 41 s |
-| Long-context retrieval (of 3) | 3 | 3 | 3 | 3 |
-| Streamed tool calls clean (of 16) | 16 | 16 | 16 | not run |
-| Prefix cache, 15.8k prompt: cold / cached | works | 7.9 s / 0.2–0.4 s | 8.0 s / 0.1–0.3 s | not run |
-| Accuracy, thinking off (of 80) | 30 | 25 | 26 | not run |
-| Accuracy, thinking on (of 80) | 77 | 79 | 79 | not run |
-| Chained questions, thinking on (of 120) | 106 low / 111 medium / 116 xhigh | 111 | 111 | not run |
+**Results**
 
-What this shows:
+| | vLLM, Qwen3.8-27B | XeStrata, Swift | Strata, Swift, as set up | Strata, Swift + draft layer | Strata, original |
+|---|---|---|---|---|---|
+| Drafter | MTP 3 | MTP layer | none | MTP layer | DFlash2 |
+| Decode mean, one client (tokens/s) | 66.7 | 79.0 | 48.9 | 79.9 | 70.7 |
+| Code / prose / JSON (tokens/s) | – | 75 / 72 / 90 | 44 / 43 / 60 | 73 / 69 / 98 | 69 / 41 / 102 |
+| 4 clients total, default (tokens/s) | 158.7 | 62.5 | 41.4 | – | 61.5 |
+| Longest wait for first token, 4 clients | 0.2 s | 37 s | 56 s | – | 37 s |
+| 4 clients total, 4 slots (tokens/s) | 158.7 | 86.9 | – | 75.7 | – |
+| One client with 4 slots enabled (tokens/s) | 66.7 | 78.0 | – | 67.2 | – |
+| Cold 75k prompt | 86 s | 37 s | 41 s | 41 s | 41 s |
+| Long-context retrieval (of 3) | 3 | 3 | 3 | 3 | 3 |
+| Streamed tool calls clean (of 16) | 16 | 16 | 16 | – | 16 |
+| Prefix cache, 15.8k prompt: cold / cached | works | 7.9 s / 0.2–0.4 s | 8.0 s / 0.1–0.3 s | – | 8.4 s / 0.1–0.3 s |
+| Accuracy, thinking off (of 80) | 30 | 25 | 26 | – | 24 |
+| Accuracy, thinking on (of 80) | 77 | 79 | 79 | – | 79 |
+| Chained questions, thinking on (of 120) | 106 | 111 | 111 | – | 113 |
 
-- **One client:** about 18% faster decode than the 27B on vLLM, and long prompts are read more
-  than twice as fast.
-- **Several clients:** both engines serve one request at a time by default, so a fourth client
-  waited up to 37–56 s for its first token. With four slots enabled, total throughput is 76–87
-  tokens/s against vLLM's 159. On upstream Strata the slots also halve the expert cache and cost
-  16% of single-client speed; on XeStrata they cost 1%.
-- **Accuracy:** no loss from the 3-bit quant on these tests; differences of two or three
-  questions are noise. The requests asked for reasoning effort `low` the same way as the vLLM
-  runs; whether the engines apply it identically was not checked.
-- **XeStrata against upstream:** with a draft layer, upstream 0.2.13 decodes as fast as XeStrata,
-  and prefill is within 10%. XeStrata's documented lead (prompts 2–3 times faster) no longer
-  holds on this card. Its remaining advantages are setup and multi-client speed.
-- **Setup:** XeStrata's `--setup` downloaded and configured everything, including draft layer and
-  vision. Upstream's launcher warned that the B70 is untested, configured no draft layer and no
-  vision, and pointed `--ple-gguf` at the wrong one of the two Swift files, so the engine would
-  not load. It rewrote a corrected config on every start; the results above come from
-  `strata serve --profile` with a hand-corrected config, and the draft-layer column reuses the
-  layer XeStrata prepared (`--mtp`).
-- **Memory:** about 48 GB of RAM in use, plus the 29 GB n-gram table XeStrata keeps in RAM.
-  CPU load was low (about 9% of 12 cores) because 99% of the experts needed were in VRAM.
+A dash means not run. The vLLM figure for chained questions is at effort `low`; it scored 111
+at `medium` and 116 at `xhigh`.
 
-**Upstream Strata on the original model.** With ISTA-DASLab's original `IQ3_XXS` files (the
-ones Strata's page names) the upstream launcher needed no hand edits. It downloaded its newer
-DFlash2 drafter, which XeStrata does not have, and set one request at a time because DFlash2
-has no parallel slots. It did not enable vision.
+**What this shows**
 
-| Strata 0.2.13, original IQ3_XXS, DFlash2 | Result |
+- **One client:** up to 18% faster decode than the 27B on vLLM, and a 75k prompt is read in
+  37–41 s against 86 s.
+- **Several clients:** both engines serve one request at a time by default, so the fourth
+  client waited 37–56 s for its first token. With four slots, total throughput is 76–87
+  tokens/s against vLLM's 159. The slots cost XeStrata 1% of single-client speed and upstream
+  Strata 16%, because upstream halves its expert cache.
+- **Accuracy:** no loss from the 3-bit quant on these tests. Differences of two or three
+  questions are noise. Whether the engines apply reasoning effort `low` exactly as vLLM does
+  was not checked.
+- **The drafter decides decode speed.** Without one, upstream runs at 49 tokens/s. With the MTP
+  layer it matches XeStrata. Upstream's newer DFlash2 drafter is faster on predictable output
+  (JSON 102 against 90 tokens/s) and much slower on prose (41 against 72).
+- **XeStrata against upstream:** on speed they are level once upstream has a drafter, and
+  prefill is within 10%. XeStrata's documented lead of two to three times in prefill does not
+  hold against 0.2.13 on this card. XeStrata is still ahead on multi-client speed and on setup
+  for the B70.
+- **Swift against the original:** same accuracy within noise, and no visible saving in thinking
+  at effort `low` (about 13k tokens for the 80 questions and 58k for the chained set on both).
+- **Resources:** about 48 GB of RAM in use, plus a 29 GB table XeStrata keeps in RAM. CPU load
+  stayed near 9% of 12 cores, because 99% of the experts needed were in VRAM.
+
+**Which to pick**
+
+| Situation | Choice |
 |---|---|
-| Decode, one client: code / prose / JSON (tokens/s) | 68.7 / 41.0 / 102.3, mean 70.7 |
-| 512-in / 128-out: count / code / prose (tokens/s) | 122.9 / 75.5 / 91.5 |
-| 4 clients total (tokens/s) | 61.5, queued, up to 37 s to first token |
-| Cold 75k prompt | 41 s |
-| Long-context retrieval, tool calls, prefix cache | 3 of 3, 16 of 16 clean, 8.4 s cold / 0.1–0.3 s cached |
-| Accuracy, thinking off / on (of 80) | 24 / 79 |
-| Chained questions, thinking on (of 120) | 113 |
+| Several people or agents at once | vLLM with Qwen3.8-27B (the recommended setup above) |
+| One user, long prompts, a B70 | XeStrata with Swift 1.5 or the original model |
+| One user, prefer the actively developed project | Upstream Strata with the original model |
 
-DFlash2 is uneven: faster than the MTP draft layer on predictable output (JSON, counting) and
-much slower on prose (41 against 69–72 tokens/s). Swift 1.5 did not think less than the
-original on these questions at effort `low`: both used about 13k tokens for the 80 questions
-and about 58k for the chained set.
+The recommended setup at the top of this README is unchanged. The Flash-Next runs are a
+single evening of testing; vision, the other quants and day-to-day agent use are untested.
 
-Not tested: vision, the other quants (2-bit `IQ2_XS`, 4-bit `UD-Q4_K_XL` and larger), contexts
-above 75k tokens, reasoning effort above `low`, and day-to-day agent use. One trap when setting
-up: XeStrata sizes its expert cache from the VRAM free during setup, so run setup with nothing
-else on the card.
+**Setup notes**
+
+- **XeStrata** was built from `container/Containerfile` in its repository and set up with
+  `xestrata --setup --family swift --model IQ3_XXS --context 196608 --vision yes --yes`. Setup
+  downloaded the model, the draft layer and the image encoder, and configured vision.
+- **Run setup with nothing else on the card.** XeStrata sizes its expert cache from the VRAM
+  that is free during setup. With the vLLM server still running it recorded 311 MiB.
+- **Upstream Strata with the original model** needed no hand edits: the container was started
+  with `MODEL_PATH`, `CONTEXT=196608` and `VISION=on`. Its launcher fetched the DFlash2 drafter
+  and set one request at a time, because DFlash2 has no parallel slots. It warned that the B70
+  is untested by its maintainers, and did not enable vision.
+- **Upstream Strata with the Swift files** did not load. The launcher pointed `--ple-gguf` at
+  the second of the two files, where the Swift set does not have that table, and rewrote a
+  corrected config on every start. The Swift columns come from
+  `strata serve --profile <corrected config>`; the draft-layer column adds `--mtp` with the
+  layer XeStrata had prepared.
+- **Four slots:** `"parallel": 4` in XeStrata's model config, `--parallel 4` on `strata serve`.
 
 ### Power cap
 
@@ -615,6 +638,8 @@ them before running elsewhere.
 - Why MTP 5, a 16k prefill batch, and the SergiioB GPTQ build with MTP 4 fail to start at 196k was
   not determined.
 - Intel llm-scaler was tested with pre-quantized weights only, not its load-time `sym_int4` path.
+- Qwen3.8-Flash-Next on Strata and XeStrata: vision, other quants (2-bit, 4-bit and larger),
+  prompts above 75k tokens, reasoning effort above `low` and real agent sessions were not tested.
 - Idle power figures (42 W, 8–20 W) come from the card's energy counter; they were not checked
   with a wall meter.
 - Why the idle card alternates between a 5 W and a 42 W state was not determined.
@@ -628,6 +653,9 @@ them before running elsewhere.
 - [Kuro's blog: Qwen3.8-27B on an Intel Arc Pro B70](https://khoit.dev/blog/intel-b70-vllm-qwen38/)
 - [OpenVINO/Qwen3.8-27B-int4-ov model card](https://huggingface.co/OpenVINO/Qwen3.8-27B-int4-ov)
 - [openvino.genai issue #4343 (VLM prefix caching)](https://github.com/openvinotoolkit/openvino.genai/issues/4343)
+- [Strata: Intel Arc notes](https://github.com/Niko1221/Strata/blob/main/docs/INTEL_ARC.md)
+- [XeStrata: differences from upstream (XE.md)](https://github.com/MistVVK/XeStrata/blob/main/docs/XE.md)
+- [UkisAI Swift 1.5 model card](https://huggingface.co/ukisai/Swift1.5-Qwen3.8-Flash-Next)
 - [HaberstrohSystems AutoRound build](https://huggingface.co/HaberstrohSystems/Qwen3.8-27B-int4-g128-sym-autoround)
 
 ## Licence
