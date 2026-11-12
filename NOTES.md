@@ -245,3 +245,9 @@ shard 1 for Swift) and rewrites it each start -> use `strata serve --profile /da
 adds --mtp /mtp/rt from XeStrata's folder). PCIe probe 19.7 GB/s host->device.
 speedbench mean: xestrata 79.0, strata no draft 48.9, strata+mtp 79.9; par4: xestrata 78.0 single / 86.9 x4,
 strata+mtp 67.2 / 75.7. 75k prefill 37 s / 41 s. evalset 79/80 both, hard 111/120 both (p=1, effort low).
+
+## Upstream Strata 0.2.13 on original Qwen3.8-Flash-Next IQ3_XXS (2026-11-12)
+Files: ~/models/flashnext/IQ3_XXS (ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF, 76 GB). Launcher env: MODEL_PATH,
+PRESET=orig, CONTEXT=196608, VISION=on, PORT=8096, API_KEY_FILE. Worked untouched; DFlash2 drafter (772 MiB VRAM),
+parallel 1, no --vision in the written config. Raw: results/strata/strata0213-orig-iq3xxs-dflash2.txt.
+Freed disk first: deleted ~/models/alt, ~/models/Qwen3.6-35B-A3B-GPTQ-Int4, intel/llm-scaler-vllm image.

@@ -426,6 +426,26 @@ What this shows:
 - **Memory:** about 48 GB of RAM in use, plus the 29 GB n-gram table XeStrata keeps in RAM.
   CPU load was low (about 9% of 12 cores) because 99% of the experts needed were in VRAM.
 
+**Upstream Strata on the original model.** With ISTA-DASLab's original `IQ3_XXS` files (the
+ones Strata's page names) the upstream launcher needed no hand edits. It downloaded its newer
+DFlash2 drafter, which XeStrata does not have, and set one request at a time because DFlash2
+has no parallel slots. It did not enable vision.
+
+| Strata 0.2.13, original IQ3_XXS, DFlash2 | Result |
+|---|---|
+| Decode, one client: code / prose / JSON (tokens/s) | 68.7 / 41.0 / 102.3, mean 70.7 |
+| 512-in / 128-out: count / code / prose (tokens/s) | 122.9 / 75.5 / 91.5 |
+| 4 clients total (tokens/s) | 61.5, queued, up to 37 s to first token |
+| Cold 75k prompt | 41 s |
+| Long-context retrieval, tool calls, prefix cache | 3 of 3, 16 of 16 clean, 8.4 s cold / 0.1–0.3 s cached |
+| Accuracy, thinking off / on (of 80) | 24 / 79 |
+| Chained questions, thinking on (of 120) | 113 |
+
+DFlash2 is uneven: faster than the MTP draft layer on predictable output (JSON, counting) and
+much slower on prose (41 against 69–72 tokens/s). Swift 1.5 did not think less than the
+original on these questions at effort `low`: both used about 13k tokens for the 80 questions
+and about 58k for the chained set.
+
 Not tested: vision, the other quants (2-bit `IQ2_XS`, 4-bit `UD-Q4_K_XL` and larger), contexts
 above 75k tokens, reasoning effort above `low`, and day-to-day agent use. One trap when setting
 up: XeStrata sizes its expert cache from the VRAM free during setup, so run setup with nothing
