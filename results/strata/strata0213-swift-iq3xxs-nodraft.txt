@@ -1,0 +1,34 @@
+=== strata0213-swift-iq3xxs-nodraft  2026-11-12 17:44:15  port 8096
+strata0213-swift-iq3xxs-nodraft code  43.6  prose  42.7  json  60.3  | mean  48.9 t/s (spread 41.7-64.2)
+mann strata0213-swift-iq3xxs-nodraft count  43.8 (min 43.4 max 43.9, 502 tok in, TTFT 0.08s) | code  41.7 (min 41.6 max 41.9, 672 tok in, TTFT 0.08s) | prose  81.9 (min 73.4 max 96.8, 452 tok in, TTFT 0.08s)
+p=1: per-request decode  41.8 t/s (min 41.8), TTFT max 0.08s, aggregate  41.7 t/s
+p=4: per-request decode  42.1 t/s (min 41.9), TTFT max 55.89s, aggregate  41.4 t/s
+prompt 75012 tok, 41s, got 'Rotterdam=2914, Quito=9449, Osaka=5998', want {'Rotterdam': '2914', 'Quito': '9449', 'Osaka': '5998'}, 3/3
+score 11/12
+score 12/12
+OK   think=on  single       2.8s  get_weather({"city":"Berlin","unit":"c"})
+OK   think=on  single       1.7s  get_weather({"city":"Berlin","unit":"c"})
+OK   think=on  parallel3    4.7s  get_weather({"city":"Paris","unit":"c"}); get_weather({"city":"Tokyo","unit":"c"}); get_weather({"city":"Lima","unit":"c"})
+OK   think=on  parallel3    3.6s  get_weather({"city":"Paris","unit":"c"}); get_weather({"city":"Tokyo","unit":"c"}); get_weather({"city":"Lima","unit":"c"})
+OK   think=on  code-args    4.3s  run_shell({"cmd":"grep -rn \"def main\" src/ | head -n 5","timeout":30})
+OK   think=on  code-args    1.6s  run_shell({"cmd":"grep -rn \"def main\" src/ | head -n 5","timeout":30})
+OK   think=on  multi-tool   4.0s  read_file({"path":"/etc/hostname"}); run_shell({"cmd":"uname -a","timeout":10})
+OK   think=on  multi-tool   2.2s  read_file({"path":"/etc/hostname"}); run_shell({"cmd":"uname -a"})
+OK   think=off single       2.0s  get_weather({"city":"Berlin","unit":"c"})
+OK   think=off single       0.8s  get_weather({"city":"Berlin","unit":"c"})
+OK   think=off parallel3    2.5s  get_weather({"city":"Paris"}); get_weather({"city":"Tokyo"}); get_weather({"city":"Lima"})
+OK   think=off parallel3    1.3s  get_weather({"city":"Paris"}); get_weather({"city":"Tokyo"}); get_weather({"city":"Lima"})
+OK   think=off code-args    2.3s  run_shell({"cmd":"grep -rn \"def main\" src/ | head -n 5","timeout":30})
+OK   think=off code-args    1.1s  run_shell({"cmd":"grep -rn \"def main\" src/ | head -n 5","timeout":30})
+OK   think=off multi-tool   2.3s  read_file({"path":"/etc/hostname"}); run_shell({"cmd":"uname -a"})
+OK   think=off multi-tool   1.4s  read_file({"path":"/etc/hostname"}); run_shell({"cmd":"uname -a"})
+
+16/16 streamed cases clean
+cold                           8.04s  prompt  15715  cached 0
+identical repeat               0.10s  prompt  15715  cached 15708
+same prefix, new question      0.28s  prompt  15715  cached 15697
+conversation turn 1            0.27s  prompt  15715  cached 15697
+conversation turn 2            0.30s  prompt  15736  cached 15716
+strata-strata0213-swift-iq3xxs-nodraft think_off: 26/80  (47s, 273 completion tokens)
+strata-strata0213-swift-iq3xxs-nodraft think_on: 79/80  (353s, 13702 completion tokens)
+strata-hard-strata0213-swift-iq3xxs-nodraft think_on: 111/120  (1230s, 56579 completion tokens)

@@ -5,8 +5,9 @@
 #
 # What it does, every INTERVAL seconds while the GPU is idle:
 #  - Keep-alive pulse: holds the xe debugfs forcewake file open for HOLD seconds.
-#    This refreshes the package temperature and fan control and keeps the idle card
-#    near 8 W. Measured here: without pulses the idle card settles at ~42 W.
+#    This refreshes the package temperature and fan control and drops the card into
+#    its low-power idle state. Measured here: a warm card left without pulses stays
+#    in a ~42 W state with the fan running.
 #  - After a load, every REFRESH_EVERY pulses it also reads the GuC firmware logs
 #    a few times. The 16 VRAM temperature sensors only refresh a few at a time while
 #    the card is awake, and a 0.4 s log read refreshes most of them at once (a
@@ -14,16 +15,21 @@
 #    model server is involved.
 #  - Once package and VRAM are at or below COOL_MC, the log reads stop; the
 #    keep-alive pulses continue.
+#  - Once the package is at or below REST_MC (below the card's fan-on temperature,
+#    about 40 C here), the pulses stop too: a cool card stays in the low state by
+#    itself (measured: 6.5 W without pulses against 10 W with them). One pulse every
+#    REST_EVERY intervals keeps the temperature reading fresh. If the card is seen
+#    in its ~42 W state while resting, the pulses start again.
 # Detection uses plain sysfs reads, which do not wake the card.
 INTERVAL=${INTERVAL:-10}
 HOLD=${HOLD:-0.5}
 COOL_MC=${COOL_MC:-55000}       # package and VRAM temperature considered cooled (millidegrees C)
-CALM_N=${CALM_N:-3}             # consecutive cool checks before the VRAM refreshes stop
+REST_MC=${REST_MC:-0}           # experimental: package temperature at which the pulses stop (0 = never; 38000 flapped here)
+CALM_N=${CALM_N:-3}             # consecutive checks before a state change
 REFRESH_EVERY=${REFRESH_EVERY:-3}   # pulses between VRAM refreshes during cooldown
 REFRESH_READS=${REFRESH_READS:-4}   # log reads per refresh (2-3 were enough in tests)
-STOP_WHEN_COOL=${STOP_WHEN_COOL:-0} # 1 = also stop the keep-alive pulses once cooled (card then idles at ~42 W here)
-FAN_STUCK=${FAN_STUCK:-1500}        # with STOP_WHEN_COOL=1: fan rpm that restarts pulsing
-POWER_STUCK_MW=${POWER_STUCK_MW:-25000}  # with STOP_WHEN_COOL=1: idle card power (mW) that restarts pulsing
+REST_EVERY=${REST_EVERY:-30}        # while resting: one pulse every this many intervals
+POWER_STUCK_MW=${POWER_STUCK_MW:-25000}  # while resting: idle card power (mW) that restarts the pulses
 STUCK_N=${STUCK_N:-3}
 
 PCI=""
@@ -50,7 +56,9 @@ vram_refresh() {
   ( exec 3< "$FW"; sleep "$HOLD" )   # a log read leaves the card in its ~42 W state until the next pulse
 }
 
-armed=1; calm=0; n=0; fresh=0; stuck=0
+# state: cooldown (pulses + VRAM refreshes) -> cooled (pulses) -> rest (no pulses)
+state=cooldown; calm=0; n=0; fresh=0; stuck=0; r=0
+pulse() { ( exec 3< "$FW"; sleep "$HOLD"; cat "$HW/temp2_input" >/dev/null ); }
 while true; do
   # baseline taken here so the window covers only the sleep, not our own pulse and log reads
   last_res=$(cat "$RES"); last_t=$(date +%s%3N); last_e=$(cat "$HW/energy1_input")
@@ -58,25 +66,35 @@ while true; do
   res=$(cat "$RES"); t=$(date +%s%3N); e=$(cat "$HW/energy1_input")
   idle_pct=$(( (res - last_res) * 100 / (t - last_t) ))
   power_mw=$(( (e - last_e) / (t - last_t) ))          # microjoules per millisecond = milliwatts
-  if [ "$idle_pct" -lt 80 ]; then          # GPU did real work in this window
-    [ "$armed" = 0 ] && echo "load seen, cooldown armed"
-    armed=1; calm=0; fresh=0
+  # GPU did real work in this window. (An untouched resting card freezes both counters, which also
+  # reads as "not idle", so there the energy counter must have moved as well.)
+  if [ "$idle_pct" -lt 80 ] && { [ "$state" != rest ] || [ "$power_mw" -ge "$POWER_STUCK_MW" ]; }; then
+    [ "$state" != cooldown ] && echo "load seen, cooldown armed"
+    state=cooldown; calm=0; fresh=0; stuck=0
     continue
   fi
-  if [ "$armed" = 0 ] && [ "$STOP_WHEN_COOL" = 1 ]; then
-    if [ "$(cat "$HW/fan1_input" 2>/dev/null || echo 0)" -ge "$FAN_STUCK" ] || [ "$power_mw" -ge "$POWER_STUCK_MW" ]; then stuck=$((stuck + 1)); else stuck=0; fi
-    [ "$stuck" -ge "$STUCK_N" ] && { armed=1; calm=0; fresh=0; stuck=0; echo "idle but fan $(cat "$HW/fan1_input") rpm / ${power_mw} mW, cooldown armed"; }
+  if [ "$state" = rest ]; then
+    if [ "$power_mw" -ge "$POWER_STUCK_MW" ]; then stuck=$((stuck + 1)); else stuck=0; fi
+    if [ "$stuck" -ge "$STUCK_N" ]; then
+      state=cooled; calm=0; stuck=0; echo "resting card at ${power_mw} mW, pulses restarted"
+    else
+      r=$((r + 1)); [ $((r % REST_EVERY)) -eq 0 ] && pulse
+    fi
     continue
   fi
-  ( exec 3< "$FW"; sleep "$HOLD"; cat "$HW/temp2_input" >/dev/null )   # keep-alive pulse
-  [ "$armed" = 0 ] && continue             # cooled: pulses only
+  pulse
+  if [ "$state" = cooled ]; then
+    if [ "$REST_MC" -gt 0 ] && [ "$(cat "$HW/temp2_input")" -le "$REST_MC" ]; then calm=$((calm + 1)); else calm=0; fi
+    [ "$calm" -ge "$CALM_N" ] && { state=rest; stuck=0; r=0; echo "card at rest (pkg $(cat "$HW/temp2_input")), pulses stopped"; }
+    continue
+  fi
   n=$((n + 1))
   if [ $((n % REFRESH_EVERY)) -eq 0 ]; then vram_refresh; fresh=1; fi
   # The fan is not part of this test: while the card is above its fan-on temperature (about 40 C here) the
-  # fan cycles between 0 and ~900 rpm on every pulse, and the pulses continue after cooldown anyway.
+  # fan cycles between 0 and ~900 rpm on every pulse.
   if [ "$fresh" = 1 ] && [ "$(cat "$HW/temp3_input")" -le "$COOL_MC" ] && [ "$(cat "$HW/temp2_input")" -le "$COOL_MC" ]; then
     calm=$((calm + 1))
-    [ "$calm" -ge "$CALM_N" ] && { armed=0; stuck=0; echo "card cooled (pkg $(cat "$HW/temp2_input"), vram $(cat "$HW/temp3_input")), VRAM refreshes stopped, keep-alive pulses continue"; }
+    [ "$calm" -ge "$CALM_N" ] && { state=cooled; calm=0; echo "card cooled (pkg $(cat "$HW/temp2_input"), vram $(cat "$HW/temp3_input")), VRAM refreshes stopped, keep-alive pulses continue"; }
   else
     calm=0
   fi

@@ -1,0 +1,30 @@
+# kicktune 2026-11-12 15:40:13, 90s windows
+15:41:47 interval=0 hold=0 reads=none W=0.2 idle%=4 pkg=36000
+15:43:20 interval=10 hold=0.5 reads=none W=7.9 idle%=94 pkg=35000
+15:44:53 interval=5 hold=0.5 reads=none W=13.2 idle%=90 pkg=36000
+15:46:25 interval=3 hold=0.5 reads=none W=17.2 idle%=85 pkg=37000
+15:47:59 interval=2 hold=0.2 reads=none W=13.3 idle%=90 pkg=36000
+15:49:33 interval=1 hold=0.1 reads=none W=13.4 idle%=90 pkg=36000
+15:51:06 interval=10 hold=0.1 reads=none W=4.7 idle%=98 pkg=35000
+15:52:40 interval=10 hold=2 reads=none W=17.6 idle%=82 pkg=36000
+15:54:13 interval=20 hold=0.5 reads=none W=5.0 idle%=97 pkg=35000
+15:55:46 interval=10 hold=0.5 reads=temp W=10.1 idle%=94 pkg=35000
+15:57:19 interval=10 hold=0.5 reads=fan W=10.1 idle%=94 pkg=35000
+15:58:51 interval=0 hold=0 reads=temp W=6.5 idle%=100 pkg=34000
+16:00:25 interval=5 hold=0.1 reads=temp W=8.0 idle%=97 pkg=34000
+16:01:57 interval=10 hold=0 reads=temp W=6.5 idle%=100 pkg=34000
+16:03:31 interval=0 hold=0 reads=none W=0.0 idle%=4 pkg=33000
+16:05:03 interval=10 hold=0.5 reads=none W=7.4 idle%=94 pkg=34000
+16:06:36 interval=5 hold=0.5 reads=none W=13.2 idle%=90 pkg=34000
+16:08:10 interval=3 hold=0.5 reads=none W=16.9 idle%=85 pkg=36000
+16:09:43 interval=2 hold=0.2 reads=none W=13.3 idle%=90 pkg=36000
+16:11:15 interval=1 hold=0.1 reads=none W=13.4 idle%=90 pkg=35000
+16:12:49 interval=10 hold=0.1 reads=none W=4.7 idle%=98 pkg=34000
+16:14:21 interval=10 hold=2 reads=none W=17.3 idle%=82 pkg=36000
+16:15:54 interval=20 hold=0.5 reads=none W=5.0 idle%=97 pkg=35000
+16:17:27 interval=10 hold=0.5 reads=temp W=10.1 idle%=94 pkg=35000
+16:19:00 interval=10 hold=0.5 reads=fan W=10.1 idle%=94 pkg=34000
+16:20:34 interval=0 hold=0 reads=temp W=6.5 idle%=100 pkg=34000
+16:22:07 interval=5 hold=0.1 reads=temp W=8.0 idle%=97 pkg=34000
+16:23:41 interval=10 hold=0 reads=temp W=6.5 idle%=100 pkg=33000
+done

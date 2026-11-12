@@ -1,0 +1,4 @@
+xestrata-par4    code  71.2  prose  68.3  json  94.3  | mean  78.0 t/s (spread 65.6-99.6)
+p=1: per-request decode  63.6 t/s (min 63.6), TTFT max 0.16s, aggregate  62.9 t/s
+p=2: per-request decode  37.4 t/s (min 35.7), TTFT max 1.76s, aggregate  71.3 t/s
+p=4: per-request decode  23.0 t/s (min 21.8), TTFT max 2.79s, aggregate  86.9 t/s

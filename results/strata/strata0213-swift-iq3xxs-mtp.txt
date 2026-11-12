@@ -1,0 +1,3 @@
+strata0213-mtp   code  73.1  prose  68.8  json  97.7  | mean  79.9 t/s (spread 66.8-104.7)
+p=1: per-request decode  60.9 t/s (min 60.9), TTFT max 0.08s, aggregate  60.5 t/s
+prompt 75003 tok, 41s, got 'Rotterdam=1674, Quito=7536, Osaka=4110', want {'Rotterdam': '1674', 'Quito': '7536', 'Osaka': '4110'}, 3/3

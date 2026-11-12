@@ -224,3 +224,24 @@ Findings, in order:
   settling pulse after each log refresh; no request to the model server. After a 4-client load: "card cooled" 69 s
   after load end (pkg 49, vram 52); 30 s windows then 8-20 W, ~12 W average, pkg 37 C / vram 36 C after 13 min,
   fan 0 for 19-27 of 30 one-second samples, bursts to 480-900 rpm.
+- 2026-11-12: after a reboot, everything came back on its own: qwen38, open-webui, llm-gateway (Quadlet), the 180 W cap (udev rule verified) and b70-telemetry-kick.
+
+## Kick tuning and rest state (2026-11-12)
+kicktune.sh (results/kicktune.txt), 90 s windows x2, pkg 33-37 C, each window starts with one pulse:
+no kick + 1 s temp reads 6.5 W; 10 s/0.5 s 7.4-7.9 W (10.1 W with 1 s reads); 10/0.1 4.7; 20/0.5 5.0; 5/0.5 13.2;
+3/0.5 17; 10/2 17.5; no kick + no reads 0.0-0.2 W and idle 4% = counters frozen, not a real reading.
+Runtime PM is not involved (runtime_status always active, 11 s suspended since boot).
+User confirmed on an external reading that power drops with the service on vs stopped in the 42.8 W state.
+REST_MC=38000 version (stop pulses when cool): flapped, 6x "card at rest" -> "resting card at 42755 mW" in 25 min,
+~17 W average. Default now REST_MC=0 (always pulse).
+
+## Qwen3.8-Flash-Next / Swift 1.5 IQ3_XXS on XeStrata 0.2.2 and Strata 0.2.13-sycl (2026-11-12)
+Raw: results/strata/. Production stopped 17:16-18:30 UTC, restored, canary 12/12.
+XeStrata: podman build of ~/src/XeStrata/container (rpm xe0.2.2-1); setup --family swift --model IQ3_XXS
+--context 196608 --vision yes --yes --no-start; data in ~/.local/share/xestrata (78 GB + mtp), config
+~/.config/xestrata. First setup ran with production on the card and pinned --vram-free-mib 311: rerun with card free.
+Upstream: ghcr.io/niko1221/strata:0.2.13-sycl, volume strata-data; launcher writes --ple-gguf shard 2 (table is in
+shard 1 for Swift) and rewrites it each start -> use `strata serve --profile /data/install/fixed.json` (fixed-mtp.json
+adds --mtp /mtp/rt from XeStrata's folder). PCIe probe 19.7 GB/s host->device.
+speedbench mean: xestrata 79.0, strata no draft 48.9, strata+mtp 79.9; par4: xestrata 78.0 single / 86.9 x4,
+strata+mtp 67.2 / 75.7. 75k prefill 37 s / 41 s. evalset 79/80 both, hard 111/120 both (p=1, effort low).

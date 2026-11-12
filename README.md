@@ -22,6 +22,9 @@ No other engine tested matched that combination.
 - **Tuning:** batch size, cache precision, slot count and the Intel backend switches made no
   measurable difference.
 - **Thinking:** keep it on. With thinking off the model fails most multi-step questions.
+- **Bigger model, other engine:** the 125B Qwen3.8-Flash-Next on Strata or XeStrata decodes 18%
+  faster for one client and reads long prompts twice as fast, but manages half the throughput
+  with four clients.
 - **Vision:** costs context cache; limiting images to about 1 megapixel recovers roughly half of it.
 - **Power:** a 180 W cap costs 2% of decode speed and saves about a quarter of the power.
 - **Fan bug:** the B70's stuck-fan problem can be worked around without touching driver or firmware.
@@ -57,6 +60,7 @@ No other engine tested matched that combination.
   - [Vision input](#vision-input)
   - [Reasoning effort](#reasoning-effort)
   - [Another model: Qwen3.6-35B-A3B](#another-model-qwen36-35b-a3b)
+  - [Another model: Qwen3.8-Flash-Next on Strata and XeStrata](#another-model-qwen38-flash-next-on-strata-and-xestrata)
   - [Power cap](#power-cap)
 - [B70 stuck fan and temperature workaround](#b70-stuck-fan-and-temperature-workaround)
 - [Scripts](#scripts)
@@ -370,6 +374,63 @@ Much faster, but it thinks far longer and sometimes never answers. Tested:
 It is 2.2 times faster in raw decoding, but its template has no reasoning-effort control, it
 thinks about four times as long, and 4 of 80 questions ran to the token limit without an answer.
 
+### Another model: Qwen3.8-Flash-Next on Strata and XeStrata
+
+A 125B mixture-of-experts model on the same single card: faster than the 27B for one client and
+at reading long prompts, equally accurate on these tests, but about half the throughput with
+four clients. Suggested by a reader; tested on 2026-11-12.
+
+- **Model:** [Qwen3.8-Flash-Next](https://github.com/QwenLM/Qwen3.8-Flash-Next) activates about
+  6B of its 125B parameters per token. Tested as UkisAI's Swift 1.5 fine-tune (trained to think
+  less), 3-bit `IQ3_XXS` GGUF, 76 GB.
+- **Engines:** [Strata](https://github.com/Niko1221/Strata) keeps every expert in RAM (40 GB
+  here) and the most-used ones in VRAM (about 13,900 of 24,576 on the B70).
+  [XeStrata](https://github.com/MistVVK/XeStrata) is a fork developed on an Arc Pro B70.
+- **Settings:** 196k context, 8-bit KV cache, 180 W power cap, same test scripts as above.
+  Accuracy runs used one client at a time.
+
+| | vLLM, Qwen3.8-27B INT4 | XeStrata 0.2.2 | Strata 0.2.13, as set up | Strata 0.2.13 + draft layer |
+|---|---|---|---|---|
+| Decode, one client (tokens/s) | 66.7 | 79.0 | 48.9 | 79.9 |
+| 4 clients total, default (tokens/s) | 158.7 | 62.5 (queued) | 41.4 (queued) | not run |
+| 4 clients total, 4 slots (tokens/s) | 158.7 | 86.9 | not run | 75.7 |
+| One client with 4 slots enabled (tokens/s) | 66.7 | 78.0 | not run | 67.2 |
+| Cold 75k prompt | 86 s | 37 s | 41 s | 41 s |
+| Long-context retrieval (of 3) | 3 | 3 | 3 | 3 |
+| Streamed tool calls clean (of 16) | 16 | 16 | 16 | not run |
+| Prefix cache, 15.8k prompt: cold / cached | works | 7.9 s / 0.2–0.4 s | 8.0 s / 0.1–0.3 s | not run |
+| Accuracy, thinking off (of 80) | 30 | 25 | 26 | not run |
+| Accuracy, thinking on (of 80) | 77 | 79 | 79 | not run |
+| Chained questions, thinking on (of 120) | 106 low / 111 medium / 116 xhigh | 111 | 111 | not run |
+
+What this shows:
+
+- **One client:** about 18% faster decode than the 27B on vLLM, and long prompts are read more
+  than twice as fast.
+- **Several clients:** both engines serve one request at a time by default, so a fourth client
+  waited up to 37–56 s for its first token. With four slots enabled, total throughput is 76–87
+  tokens/s against vLLM's 159. On upstream Strata the slots also halve the expert cache and cost
+  16% of single-client speed; on XeStrata they cost 1%.
+- **Accuracy:** no loss from the 3-bit quant on these tests; differences of two or three
+  questions are noise. The requests asked for reasoning effort `low` the same way as the vLLM
+  runs; whether the engines apply it identically was not checked.
+- **XeStrata against upstream:** with a draft layer, upstream 0.2.13 decodes as fast as XeStrata,
+  and prefill is within 10%. XeStrata's documented lead (prompts 2–3 times faster) no longer
+  holds on this card. Its remaining advantages are setup and multi-client speed.
+- **Setup:** XeStrata's `--setup` downloaded and configured everything, including draft layer and
+  vision. Upstream's launcher warned that the B70 is untested, configured no draft layer and no
+  vision, and pointed `--ple-gguf` at the wrong one of the two Swift files, so the engine would
+  not load. It rewrote a corrected config on every start; the results above come from
+  `strata serve --profile` with a hand-corrected config, and the draft-layer column reuses the
+  layer XeStrata prepared (`--mtp`).
+- **Memory:** about 48 GB of RAM in use, plus the 29 GB n-gram table XeStrata keeps in RAM.
+  CPU load was low (about 9% of 12 cores) because 99% of the experts needed were in VRAM.
+
+Not tested: vision, the other quants (2-bit `IQ2_XS`, 4-bit `UD-Q4_K_XL` and larger), contexts
+above 75k tokens, reasoning effort above `low`, and day-to-day agent use. One trap when setting
+up: XeStrata sizes its expert cache from the VRAM free during setup, so run setup with nothing
+else on the card.
+
 ### Power cap
 
 The `xe` driver exposes a sustained power limit at
@@ -466,8 +527,17 @@ What was learned along the way:
   frequency, throttle and sensor files. What does: the GuC log reads, a long forcewake hold
   (about 18 s for all 16 sensors), or any real GPU work. `vramprobe.sh`, `vramprobe2.sh` and
   `vramprobe3.sh` are the probes that established this; their output is in `results/`.
-- **Idle counters update in jumps** while the card sleeps, so measure idle power over at least
-  two minutes.
+- **More pulses cost more power.** `kicktune.sh` measured 90 s windows at 33–37 °C: a 0.5 s pulse
+  every 10 s read 7.4–7.9 W, every 5 s 13.2 W, and a 2 s pulse every 10 s 17.3–17.6 W. A 0.1 s
+  pulse every 10 s read 4.7 W, but whether so short a pulse still pulls a warm card out of the
+  42 W state was not checked.
+- **Stopping the pulses once the card is cool did not work here.** At 33–36 °C the card stayed
+  at 6.5 W for 90 s without pulses. With the pulses running it settles at 38–40 °C, and a
+  version that stopped pulsing at 38 °C saw the card jump back to 42.7 W within about 30 s, six
+  times in 25 minutes (about 17 W on average). The rest state remains in the script, off by
+  default (`REST_MC`).
+- **The energy counter freezes when nothing touches the card**, so an untouched card reads 0 W.
+  Sample a sensor once a second while measuring, and measure over at least a minute.
 
 ## Scripts
 
@@ -493,6 +563,8 @@ All test scripts read the API key from `VLLM_API_KEY` or `~/.config/vllm/api-key
 | `suite.sh`, `exp.sh` | Run a standard set of tests against a server and save the output |
 | `sweep1.sh` … `sweep4.sh` | The tuning and weights sweeps as they were run |
 | `powerbench.sh` | Benchmarks with power, temperature and fan sampling |
+| `stratabench.sh` | The test set against a Strata or XeStrata server |
+| `kicktune.sh` | Root, read-only: idle power for different keep-alive pulse settings |
 | `b70-telemetry-kick.sh`, `.service`, `install-b70-kick.sh` | Fan workaround |
 | `vramprobe.sh`, `vramprobe2.sh`, `vramprobe3.sh` | Root, read-only probes: which debugfs reads refresh the VRAM temperature |
 | `99-b70-power-cap.rules` | udev rule for a persistent power cap |

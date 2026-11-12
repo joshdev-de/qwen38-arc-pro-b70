@@ -1,0 +1,34 @@
+=== xestrata-swift-iq3xxs  2026-11-12 17:18:37  port 8095
+xestrata-swift-iq3xxs code  75.4  prose  71.7  json  89.7  | mean  79.0 t/s (spread 69.1-90.8)
+mann xestrata-swift-iq3xxs count  90.1 (min 89.9 max 90.3, 502 tok in, TTFT 0.07s) | code  83.7 (min 79.7 max 84.7, 672 tok in, TTFT 0.07s) | prose 103.5 (min 85.1 max 108.2, 452 tok in, TTFT 0.07s)
+p=1: per-request decode  64.5 t/s (min 64.5), TTFT max 0.15s, aggregate  63.8 t/s
+p=4: per-request decode  64.2 t/s (min 61.6), TTFT max 36.99s, aggregate  62.5 t/s
+prompt 74947 tok, 37s, got 'Rotterdam=2998, Quito=2190, Osaka=8192', want {'Rotterdam': '2998', 'Quito': '2190', 'Osaka': '8192'}, 3/3
+score 11/12
+score 12/12
+OK   think=on  single       1.5s  get_weather({"city":"Berlin","unit":"c"})
+OK   think=on  single       0.9s  get_weather({"city":"Berlin","unit":"c"})
+OK   think=on  parallel3    2.2s  get_weather({"city":"Paris"}); get_weather({"city":"Tokyo"}); get_weather({"city":"Lima"})
+OK   think=on  parallel3    1.6s  get_weather({"city":"Paris"}); get_weather({"city":"Tokyo"}); get_weather({"city":"Lima"})
+OK   think=on  code-args    1.5s  run_shell({"cmd":"grep -rn \"def main\" src/ | head -n 5","timeout":30})
+OK   think=on  code-args    0.9s  run_shell({"cmd":"grep -rn \"def main\" src/ | head -n 5","timeout":30})
+OK   think=on  multi-tool   2.1s  read_file({"path":"/etc/hostname"}); run_shell({"cmd":"uname -a"})
+OK   think=on  multi-tool   1.5s  read_file({"path":"/etc/hostname"}); run_shell({"cmd":"uname -a","timeout":10})
+OK   think=off single       1.1s  get_weather({"city":"Berlin","unit":"c"})
+OK   think=off single       0.5s  get_weather({"city":"Berlin","unit":"c"})
+OK   think=off parallel3    2.1s  get_weather({"city":"Paris"}); get_weather({"city":"Tokyo"}); get_weather({"city":"Lima"})
+OK   think=off parallel3    1.5s  get_weather({"city":"Paris","unit":"c"}); get_weather({"city":"Tokyo","unit":"c"}); get_weather({"city":"Lima","unit":"c"})
+OK   think=off code-args    1.3s  run_shell({"cmd":"grep -rn \"def main\" src/ | head -n 5","timeout":30})
+OK   think=off code-args    0.7s  run_shell({"cmd":"grep -rn \"def main\" src/ | head -n 5","timeout":30})
+OK   think=off multi-tool   1.3s  read_file({"path":"/etc/hostname"}); run_shell({"cmd":"uname -a"})
+OK   think=off multi-tool   0.7s  read_file({"path":"/etc/hostname"}); run_shell({"cmd":"uname -a"})
+
+16/16 streamed cases clean
+cold                           7.91s  prompt  15801  cached 0
+identical repeat               0.18s  prompt  15801  cached 15794
+same prefix, new question      0.22s  prompt  15801  cached 15783
+conversation turn 1            0.28s  prompt  15801  cached 15783
+conversation turn 2            0.40s  prompt  15822  cached 15794
+strata-xestrata-swift-iq3xxs think_off: 25/80  (39s, 275 completion tokens)
+strata-xestrata-swift-iq3xxs think_on: 79/80  (187s, 13757 completion tokens)
+strata-hard-xestrata-swift-iq3xxs think_on: 111/120  (683s, 58786 completion tokens)
