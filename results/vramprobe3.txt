@@ -1,0 +1,22 @@
+=== vramprobe3 2026-11-11T23:06:29Z
+--- cycle A: forcewake holds only, increasing length
+frozen (75 s after load):  vram 60 pkg 50 fan 229 | ch: 54 56 56 40 56 56 54 56 54 56 56 56 56 54 56 60
+forcewake hold 0.5 s:        vram 60 pkg 42 fan 190 | ch: 54 56 56 40 56 56 54 56 54 56 56 40 56 54 56 60
+forcewake hold 0.5 s:        vram 60 pkg 42 fan 190 | ch: 40 40 42 40 40 38 40 40 40 56 40 40 42 54 56 60
+forcewake hold 2 s:        vram 60 pkg 43 fan 462 | ch: 40 40 40 40 40 38 40 40 40 42 40 40 42 54 56 60
+forcewake hold 5 s:        vram 54 pkg 44 fan 649 | ch: 40 40 40 40 40 38 40 40 40 42 40 40 42 54 42 42
+forcewake hold 10 s:        vram 42 pkg 45 fan 763 | ch: 40 42 42 40 40 38 40 40 40 42 40 40 42 42 42 42
+forcewake hold 10 s:        vram 44 pkg 46 fan 763 | ch: 40 42 42 42 40 38 40 40 40 42 40 42 42 44 42 42
+--- cycle B: gt1 guc_log reads only
+frozen (75 s after load):  vram 66 pkg 56 fan 305 | ch: 60 62 62 60 62 62 62 62 60 62 62 62 62 62 62 66
+read tile0/gt1/uc/guc_log (407 ms): vram 62 pkg 45 fan 296 | ch: 46 44 48 44 44 62 44 44 46 46 44 46 48 46 44 46
+read tile0/gt1/uc/guc_log (404 ms): vram 46 pkg 44 fan 296 | ch: 44 44 46 44 44 44 42 44 46 46 42 44 46 44 44 46
+read tile0/gt1/uc/guc_log (403 ms): vram 46 pkg 44 fan 148 | ch: 44 44 46 42 44 44 42 44 46 44 42 44 46 44 44 44
+read tile0/gt1/uc/guc_log (404 ms): vram 46 pkg 44 fan 148 | ch: 44 44 46 42 44 44 42 44 44 44 42 44 46 44 44 44
+--- cycle C: gt0 guc_log reads only
+frozen (75 s after load):  vram 68 pkg 55 fan 278 | ch: 62 62 64 62 62 62 60 62 62 62 60 62 62 62 62 68
+read tile0/gt0/uc/guc_log (405 ms): vram 62 pkg 46 fan 247 | ch: 46 46 48 44 62 46 44 46 48 46 44 44 62 46 46 46
+read tile0/gt0/uc/guc_log (404 ms): vram 62 pkg 45 fan 272 | ch: 46 44 46 44 44 44 44 46 46 46 44 44 62 46 44 46
+read tile0/gt0/uc/guc_log (405 ms): vram 48 pkg 45 fan 247 | ch: 46 44 46 44 44 44 44 44 46 44 44 44 48 46 44 46
+read tile0/gt0/uc/guc_log (406 ms): vram 46 pkg 45 fan 148 | ch: 46 44 46 44 44 44 44 44 46 46 44 44 46 44 44 46
+done; fan service restarted

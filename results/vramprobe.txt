@@ -1,0 +1,38 @@
+=== vramprobe 2026-11-11T22:50:45Z
+load for ~30 s ...
+p=4: per-request decode  40.9 t/s (min 40.4), TTFT max 0.19s, aggregat
+end of load:        vram 62 pkg 52 fan 890
+75 s later (frozen): vram 62 pkg 52 fan 0
+read info (rc 0): vram 62 pkg 52 fan 1014
+read pcode_info (rc 0): vram 62 pkg 52 fan 1075
+read dgfx_pkg_residencies (rc 0): vram 62 pkg 52 fan 1075
+read dgfx_pcie_link_residencies (rc 0): vram 62 pkg 52 fan 1075
+read tile0/vram_mm (rc 0): vram 62 pkg 52 fan 1075
+read tile0/sa_info (rc 0): vram 62 pkg 52 fan 1075
+read tile0/ggtt (rc 0): vram 62 pkg 52 fan 1075
+read gtt_mm (rc 0): vram 62 pkg 52 fan 1074
+read stolen_mm (rc 0): vram 62 pkg 52 fan 1074
+read tile0/gt0/powergate_info (rc 0): vram 62 pkg 52 fan 1075
+read tile0/gt1/powergate_info (rc 0): vram 62 pkg 52 fan 1074
+read tile0/gt0/stats (rc 1): vram 62 pkg 52 fan 1074
+read tile0/gt1/stats (rc 1): vram 62 pkg 52 fan 1074
+read tile0/gt0/hw_engines (rc 0): vram 62 pkg 48 fan 0
+read tile0/gt0/topology (rc 0): vram 62 pkg 48 fan 0
+read tile0/gt0/steering (rc 0): vram 62 pkg 48 fan 0
+read tile0/gt0/hwconfig (rc 0): vram 62 pkg 48 fan 0
+read tile0/gt0/uc/huc_info (rc 0): vram 62 pkg 48 fan 0
+read tile0/gt0/uc/guc_pc (rc 0): vram 62 pkg 48 fan 0
+read tile0/gt0/uc/guc_log_lfd (rc 0): vram 62 pkg 49 fan 29
+read tile0/gt0/uc/guc_log (rc 0): vram 62 pkg 49 fan 150
+read tile0/gt0/uc/guc_ctb (rc 0): vram 62 pkg 49 fan 0
+read tile0/gt0/uc/guc_info (rc 0): vram 62 pkg 49 fan 0
+read tile0/gt0/uc/gsc_info (rc 0): vram 62 pkg 49 fan 0
+read tile0/gt1/uc/huc_info (rc 0): vram 62 pkg 49 fan 0
+read tile0/gt1/uc/guc_pc (rc 0): vram 62 pkg 49 fan 0
+read tile0/gt1/uc/guc_log_lfd (rc 0): vram 62 pkg 49 fan 83
+read tile0/gt1/uc/guc_log (rc 0): vram 50 pkg 50 fan 150   <== VRAM READING CHANGED
+read tile0/gt1/uc/guc_ctb (rc 0): vram 50 pkg 50 fan 0
+read tile0/gt1/uc/guc_info (rc 0): vram 50 pkg 50 fan 0
+read tile0/gt1/uc/gsc_info (rc 0): vram 50 pkg 50 fan 896
+forcewake_all hold: vram 50 pkg 49 fan 192
+done; fan service restarted

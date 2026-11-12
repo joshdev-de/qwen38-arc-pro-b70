@@ -206,3 +206,21 @@ Short-window idle power/residency readings are unreliable (counters catch up in 
 Bifrost gateway on :4000 in front of qwen38; see ~/llm-homelab-setup (README.md, docs/DESIGN.md).
 speedbench.py and prefix_check.py gained an optional --url (default unchanged: localhost --port);
 prefix_check still reads vLLM /metrics on --port with the vLLM key (--metrics-key to override).
+
+## Fan workaround: final mechanism (2026-11-11/12)
+Power-cap udev rule and container autostart verified after a reboot (cap 180 W present, canary 12/12).
+Findings, in order:
+- Stopping the pulses after cooldown leaves the idle card at ~42.7 W (energy1_input), even 105 s after the last
+  request. Pulsed every 10 s it idles far lower. So pulses must continue while idle.
+- Per-second sampling: two idle states, ~5 W / fan 0 and ~42 W / fan ~895 rpm. A forcewake pulse drops to the low
+  state; the card can return to the high state 3-7 s later, more often above pkg ~40 C.
+- VRAM sensors (temp3 = max of temp6..temp21) refresh a few at a time while awake (~18 s of forcewake for all 16).
+  Reading tile0/gt{0,1}/uc/guc_log (0.4 s) refreshes 15 of 16 at once (vramprobe*.sh, results/vramprobe*.txt).
+  No effect: DRM ioctls, VRAM buffer writes, freq/throttle/sensor reads. A log read spikes to 68-79 W and leaves
+  the card in the 42 W state until the next pulse.
+- Version with "fan < 200 rpm for 3 checks" as cooldown test never finished (fan cycles on every pulse): log reads
+  every 30 s all night, idle 17-32 W at pkg 41-43 C.
+- Final version (installed 2026-11-12 06:55 UTC): cooldown test = pkg and VRAM <= 55 C for 3 checks, no fan test;
+  settling pulse after each log refresh; no request to the model server. After a 4-client load: "card cooled" 69 s
+  after load end (pkg 49, vram 52); 30 s windows then 8-20 W, ~12 W average, pkg 37 C / vram 36 C after 13 min,
+  fan 0 for 19-27 of 30 one-second samples, bursts to 480-900 rpm.

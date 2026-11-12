@@ -418,38 +418,56 @@ was written.
 ## B70 stuck fan and temperature workaround
 
 After a load ends, the card's reported temperatures can freeze and the fan keeps following the
-stale value: here about 2,100 rpm and 42 W while idle (Intel issue IGCIT #1574). The readings only
-recover on the next load.
+stale value (Intel issue IGCIT #1574). Left alone, the idle card here sat at about 42 W with the
+fan running, and the readings only recovered on the next load.
 
-`b70-telemetry-kick.sh` is a workaround that touches neither driver nor firmware:
+`b70-telemetry-kick.sh` is a workaround that touches neither driver nor firmware. It only reads
+files, and sends nothing to the model server:
 
-1. It watches GPU idle residency through plain sysfs reads, which do not wake the card.
-2. After a load, it briefly holds the `xe` debugfs `forcewake_all` file open every 10 s, which
-   refreshes package temperature and fan control.
-3. VRAM temperature refreshes only on real GPU work, so once a minute it sends a one-token request
-   to the local server.
-4. When package and VRAM are both at or below 55 °C and the fan reads below 200 rpm for three
-   checks, it stops, leaving the card in deep idle until the next load.
+1. **Idle detection.** It watches GPU idle residency through plain sysfs reads, which do not wake
+   the card.
+2. **Keep-alive pulse.** Every 10 s while the GPU is idle, it holds the `xe` debugfs
+   `forcewake_all` file open for half a second. This refreshes the package temperature and fan
+   control, and drops the card into its low-power idle state. The pulses never stop: without them
+   the card returned to about 42 W, even after it had cooled down.
+3. **VRAM temperature refresh.** After a load, every third pulse it also reads the two GuC
+   firmware log files in debugfs. The 16 VRAM temperature sensors otherwise refresh only a few at
+   a time; one 0.4 s log read refreshes almost all of them.
+4. **Cooldown end.** Once package and VRAM are both at or below 55 °C for three checks, the log
+   reads stop. Each log read costs a short 70–80 W spike, so they are not kept running.
 
-With it, the card went from 61 °C and 2,523 rpm to 47 °C and about 50 rpm after a load, and idle
-power from 42 W to about 7 W.
+Measured after a four-client load at a 180 W cap (card power from the card's own energy counter,
+30 s windows; no wall meter was used):
 
-Install as a root systemd service with `./install-b70-kick.sh`. The script reads the API key from
-`KICK_KEYFILE` (the default path is specific to the test machine; change it). Remove with:
+| | Without the service | With the service |
+|---|---|---|
+| Idle card power | about 42 W | 8–20 W, about 12 W on average |
+| Fan while idle | running | off most of the time, short bursts up to 900 rpm |
+| VRAM reading after a load | frozen at the load value | 76 °C to 52 °C within a minute |
+| Cooldown finished | never | about 70 s after the load |
+
+Install as a root systemd service with `./install-b70-kick.sh`. Remove with:
 
 ```bash
 sudo systemctl disable --now b70-telemetry-kick
 sudo rm /usr/local/sbin/b70-telemetry-kick.sh /etc/systemd/system/b70-telemetry-kick.service
 ```
 
-Caveats:
+What was learned along the way:
 
-- Single fan readings can jump to 300–1,200 rpm while the fan is effectively off. An earlier
-  version re-armed on one such reading and never let the card rest (about 16 W idle). The current
-  script re-arms only after three high readings in a row; that change had not yet been verified in
-  service when this was written.
-- Idle power and idle-residency counters update in jumps while the card sleeps, so measure idle
-  power over at least two minutes.
+- **The card has two idle states.** Per-second sampling shows it alternating between about 5 W
+  with the fan off and about 42 W with the fan near 900 rpm. A pulse drops it to the low state; it
+  can jump back a few seconds later, more often while the package is above about 40 °C. This is
+  why idle power varies between 8 and 20 W from one 30 s window to the next.
+- **Do not use the fan reading as a "cooled" test.** An earlier version waited for the fan to stay
+  below 200 rpm. The fan cycles on every pulse, so that never happened, the log reads continued
+  all night, and the card idled at 17–32 W.
+- **What does not refresh the VRAM sensors:** DRM ioctls, writes to VRAM buffers, and reads of the
+  frequency, throttle and sensor files. What does: the GuC log reads, a long forcewake hold
+  (about 18 s for all 16 sensors), or any real GPU work. `vramprobe.sh`, `vramprobe2.sh` and
+  `vramprobe3.sh` are the probes that established this; their output is in `results/`.
+- **Idle counters update in jumps** while the card sleeps, so measure idle power over at least
+  two minutes.
 
 ## Scripts
 
@@ -476,6 +494,7 @@ All test scripts read the API key from `VLLM_API_KEY` or `~/.config/vllm/api-key
 | `sweep1.sh` … `sweep4.sh` | The tuning and weights sweeps as they were run |
 | `powerbench.sh` | Benchmarks with power, temperature and fan sampling |
 | `b70-telemetry-kick.sh`, `.service`, `install-b70-kick.sh` | Fan workaround |
+| `vramprobe.sh`, `vramprobe2.sh`, `vramprobe3.sh` | Root, read-only probes: which debugfs reads refresh the VRAM temperature |
 | `99-b70-power-cap.rules` | udev rule for a persistent power cap |
 | `results/` | Raw outputs; `NOTES.md` is the chronological log |
 
@@ -504,7 +523,9 @@ them before running elsewhere.
 - Why MTP 5, a 16k prefill batch, and the SergiioB GPTQ build with MTP 4 fail to start at 196k was
   not determined.
 - Intel llm-scaler was tested with pre-quantized weights only, not its load-time `sym_int4` path.
-- The power-cap udev rule and the latest fan-workaround change were not verified in service.
+- Idle power figures (42 W, 8–20 W) come from the card's energy counter; they were not checked
+  with a wall meter.
+- Why the idle card alternates between a 5 W and a 42 W state was not determined.
 
 ## Sources
 

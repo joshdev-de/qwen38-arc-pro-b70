@@ -1,0 +1,21 @@
+=== vramprobe2 2026-11-11T22:57:06Z
+--- cycle 1: every gt1 file except guc_log, then guc_log last
+end of load:         vram 64 pkg 53 fan 745
+75 s later (frozen): vram 64 pkg 53 fan 0
+read tile0/gt1/uc/gsc_info: vram 64 pkg 53 fan 1306
+read tile0/gt1/uc/guc_info: vram 64 pkg 53 fan 0
+read tile0/gt1/uc/guc_ctb: vram 64 pkg 53 fan 0
+read tile0/gt1/uc/huc_info: vram 64 pkg 53 fan 0
+read tile0/gt1/uc/guc_pc: vram 64 pkg 53 fan 0
+read tile0/gt1/powergate_info: vram 64 pkg 53 fan 0
+read tile0/gt1/hw_engines: vram 64 pkg 53 fan 0
+read tile0/gt1/uc/guc_log_lfd: vram 60 pkg 47 fan 47   <== VRAM READING CHANGED
+read tile0/gt0/uc/guc_log: vram 58 pkg 46 fan 100   <== VRAM READING CHANGED
+read tile0/gt1/uc/guc_log: vram 46 pkg 46 fan 111   <== VRAM READING CHANGED
+--- cycle 2: gt1 guc_log first, on its own
+end of load:         vram 68 pkg 56 fan 1082
+75 s later (frozen): vram 68 pkg 55 fan 1729
+10 s more, nothing read: vram 68 pkg 55 fan 1727
+read tile0/gt1/uc/guc_log: vram 64 pkg 44 fan 134   <== VRAM READING CHANGED
+read tile0/gt1/uc/guc_log: vram 46 pkg 44 fan 122   <== VRAM READING CHANGED
+done; fan service restarted
