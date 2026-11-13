@@ -474,31 +474,39 @@ agent use are untested.
 
 **Agentic coding test (13 November)**
 
-The same coding agent (pi, sandboxed, through the gateway) did the same work on both models,
-one job at a time. Flash-Next ran as the original `IQ3_XXS` on stock Strata 0.2.13 with its
-DFlash2 drafter. (The `IQ3_S` file was abandoned: Strata's drafter rejected every guess with it
-and decoded at 19 tokens/s.) Briefs, runners and hidden tests are in [`agentic/`](agentic/).
+The same coding agent (pi, sandboxed, through the gateway) did the same work on every setup,
+one job at a time. Flash-Next ran on stock Strata 0.2.13 in two forms:
+
+- **ISTA `IQ3_XXS` + DFlash2:** ISTA-DASLab's original 3-bit file (76 GB) with Strata's
+  default DFlash2 drafter.
+- **Unsloth `UD-IQ4_XS` + MTP:** Unsloth's 4-bit file (94 GB; experts mostly IQ3_S/IQ4_NL)
+  with the MTP draft layer. Strata's setup does not build that layer on Intel cards; it was
+  built with Strata's own tools from Qwen's checkpoint (see Setup notes). DFlash2 is unusable
+  with this file (below).
+
+(ISTA's `IQ3_S` file was abandoned: DFlash2 rejected every guess with it and decoded at 19
+tokens/s.) Briefs, runners and hidden tests are in [`agentic/`](agentic/).
 
 *Delegation jobs.* Six implementation jobs from an earlier trial: Claude Code had already written
 the types, the stub functions with their specs, and the acceptance tests; the model only
-implements. Go, against a vendored MCP SDK.
+implements. Go, against a vendored MCP SDK. Time / output tokens:
 
-| Job | 27B: time / output tokens | Flash-Next: time / output tokens |
-|---|---|---|
-| A: Prometheus text parser | 417 s / 18.5k | 218 s / 13.2k |
-| B: GPU sensor reader | 122 s / 5.7k | 206 s / 11.9k |
-| C: MCP tool wiring | 83 s / 3.2k | 143 s / 7.2k |
-| D: vLLM client and `main.go` (pi) | 110 s / 5.2k | 273 s / 15.2k |
-| D: same brief (OpenCode) | 162 s / 7.4k | 159 s / 9.0k |
-| B2: symlink bug fix | 50 s / 1.9k | 88 s / 4.9k |
-| **Total** | **944 s / 42k** | **1,087 s / 61k** |
+| Job | 27B (vLLM) | ISTA `IQ3_XXS` + DFlash2 | Unsloth `UD-IQ4_XS` + MTP |
+|---|---|---|---|
+| A: Prometheus text parser | 417 s / 18.5k | 218 s / 13.2k | 224 s / 10.3k |
+| B: GPU sensor reader | 122 s / 5.7k | 206 s / 11.9k | 197 s / 9.1k |
+| C: MCP tool wiring | 83 s / 3.2k | 143 s / 7.2k | 181 s / 7.5k |
+| D: vLLM client and `main.go` (pi) | 110 s / 5.2k | 273 s / 15.2k | 474 s / 21.2k |
+| D: same brief (OpenCode) | 162 s / 7.4k | 159 s / 9.0k | 299 s / 14.1k |
+| B2: symlink bug fix | 50 s / 1.9k | 88 s / 4.9k | 92 s / 3.4k |
+| **Total** | **944 s / 42k** | **1,087 s / 61k** | **1,467 s / 66k** |
 
-All 12 results pass `go vet` and `go test -race`, and none touched a protected file. The 27B
+All 18 results pass `go vet` and `go test -race`, and none touched a protected file. The 27B
 spent 19.6k of its 42k output tokens on reasoning; Strata does not report the split.
 
 *Planning tasks.* No stubs and no tests: an empty repository and a written brief. The model had
 to write a plan, the code, its own tests and a README, with a 45-minute limit. I wrote hidden
-acceptance tests for both tasks before either model ran.
+acceptance tests for both tasks before any model ran.
 
 - **Medium, `logstat`:** a command-line summariser for web-server access logs, with filters,
   top lists, latency percentiles, gzip and standard input, JSON and text output, and exit codes.
@@ -506,40 +514,69 @@ acceptance tests for both tasks before either model ran.
   leases with expiry and heartbeat, retries until dead, idempotency, long polling, concurrent
   clients, and survival of a `kill -9`.
 
-| | 27B, `logstat` | Flash-Next, `logstat` | 27B, `jobq` | Flash-Next, `jobq` |
-|---|---|---|---|---|
-| Hidden tests passed | 25 of 26 | 26 of 26 | 22 of 22 | 21 of 22 |
-| Own tests written, all passing | 35 | 146 | 33 | 98 |
-| Lines of Python, including tests | 892 | 1,955 | 1,673 | 3,237 |
-| Time | 8 min | 23 min | 24 min | 45 min, stopped by the limit |
-| Requests / output tokens | 25 / 23k | 84 / 83k | 43 / 47k | 96 / 121k |
+| `logstat` (medium) | 27B | ISTA `IQ3_XXS` | Unsloth `UD-IQ4_XS` |
+|---|---|---|---|
+| Hidden tests passed | 25 of 26 | 26 of 26 | 25 of 26 (second attempt) |
+| Own tests written, all passing | 35 | 146 | 177 |
+| Lines of Python, including tests | 892 | 1,955 | 2,047 |
+| Time | 8 min | 23 min | 32 min |
+| Requests / output tokens | 25 / 23k | 84 / 83k | 82 / 87k |
+
+| `jobq` (hard) | 27B | ISTA `IQ3_XXS` | Unsloth `UD-IQ4_XS` |
+|---|---|---|---|
+| Hidden tests passed | 22 of 22 | 21 of 22 | 22 of 22 |
+| Own tests written, all passing | 33 | 98 | 77 |
+| Lines of Python, including tests | 1,673 | 3,237 | 2,981 |
+| Time | 24 min | 45 min, stopped by the limit | 44.6 min, finished |
+| Requests / output tokens | 43 / 47k | 96 / 121k | 95 / 113k |
+
+The Unsloth file's first `logstat` attempt failed: its first reply came back empty after about
+1,100 generated tokens, so the agent stopped after 28 seconds with nothing written. The rerun
+above was the second attempt. No other run had an empty reply.
 
 How the work compares, in my review:
 
-- **Both designs are sound and close to identical.** Both `logstat` versions stream the files
-  and compute exact nearest-rank percentiles. Both `jobq` versions take the single lease with
-  a `BEGIN IMMEDIATE` transaction around one guarded `UPDATE`, run a background sweeper for
-  expired leases, and keep all state in SQLite.
+- **The designs are sound and close to identical.** All `logstat` versions stream the files
+  and compute exact percentiles. All `jobq` versions take the single lease with a
+  `BEGIN IMMEDIATE` transaction around one guarded `UPDATE`, reclaim expired leases, and keep
+  all state in SQLite.
 - **27B misses:** its log parser rejects lines with an escaped quote in the user-agent field,
   which real logs contain. Its `jobq` serialises all database access through one connection and
   a lock (correct, slower under load) and uses `synchronous=NORMAL`, which survives a process
   kill but can lose the last commits on a power cut.
-- **Flash-Next misses:** it returns 400 rather than 404 for a job id that is not a number,
+- **ISTA `IQ3_XXS` misses:** it returns 400 rather than 404 for a job id that is not a number,
   which is a defensible reading of the brief. Its `jobq` was still adding tests when the
   45-minute limit stopped it, so it never wrote its final report, although the code and
   README were complete.
-- **Flash-Next is more thorough,** not more correct. It writes three to four times as many
-  tests (concurrent compare-and-swap, a `kill -9` during a long poll, pipelined connections)
-  and a longer README. For hand-off work that is worth something; it also takes two to three
-  times as long.
-- **Speed per token is similar:** Strata decoded at about 50–90 tokens/s in these sessions.
-  Flash-Next takes longer because it writes more, not because it is slower.
+- **Unsloth `UD-IQ4_XS` misses:** the same escaped-quote defect as the 27B in `logstat`. Its
+  `jobq` also uses one connection behind a lock, but with `synchronous=FULL`, and it passes
+  every hidden test. It wrote both final reports, with its design decisions and limits.
+- **Flash-Next is more thorough,** not more correct. Both files write three to five times as
+  many tests (an 8-thread lease race, `kill -9` during a long poll, pipelined connections) and
+  longer READMEs. For hand-off work that is worth something; it also takes two to four times as
+  long.
+- **The 4-bit file is slower in use:** about 50 output tokens per second of model time on
+  `jobq`, against 66 for the 3-bit file, because more of its larger experts travel over PCIe.
 
-**Verdict:** on these tasks Flash-Next is not much better than the 27B. Both completed
-everything; the hidden tests found one small defect in each. Flash-Next's work is more
-thorough and its tests far more extensive, at two to three times the time and about two and a
-half times the output tokens, with one request at a time. That does not justify giving up
-parallel agents, so the recommendation stays vLLM with Qwen3.8-27B.
+**Verdict:** on these tasks Flash-Next is not much better than the 27B, in either file. All
+three setups completed everything; the hidden tests found at most one small defect in each
+task. The 4-bit Unsloth file is the only one with a clean `jobq`, but it repeats the 27B's
+`logstat` defect, failed one attempt with an empty reply, and is the slowest. Flash-Next's work
+is more thorough, at two to four times the time and about two and a half times the output
+tokens, with one request at a time. That does not justify giving up parallel agents, so the
+recommendation stays vLLM with Qwen3.8-27B.
+
+*Drafter on the Unsloth file.* Same file, same session, speed test plus one 768-token reply:
+
+| Drafter | Code / prose / JSON (tokens/s) | Mean | 768-token reply | Drafts accepted |
+|---|---|---|---|---|
+| MTP | 61 / 60 / 79 | 66.6 | 56.3 | 72% during the agent runs |
+| DFlash2 (Strata's default) | 18 / 18 / 18 | 18.4 | 18.0 | 0 of 27,610 |
+
+With this file, as with ISTA's `IQ3_S`, the DFlash2 drafter accepts nothing, so decode runs
+far below even running without a drafter (49 tokens/s on the 3-bit Swift file). It works only with ISTA's `IQ3_XXS` here. Strata picks
+DFlash2 by itself for every Flash-Next file, so the Unsloth file is only usable with
+`"drafting": "mtp"` set in its config.
 
 Limits: one run per job and model, and the 27B's time on the same job varied from 88 s to 417 s
 between two runs, so the timing differences are rough. The planning tasks are a few hundred to
@@ -567,6 +604,21 @@ a few thousand lines, not multi-day projects.
   `strata serve --profile <corrected config>`; the draft-layer column adds `--mtp` with the
   layer XeStrata had prepared.
 - **Four slots:** `"parallel": 4` in XeStrata's model config, `--parallel 4` on `strata serve`.
+- **MTP on Intel with upstream Strata.** The launcher says no draft layer is used on Intel
+  cards yet; that describes its setup step, not the engine. The engine in `0.2.13-sycl` runs
+  MTP fine. Build the layer once with the tools in the image (into the `strata-data` volume):
+  `mtp_fetch.py fetch --out /data/mtp`, `mtp_pack.py --src /data/mtp --experts q2_0 --out
+  /data/mtp/mtp-q2_0.gguf`, `mtp_rt.py --gguf /data/mtp/mtp-q2_0.gguf --out /data/mtp/rt`, and
+  copy `data/draft_vocab_en.bin` to `rt/draft_vocab.bin` (all under `/opt/strata/terminal`).
+  Setup then finds the layer and writes `--mtp` into the config, but the launcher still swaps
+  in DFlash2 at every start. Add `"drafting": "mtp"` to the config and start it with
+  `strata serve --profile <config> --host 0.0.0.0 --port 8000`; `"api_key"` in the same file
+  sets the key.
+- **Unsloth's IQ4_XS** is offered as `--model UD-IQ4_XS-v31 --family unsloth`: the current
+  upload is the "v31" revision, and the plain name fails with "has no ... UD-IQ4_XS file".
+  UD-Q4_K_XL and larger need K-quant kernels that the Intel engine does not have.
+- **XeStrata was removed** from this machine after these tests; its numbers above stay for
+  reference.
 
 ### Power cap
 

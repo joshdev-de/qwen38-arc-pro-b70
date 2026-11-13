@@ -1,0 +1,6 @@
+iq4xs-unsloth-dflash2 code  18.4  prose  18.4  json  18.3  | mean  18.4 t/s (spread 17.7-18.7)
+unsloth-dflash2 p=1: per-request decode  18.0 t/s (min 18.0), TTFT max 0.12s, aggregate  18.0 t/s
+iq4xs-unsloth-mtp code  61.3  prose  60.0  json  78.5  | mean  66.6 t/s (spread 55.9-89.7)
+unsloth-mtp p=1: per-request decode  56.3 t/s (min 56.3), TTFT max 0.16s, aggregate  55.7 t/s
+prod health 200
+handed over 23:03:43

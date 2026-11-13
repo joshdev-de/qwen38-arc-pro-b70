@@ -203,7 +203,7 @@ STUCK_N=3 consecutive readings >= FAN_STUCK. Needs reinstall: ./install-b70-kick
 Short-window idle power/residency readings are unreliable (counters catch up in jumps); use windows >= 2 min.
 
 ## Gateway (2026-11-11)
-Bifrost gateway on :4000 in front of qwen38; see ~/llm-homelab-setup (README.md, docs/DESIGN.md).
+agentgateway on :4001 in front of qwen38 (Bifrost on :4000 was removed 2026-11-13); see ~/llm-homelab-setup (README.md, docs/DESIGN.md).
 speedbench.py and prefix_check.py gained an optional --url (default unchanged: localhost --port);
 prefix_check still reads vLLM /metrics on --port with the vLLM key (--metrics-key to override).
 
@@ -267,3 +267,17 @@ README earlier said XeStrata is easier to set up on a B70. Wrong when the origin
 0.2.13 with the ISTA IQ3_XXS ran untouched from ghcr image + env vars. XeStrata has no container image (rpm/deb
 only), needed a local podman build and a second setup run with the card free. Upstream needed hand edits
 (fixed.json) only with the Swift files.
+
+## Unsloth UD-IQ4_XS + MTP on upstream Strata 0.2.13 (2026-11-13)
+Removed XeStrata (image, xestrata_cache volume, ~/.local/share|config|state/xestrata, ~/src/XeStrata).
+Files ~/models/flashnext/unsloth/UD-IQ4_XS (93.7 GB, 4 shards; Strata model name UD-IQ4_XS-v31, family unsloth).
+MTP layer built in-image (mtp_fetch/mtp_pack/mtp_rt, en vocab) -> /data/Strata-data/mtp/rt (entrypoint moved it there).
+Launcher (run mode) always picks DFlash2 and re-saves the preset from env; use /data/install/unsloth-mtp.json
+("drafting":"mtp", "api_key", port 8000) via `strata serve --profile`. Restarting via `launch --restart` inside the
+container trips the entrypoint watchdog (container exits).
+speedbench: MTP 66.6 mean (61/60/79), 768-tok 56.3; DFlash2 18.4, accepted 0 of 27610 (same failure as ISTA IQ3_S).
+Delegation 6/6 pass, 1467 s / 66k out. logstat: first attempt empty reply after 1088 tokens (agent stopped at 28 s);
+rerun 25/26 hidden (escaped-quote UA, same as 27B), 177 own, 32 min, 87k. jobq 22/22 hidden, 77 own, 44.6 min, 113k.
+Agent throughput ~50 out tok/s of model time vs 66 for ISTA IQ3_XXS+DFlash2. Verdict unchanged: keep vLLM 27B.
+Configs kept in strata-data: unsloth-mtp.json, unsloth-dflash2.json, unsloth-mtp-rec.json, iq3xxs-d2.json (ISTA + DFlash2,
+--expert-profile-save /data/Strata-data/profiles/agentic-iq3xxs.bin). Production restored 23:03 UTC.
