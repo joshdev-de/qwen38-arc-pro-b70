@@ -289,4 +289,4 @@ Fix for the test: config iq3xxs-d2-medium.json with "tokenizer": /data/Strata-da
 default('xhigh') -> default('medium')). Prompt tokens: pi-style 11 = explicit medium 11, xhigh 53.
 Delegation 681 s / 37k (C first attempt: broken tool call `<tool_call><function=</function></tool_call>` as text, 13 s;
 rerun 51 s pass). logstat 25/26 (escaped-quote UA), 18 own, 6 min, 28k. jobq 22/22, 22 own, 10 min, 32k.
-vs 27B medium: 944 s, 8 min, 24 min, same hidden results. 2 of 42 Flash-Next sessions ended on an unusable reply.
+vs 27B medium: 944 s, 8 min, 24 min, same hidden results. 2 of 26 Flash-Next sessions ended on an unusable reply.

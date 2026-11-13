@@ -576,8 +576,8 @@ How the work compares, in my review:
 **Verdict:** at equal effort (`medium`), Flash-Next on Strata matches the 27B on correctness
 and is faster for one agent: 681 s against 944 s for the delegation jobs, 6 against 8 minutes
 and 10 against 24 minutes for the planning tasks, with the same hidden-test results. It is not
-better, and its reliability is worse: two of the 42 Flash-Next agent sessions ended on an
-unusable reply (one empty, one broken tool call); none of the 27B's did. At `xhigh` it is more
+better, and its reliability is worse: two of the 26 Flash-Next agent sessions ended on an
+unusable reply (one empty, one broken tool call); none of the 27B's 8 did. At `xhigh` it is more
 thorough but two to four times slower. Strata serves one request at a time, so for several
 agents at once vLLM with Qwen3.8-27B stays the recommendation. For a single agent at `medium`,
 Flash-Next on Strata is a reasonable alternative once the broken replies are understood.
