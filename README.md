@@ -487,6 +487,12 @@ one job at a time. Flash-Next ran on stock Strata 0.2.13 in two forms:
 (ISTA's `IQ3_S` file was abandoned: DFlash2 rejected every guess with it and decoded at 19
 tokens/s.) Briefs, runners and hidden tests are in [`agentic/`](agentic/).
 
+**Thinking effort differed.** The agents (pi, OpenCode) send no reasoning effort. vLLM applies
+the production default, `medium` (`--default-chat-template-kwargs`); Strata's configs set none,
+so both Flash-Next runs used the chat template's default, `xhigh`. Part of Flash-Next's longer
+times and larger token counts below comes from that, and the 27B at `xhigh` may close part of
+its quality gap (on the chained questions it scored 111 at `medium` and 116 at `xhigh`).
+
 *Delegation jobs.* Six implementation jobs from an earlier trial: Claude Code had already written
 the types, the stub functions with their specs, and the acceptance tests; the model only
 implements. Go, against a vendored MCP SDK. Time / output tokens:
