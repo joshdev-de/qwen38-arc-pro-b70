@@ -261,3 +261,9 @@ Planning (pi, empty repo, 45 min cap, hidden tests written first): logstat 27B 2
 FN 26/26, 146 own, 23 min. jobq 27B 22/22, 33 own, 24 min; FN 21/22 (400 not 404 for non-numeric id), 98 own,
 hit the 45 min cap. 27B logstat fails escaped quotes in UA. Verdict: not much better; keep vLLM 27B.
 27B run-to-run variance: job A 88-138 s (morning, 3 parallel) vs 417 s (rerun, alone).
+
+## Correction: setup effort Strata vs XeStrata (2026-11-13)
+README earlier said XeStrata is easier to set up on a B70. Wrong when the original model is used: upstream
+0.2.13 with the ISTA IQ3_XXS ran untouched from ghcr image + env vars. XeStrata has no container image (rpm/deb
+only), needed a local podman build and a second setup run with the card free. Upstream needed hand edits
+(fixed.json) only with the Swift files.

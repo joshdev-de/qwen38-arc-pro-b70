@@ -32,7 +32,8 @@ throughput and no queueing.
 - **Bigger model, other engine:** the 125B Qwen3.8-Flash-Next on Strata or XeStrata decodes up
   to 18% faster for one client, reads long prompts twice as fast and is as accurate, but
   manages half the throughput with four clients. Upstream Strata now matches the XeStrata fork
-  on speed; the fork is easier to set up on a B70.
+  on speed. With the original model it is also the easier one to set up: a published image and
+  a few settings, against a locally built image and a setup run for the fork.
 - **Vision:** costs context cache; limiting images to about 1 megapixel recovers roughly half of it.
 - **Power:** a 180 W cap costs 2% of decode speed and saves about a quarter of the power.
 - **Fan bug:** the B70's stuck-fan problem can be worked around without touching driver or firmware.
@@ -445,8 +446,10 @@ at `medium` and 116 at `xhigh`.
   (JSON 102 against 90 tokens/s) and much slower on prose (41 against 72).
 - **XeStrata against upstream:** on speed they are level once upstream has a drafter, and
   prefill is within 10%. XeStrata's documented lead of two to three times in prefill does not
-  hold against 0.2.13 on this card. XeStrata is still ahead on multi-client speed and on setup
-  for the B70.
+  hold against 0.2.13 on this card. XeStrata is still ahead on multi-client speed. It is not
+  easier to set up: upstream with the original model ran untouched from its published image,
+  while XeStrata needed a locally built image and a second setup run (see Setup notes). Upstream
+  only needed hand edits with the Swift files, which it does not support.
 - **Swift against the original:** same accuracy within noise, and no visible saving in thinking
   at effort `low` (about 13k tokens for the 80 questions and 58k for the chained set on both).
 - **Resources:** about 48 GB of RAM in use, plus a 29 GB table XeStrata keeps in RAM. CPU load
@@ -457,8 +460,8 @@ at `medium` and 116 at `xhigh`.
 | Situation | Choice |
 |---|---|
 | Several agents or people at once (the use case this setup aims for) | vLLM with Qwen3.8-27B, the recommended setup |
-| One user, long prompts, a B70 | XeStrata with Swift 1.5 or the original model |
-| One user, prefer the actively developed project | Upstream Strata with the original model |
+| One user, simplest setup | Upstream Strata with the original model |
+| One user, steadier speed on prose, or several slots | XeStrata with Swift 1.5 or the original model |
 
 **Conclusion for this repository:** vLLM with Qwen3.8-27B remains the recommended setup,
 because the use case aimed for is several agents working in parallel. At four clients it
@@ -544,6 +547,11 @@ a few thousand lines, not multi-day projects.
 
 **Setup notes**
 
+- **Which is easier depends on the model.** Upstream Strata with the original model is the
+  least work: pull the published image and start it with a few settings. XeStrata publishes
+  rpm and deb packages but no container image, so for a container it has to be built first,
+  and its setup has to run with the card free.
+  Upstream is only harder with the Swift files, which its launcher does not handle (below).
 - **XeStrata** was built from `container/Containerfile` in its repository and set up with
   `xestrata --setup --family swift --model IQ3_XXS --context 196608 --vision yes --yes`. Setup
   downloaded the model, the draft layer and the image encoder, and configured vision.
