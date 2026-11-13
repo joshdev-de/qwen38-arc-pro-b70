@@ -487,27 +487,33 @@ one job at a time. Flash-Next ran on stock Strata 0.2.13 in two forms:
 (ISTA's `IQ3_S` file was abandoned: DFlash2 rejected every guess with it and decoded at 19
 tokens/s.) Briefs, runners and hidden tests are in [`agentic/`](agentic/).
 
-**Thinking effort differed.** The agents (pi, OpenCode) send no reasoning effort. vLLM applies
-the production default, `medium` (`--default-chat-template-kwargs`); Strata's configs set none,
-so both Flash-Next runs used the chat template's default, `xhigh`. Part of Flash-Next's longer
-times and larger token counts below comes from that, and the 27B at `xhigh` may close part of
-its quality gap (on the chained questions it scored 111 at `medium` and 116 at `xhigh`).
+**Thinking effort.** The agents (pi, OpenCode) send no reasoning effort. vLLM applies the
+production default, `medium` (`--default-chat-template-kwargs`). The first two Flash-Next runs
+used the chat template's default, `xhigh`. A third run repeated the ISTA file at `medium`, to
+match the 27B. Strata's own `"reasoning_effort"` config key does not help here: Strata applies
+it only to requests that do not set `enable_thinking`, and pi always sets it. That run therefore
+used a copy of the chat template with its default changed from `xhigh` to `medium`. A pi-style
+request then renders the same prompt as an explicit `medium` (11 tokens; `xhigh` adds its
+instructions, 53).
 
 *Delegation jobs.* Six implementation jobs from an earlier trial: Claude Code had already written
 the types, the stub functions with their specs, and the acceptance tests; the model only
 implements. Go, against a vendored MCP SDK. Time / output tokens:
 
-| Job | 27B (vLLM) | ISTA `IQ3_XXS` + DFlash2 | Unsloth `UD-IQ4_XS` + MTP |
-|---|---|---|---|
-| A: Prometheus text parser | 417 s / 18.5k | 218 s / 13.2k | 224 s / 10.3k |
-| B: GPU sensor reader | 122 s / 5.7k | 206 s / 11.9k | 197 s / 9.1k |
-| C: MCP tool wiring | 83 s / 3.2k | 143 s / 7.2k | 181 s / 7.5k |
-| D: vLLM client and `main.go` (pi) | 110 s / 5.2k | 273 s / 15.2k | 474 s / 21.2k |
-| D: same brief (OpenCode) | 162 s / 7.4k | 159 s / 9.0k | 299 s / 14.1k |
-| B2: symlink bug fix | 50 s / 1.9k | 88 s / 4.9k | 92 s / 3.4k |
-| **Total** | **944 s / 42k** | **1,087 s / 61k** | **1,467 s / 66k** |
+| Job | 27B (vLLM), `medium` | ISTA `IQ3_XXS`, `xhigh` | Unsloth `UD-IQ4_XS`, `xhigh` | ISTA `IQ3_XXS`, `medium` |
+|---|---|---|---|---|
+| A: Prometheus text parser | 417 s / 18.5k | 218 s / 13.2k | 224 s / 10.3k | 143 s / 8.1k |
+| B: GPU sensor reader | 122 s / 5.7k | 206 s / 11.9k | 197 s / 9.1k | 113 s / 6.0k |
+| C: MCP tool wiring | 83 s / 3.2k | 143 s / 7.2k | 181 s / 7.5k | 51 s / 2.2k (second attempt) |
+| D: vLLM client and `main.go` (pi) | 110 s / 5.2k | 273 s / 15.2k | 474 s / 21.2k | 185 s / 10.3k |
+| D: same brief (OpenCode) | 162 s / 7.4k | 159 s / 9.0k | 299 s / 14.1k | 144 s / 8.2k |
+| B2: symlink bug fix | 50 s / 1.9k | 88 s / 4.9k | 92 s / 3.4k | 45 s / 2.1k |
+| **Total** | **944 s / 42k** | **1,087 s / 61k** | **1,467 s / 66k** | **681 s / 37k** |
 
-All 18 results pass `go vet` and `go test -race`, and none touched a protected file. The 27B
+All 24 results pass `go vet` and `go test -race`, and none touched a protected file. The ISTA
+file at `medium` failed its first attempt at job C: after 13 s it wrote a broken tool call as
+plain text (`<tool_call><function=</function></tool_call>`, no function name), which pi took as
+its final answer, with nothing changed. The rerun above passed. The 27B
 spent 19.6k of its 42k output tokens on reasoning; Strata does not report the split.
 
 *Planning tasks.* No stubs and no tests: an empty repository and a written brief. The model had
@@ -520,21 +526,21 @@ acceptance tests for both tasks before any model ran.
   leases with expiry and heartbeat, retries until dead, idempotency, long polling, concurrent
   clients, and survival of a `kill -9`.
 
-| `logstat` (medium) | 27B | ISTA `IQ3_XXS` | Unsloth `UD-IQ4_XS` |
-|---|---|---|---|
-| Hidden tests passed | 25 of 26 | 26 of 26 | 25 of 26 (second attempt) |
-| Own tests written, all passing | 35 | 146 | 177 |
-| Lines of Python, including tests | 892 | 1,955 | 2,047 |
-| Time | 8 min | 23 min | 32 min |
-| Requests / output tokens | 25 / 23k | 84 / 83k | 82 / 87k |
+| `logstat` (medium) | 27B, `medium` | ISTA, `xhigh` | Unsloth, `xhigh` | ISTA, `medium` |
+|---|---|---|---|---|
+| Hidden tests passed | 25 of 26 | 26 of 26 | 25 of 26 (second attempt) | 25 of 26 |
+| Own tests written, all passing | 35 | 146 | 177 | 18 |
+| Lines of Python, including tests | 892 | 1,955 | 2,047 | 735 |
+| Time | 8 min | 23 min | 32 min | 6 min |
+| Requests / output tokens | 25 / 23k | 84 / 83k | 82 / 87k | 15 / 28k |
 
-| `jobq` (hard) | 27B | ISTA `IQ3_XXS` | Unsloth `UD-IQ4_XS` |
-|---|---|---|---|
-| Hidden tests passed | 22 of 22 | 21 of 22 | 22 of 22 |
-| Own tests written, all passing | 33 | 98 | 77 |
-| Lines of Python, including tests | 1,673 | 3,237 | 2,981 |
-| Time | 24 min | 45 min, stopped by the limit | 44.6 min, finished |
-| Requests / output tokens | 43 / 47k | 96 / 121k | 95 / 113k |
+| `jobq` (hard) | 27B, `medium` | ISTA, `xhigh` | Unsloth, `xhigh` | ISTA, `medium` |
+|---|---|---|---|---|
+| Hidden tests passed | 22 of 22 | 21 of 22 | 22 of 22 | 22 of 22 |
+| Own tests written, all passing | 33 | 98 | 77 | 22 |
+| Lines of Python, including tests | 1,673 | 3,237 | 2,981 | 1,170 |
+| Time | 24 min | 45 min, stopped by the limit | 44.6 min, finished | 10 min |
+| Requests / output tokens | 43 / 47k | 96 / 121k | 95 / 113k | 21 / 32k |
 
 The Unsloth file's first `logstat` attempt failed: its first reply came back empty after about
 1,100 generated tokens, so the agent stopped after 28 seconds with nothing written. The rerun
@@ -557,20 +563,24 @@ How the work compares, in my review:
 - **Unsloth `UD-IQ4_XS` misses:** the same escaped-quote defect as the 27B in `logstat`. Its
   `jobq` also uses one connection behind a lock, but with `synchronous=FULL`, and it passes
   every hidden test. It wrote both final reports, with its design decisions and limits.
-- **Flash-Next is more thorough,** not more correct. Both files write three to five times as
+- **ISTA `IQ3_XXS` at `medium` misses:** the same escaped-quote defect as the 27B. Its `jobq`
+  uses `synchronous=NORMAL` like the 27B's and passes every hidden test; its tests still cover
+  a 16-thread lease race and a real `kill -9`.
+- **The thoroughness came from `xhigh`.** At `xhigh` Flash-Next wrote three to five times as
   many tests (an 8-thread lease race, `kill -9` during a long poll, pipelined connections) and
-  longer READMEs. For hand-off work that is worth something; it also takes two to four times as
-  long.
+  longer READMEs, at two to four times the time. At `medium` it writes fewer tests than the
+  27B and finishes faster, with the same hidden-test results.
 - **The 4-bit file is slower in use:** about 50 output tokens per second of model time on
   `jobq`, against 66 for the 3-bit file, because more of its larger experts travel over PCIe.
 
-**Verdict:** on these tasks Flash-Next is not much better than the 27B, in either file. All
-three setups completed everything; the hidden tests found at most one small defect in each
-task. The 4-bit Unsloth file is the only one with a clean `jobq`, but it repeats the 27B's
-`logstat` defect, failed one attempt with an empty reply, and is the slowest. Flash-Next's work
-is more thorough, at two to four times the time and about two and a half times the output
-tokens, with one request at a time. That does not justify giving up parallel agents, so the
-recommendation stays vLLM with Qwen3.8-27B.
+**Verdict:** at equal effort (`medium`), Flash-Next on Strata matches the 27B on correctness
+and is faster for one agent: 681 s against 944 s for the delegation jobs, 6 against 8 minutes
+and 10 against 24 minutes for the planning tasks, with the same hidden-test results. It is not
+better, and its reliability is worse: two of the 42 Flash-Next agent sessions ended on an
+unusable reply (one empty, one broken tool call); none of the 27B's did. At `xhigh` it is more
+thorough but two to four times slower. Strata serves one request at a time, so for several
+agents at once vLLM with Qwen3.8-27B stays the recommendation. For a single agent at `medium`,
+Flash-Next on Strata is a reasonable alternative once the broken replies are understood.
 
 *Drafter on the Unsloth file.* Same file, same session, speed test plus one 768-token reply:
 

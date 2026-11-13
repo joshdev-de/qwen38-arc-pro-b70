@@ -281,3 +281,12 @@ rerun 25/26 hidden (escaped-quote UA, same as 27B), 177 own, 32 min, 87k. jobq 2
 Agent throughput ~50 out tok/s of model time vs 66 for ISTA IQ3_XXS+DFlash2. Verdict unchanged: keep vLLM 27B.
 Configs kept in strata-data: unsloth-mtp.json, unsloth-dflash2.json, unsloth-mtp-rec.json, iq3xxs-d2.json (ISTA + DFlash2,
 --expert-profile-save /data/Strata-data/profiles/agentic-iq3xxs.bin). Production restored 23:03 UTC.
+
+## ISTA IQ3_XXS + DFlash2 at medium effort (2026-11-13, 23:07-23:45 UTC)
+pi sends chat_template_kwargs {enable_thinking, preserve_thinking} and no effort; Strata applies its config
+"reasoning_effort" only when enable_thinking is absent, so earlier Flash-Next runs were xhigh (template default).
+Fix for the test: config iq3xxs-d2-medium.json with "tokenizer": /data/Strata-data/tok-iq3xxs-medium (chat template
+default('xhigh') -> default('medium')). Prompt tokens: pi-style 11 = explicit medium 11, xhigh 53.
+Delegation 681 s / 37k (C first attempt: broken tool call `<tool_call><function=</function></tool_call>` as text, 13 s;
+rerun 51 s pass). logstat 25/26 (escaped-quote UA), 18 own, 6 min, 28k. jobq 22/22, 22 own, 10 min, 32k.
+vs 27B medium: 944 s, 8 min, 24 min, same hidden results. 2 of 42 Flash-Next sessions ended on an unusable reply.
