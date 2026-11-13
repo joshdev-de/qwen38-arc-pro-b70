@@ -1,0 +1,3 @@
+Bug report for mcp/homelab-mcp/internal/hwmon/hwmon.go: Find returns "no GPU hwmon directory" on a real machine. In real sysfs, /sys/class/drm/card0 and card0/device are symlinks, and os.ReadDir reports symlinks as non-directories, so Find skips them. The new test TestFindSymlinks in internal/hwmon/hwmon_test.go reproduces it. Fix Find so it follows symlinks (keep lexical order and all other behaviour); make sure the existing tests still pass.
+
+Rules: change only internal/hwmon/hwmon.go. Do NOT modify any *_test.go file or anything outside internal/hwmon. Standard library only. No network. Do not commit. Before you finish, run `cd mcp/homelab-mcp && gofmt -l internal/ ; go vet ./... && go test ./internal/hwmon/` and make sure it passes. Finish with a short report.

@@ -1,0 +1,5 @@
+Implement slice D of the Go MCP server in mcp/homelab-mcp:
+1. The stub in internal/vllm/vllm.go (Client.LLMStatus). Its doc comment is the spec; internal/vllm/vllm_test.go is the acceptance test. Use internal/promtext for parsing.
+2. main.go: replace the TODO with the program described in its comment. Use internal/vllm, internal/hwmon, internal/server and the vendored go-sdk (mcp.StdioTransport, Server.Run).
+
+Rules: change only internal/vllm/vllm.go and main.go (you may add non-test .go files in those packages). Do NOT modify any *_test.go file, internal/status, internal/promtext, internal/hwmon, internal/server, vendor/, go.mod or go.sum. Standard library only plus the vendored go-sdk. There is no network: never run go get or go mod. Do not commit. Before you finish, run `cd mcp/homelab-mcp && gofmt -l main.go internal/ ; go vet ./... && go test ./... && go build -o /tmp/homelab-mcp . && /tmp/homelab-mcp -version` and make sure it passes. Finish with a short report: what you implemented, test result, anything unclear.

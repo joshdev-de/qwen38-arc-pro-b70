@@ -1,0 +1,25 @@
+Build `jobq`, a small durable job-queue service, in this empty repository. Python 3, standard library only (sqlite3, http.server and threading are fine). You decide the architecture.
+
+Start the server with `python3 -m jobq serve --db PATH --port PORT [--host 127.0.0.1]`. It speaks JSON over HTTP:
+
+- `POST /queues/{queue}/jobs` with {"payload": <any JSON>, "delay_seconds": 0, "max_attempts": 3, "priority": 0, "idempotency_key": null} (all but payload optional) -> 201 and the job record. If a job with the same non-null idempotency_key already exists in that queue, nothing is created and the existing job record is returned with 200.
+- `POST /queues/{queue}/lease` with {"worker": "name", "lease_seconds": 30, "max_jobs": 1, "wait_seconds": 0} -> 200 {"jobs": [...]}. Each leased job carries "id", "payload", "attempt" (1 for the first lease), "lease_token" and "lease_expires_at". Jobs are handed out by priority (higher first), then oldest first. With wait_seconds > 0 the call waits up to that long for a job to become available (long poll) and then returns an empty list.
+- `POST /jobs/{id}/ack` with {"lease_token"} -> 200, the job is done.
+- `POST /jobs/{id}/nack` with {"lease_token", "error": "...", "retry_delay_seconds": 0} -> 200. The job becomes available again (after the delay), unless its attempts are used up: then it is dead.
+- `POST /jobs/{id}/heartbeat` with {"lease_token", "lease_seconds": 30} -> 200, the lease is extended.
+- ack, nack and heartbeat with a wrong token, or for a lease that has expired, return 409.
+- `GET /jobs/{id}` -> the job record: at least "id", "queue", "state" (one of ready, delayed, leased, done, dead), "payload", "priority", "attempts", "max_attempts", "last_error", "idempotency_key".
+- `GET /queues/{queue}/stats` -> {"ready": n, "delayed": n, "leased": n, "done": n, "dead": n}.
+- `GET /healthz` -> 200 {"ok": true}.
+- Unknown routes and unknown job ids return 404; invalid JSON or invalid field values return 400. Every error body is {"error": "..."}.
+
+Semantics that must hold:
+- A job is never leased to two workers at the same time, also when many clients call lease concurrently.
+- A lease that runs out without an ack makes the job available again; that lease counts as an attempt. When max_attempts leases have ended without an ack (expired or nacked), the job is dead and is never handed out again.
+- A delayed job cannot be leased before its delay has passed.
+- Everything survives a restart of the server process, including a kill -9: jobs, their states, attempts, and leases (which then expire by wall-clock time as usual).
+- The server handles several simultaneous clients.
+
+Also provide a small command-line client in the same package (for example `python3 -m jobq enqueue`, `lease`, `ack`, `stats`); its exact shape is up to you.
+
+Deliver: the package, your own pytest tests (they must pass with `python3 -m pytest -q` from the repository root), and a README.md with usage and design notes: the storage schema, how you guarantee that a job has at most one lease, how lease expiry and delays are handled, and what happens on restart. First write PLAN.md with your design, then implement it. There is no network and nobody to ask: where the requirements leave something open, decide, and note the decision in the README. Do not commit. Finish with a short report.

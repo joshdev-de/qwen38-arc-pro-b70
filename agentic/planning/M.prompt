@@ -1,0 +1,18 @@
+Build a command-line tool called `logstat` in this empty repository. Python 3, standard library only. You decide the design.
+
+Purpose: summarise web server access logs in Combined Log Format, optionally with the request time in seconds as a last field. Example lines:
+203.0.113.9 - alice [12/Nov/2026:13:55:36 +0000] "GET /api/items?id=3 HTTP/1.1" 200 2326 "-" "curl/8.5" 0.123
+198.51.100.7 - - [12/Nov/2026:14:01:02 +0100] "POST /login HTTP/2.0" 302 - "https://example.org/" "Mozilla/5.0 (X11; Linux)"
+
+Requirements:
+- Run as `python3 -m logstat [options] FILE...`. A FILE of `-` means standard input. Files ending in .gz are read transparently. Several files are summarised together.
+- Options: `--since TS` and `--until TS` (ISO 8601; since is inclusive, until is exclusive; a timestamp without offset is UTC; lines are compared by their real instant, whatever their own offset), `--status LIST` (comma separated; exact codes like 404 and classes like 5xx may be mixed), `--method LIST`, `--path-prefix PREFIX`, `--top N` (default 10), `--format text|json` (default text), `--strict`.
+- The path is counted without its query string. A size of `-` counts as 0 bytes. The request-time field is optional per line.
+- Malformed lines are skipped and counted, unless `--strict` is given: then the first malformed line ends the program with exit code 2 and a message on stderr naming the file and line number.
+- JSON output is one object with exactly these keys: `lines_total` (all lines read), `lines_malformed`, `lines_matched` (well-formed lines that pass the filters), `bytes_total`, `status` (object: code as string -> count), `status_classes` (object: "2xx" etc. -> count), `methods` (object), `top_paths` (list of {"path","count","bytes"}), `top_clients` (list of {"client","count"}), `latency` (null when no matched line has a request time, else {"count","min","max","mean","p50","p95","p99"}), `first_ts` and `last_ts` (ISO 8601 in UTC with a Z suffix, of the earliest and latest matched line, or null). All statistics cover matched lines only.
+- Top lists are sorted by count descending, then by name ascending, and cut to N. Percentiles use the nearest-rank method.
+- Text output is a readable report of the same information.
+- Exit codes: 0 success, 1 a file cannot be read, 2 usage error or strict-mode failure.
+- It must cope with log files of several GB: do not load a whole file into memory.
+
+Deliver: the package, your own pytest tests (they must pass with `python3 -m pytest -q` from the repository root), and a README.md with usage and design notes. First write a short PLAN.md with your design, then implement it. There is no network and nobody to ask: where the requirements leave something open, decide, and note the decision in the README. Do not commit. Finish with a short report.

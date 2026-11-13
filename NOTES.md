@@ -251,3 +251,13 @@ Files: ~/models/flashnext/IQ3_XXS (ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF, 
 PRESET=orig, CONTEXT=196608, VISION=on, PORT=8096, API_KEY_FILE. Worked untouched; DFlash2 drafter (772 MiB VRAM),
 parallel 1, no --vision in the written config. Raw: results/strata/strata0213-orig-iq3xxs-dflash2.txt.
 Freed disk first: deleted ~/models/alt, ~/models/Qwen3.6-35B-A3B-GPTQ-Int4, intel/llm-scaler-vllm image.
+
+## Agentic coding test, 27B vs Flash-Next on stock Strata (2026-11-13)
+Files: agentic/ (briefs, runners, hidden tests). Work dirs ~/bench/delegate and ~/bench/plan (not in git).
+Delegation (6 Go jobs from the homelab delegation trial, briefs from that session's transcript, one at a time):
+all 12 pass vet/race tests, protected files untouched. 27B 944 s / 42k out (19.6k reasoning), Flash-Next IQ3_XXS
+1087 s / 61k out. Strata IQ3_S aborted: DFlash2 accepted 0 drafts, 19 tok/s (bug with that pack on this card).
+Planning (pi, empty repo, 45 min cap, hidden tests written first): logstat 27B 25/26 hidden, 35 own, 8 min;
+FN 26/26, 146 own, 23 min. jobq 27B 22/22, 33 own, 24 min; FN 21/22 (400 not 404 for non-numeric id), 98 own,
+hit the 45 min cap. 27B logstat fails escaped quotes in UA. Verdict: not much better; keep vLLM 27B.
+27B run-to-run variance: job A 88-138 s (morning, 3 parallel) vs 417 s (rerun, alone).

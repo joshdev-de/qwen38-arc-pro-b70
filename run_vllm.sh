@@ -44,7 +44,7 @@ podman run -d --name "$NAME" --restart "$RESTART" \
   --max-num-seqs "$SEQS" --max-num-batched-tokens "$BATCH" $LMO \
   "${spec[@]}" \
   --enable-auto-tool-choice --tool-call-parser qwen3_coder --reasoning-parser qwen3 \
-  --default-chat-template-kwargs '{"reasoning_effort":"medium"}' $EXTRA
+  --default-chat-template-kwargs '{"reasoning_effort":"'"${EFFORT:-medium}"'"}' $EXTRA
 
 echo "started $NAME; waiting for /health ..."
 for i in $(seq 1 120); do

@@ -469,6 +469,79 @@ the better choice only when one agent or one person uses the card at a time.
 The Flash-Next runs are a single evening of testing; vision, the other quants and day-to-day
 agent use are untested.
 
+**Agentic coding test (13 November)**
+
+The same coding agent (pi, sandboxed, through the gateway) did the same work on both models,
+one job at a time. Flash-Next ran as the original `IQ3_XXS` on stock Strata 0.2.13 with its
+DFlash2 drafter. (The `IQ3_S` file was abandoned: Strata's drafter rejected every guess with it
+and decoded at 19 tokens/s.) Briefs, runners and hidden tests are in [`agentic/`](agentic/).
+
+*Delegation jobs.* Six implementation jobs from an earlier trial: Claude Code had already written
+the types, the stub functions with their specs, and the acceptance tests; the model only
+implements. Go, against a vendored MCP SDK.
+
+| Job | 27B: time / output tokens | Flash-Next: time / output tokens |
+|---|---|---|
+| A: Prometheus text parser | 417 s / 18.5k | 218 s / 13.2k |
+| B: GPU sensor reader | 122 s / 5.7k | 206 s / 11.9k |
+| C: MCP tool wiring | 83 s / 3.2k | 143 s / 7.2k |
+| D: vLLM client and `main.go` (pi) | 110 s / 5.2k | 273 s / 15.2k |
+| D: same brief (OpenCode) | 162 s / 7.4k | 159 s / 9.0k |
+| B2: symlink bug fix | 50 s / 1.9k | 88 s / 4.9k |
+| **Total** | **944 s / 42k** | **1,087 s / 61k** |
+
+All 12 results pass `go vet` and `go test -race`, and none touched a protected file. The 27B
+spent 19.6k of its 42k output tokens on reasoning; Strata does not report the split.
+
+*Planning tasks.* No stubs and no tests: an empty repository and a written brief. The model had
+to write a plan, the code, its own tests and a README, with a 45-minute limit. I wrote hidden
+acceptance tests for both tasks before either model ran.
+
+- **Medium, `logstat`:** a command-line summariser for web-server access logs, with filters,
+  top lists, latency percentiles, gzip and standard input, JSON and text output, and exit codes.
+- **Hard, `jobq`:** a durable job-queue service over HTTP with SQLite: priorities, delays,
+  leases with expiry and heartbeat, retries until dead, idempotency, long polling, concurrent
+  clients, and survival of a `kill -9`.
+
+| | 27B, `logstat` | Flash-Next, `logstat` | 27B, `jobq` | Flash-Next, `jobq` |
+|---|---|---|---|---|
+| Hidden tests passed | 25 of 26 | 26 of 26 | 22 of 22 | 21 of 22 |
+| Own tests written, all passing | 35 | 146 | 33 | 98 |
+| Lines of Python, including tests | 892 | 1,955 | 1,673 | 3,237 |
+| Time | 8 min | 23 min | 24 min | 45 min, stopped by the limit |
+| Requests / output tokens | 25 / 23k | 84 / 83k | 43 / 47k | 96 / 121k |
+
+How the work compares, in my review:
+
+- **Both designs are sound and close to identical.** Both `logstat` versions stream the files
+  and compute exact nearest-rank percentiles. Both `jobq` versions take the single lease with
+  a `BEGIN IMMEDIATE` transaction around one guarded `UPDATE`, run a background sweeper for
+  expired leases, and keep all state in SQLite.
+- **27B misses:** its log parser rejects lines with an escaped quote in the user-agent field,
+  which real logs contain. Its `jobq` serialises all database access through one connection and
+  a lock (correct, slower under load) and uses `synchronous=NORMAL`, which survives a process
+  kill but can lose the last commits on a power cut.
+- **Flash-Next misses:** it returns 400 rather than 404 for a job id that is not a number,
+  which is a defensible reading of the brief. Its `jobq` was still adding tests when the
+  45-minute limit stopped it, so it never wrote its final report, although the code and
+  README were complete.
+- **Flash-Next is more thorough,** not more correct. It writes three to four times as many
+  tests (concurrent compare-and-swap, a `kill -9` during a long poll, pipelined connections)
+  and a longer README. For hand-off work that is worth something; it also takes two to three
+  times as long.
+- **Speed per token is similar:** Strata decoded at about 50–90 tokens/s in these sessions.
+  Flash-Next takes longer because it writes more, not because it is slower.
+
+**Verdict:** on these tasks Flash-Next is not much better than the 27B. Both completed
+everything; the hidden tests found one small defect in each. Flash-Next's work is more
+thorough and its tests far more extensive, at two to three times the time and about two and a
+half times the output tokens, with one request at a time. That does not justify giving up
+parallel agents, so the recommendation stays vLLM with Qwen3.8-27B.
+
+Limits: one run per job and model, and the 27B's time on the same job varied from 88 s to 417 s
+between two runs, so the timing differences are rough. The planning tasks are a few hundred to
+a few thousand lines, not multi-day projects.
+
 **Setup notes**
 
 - **XeStrata** was built from `container/Containerfile` in its repository and set up with
