@@ -1,0 +1,7 @@
+llamacpp-ista-iq3xxs-nodraft code  23.3  prose  24.0  json  24.0  | mean  23.8 t/s (spread 22.9-24.4)
+llamacpp-unsloth-iq4xs-mtp2 code  31.2  prose  29.7  json  33.5  | mean  31.5 t/s (spread 28.3-33.8)
+llamacpp-unsloth-iq4xs-mtp4 code  21.8  prose  18.0  json  26.5  | mean  22.1 t/s (spread 17.4-29.9)
+llamacpp-unsloth-iq4xs-mtp2-loadnone code  31.7  prose  28.2  json  34.9  | mean  31.6 t/s (spread 28.1-36.9)
+llamacpp-unsloth-iq3xxs-mtp2 code  31.3  prose  28.3  json  35.9  | mean  31.8 t/s (spread 26.2-38.5)
+llamacpp-unsloth-iq3xxs-mtp2-np4 p=1: per-request decode  23.8 t/s (min 23.8), TTFT max 0.29s, aggregate  23.6 t/s
+llamacpp-unsloth-iq3xxs-mtp2-np4 p=4: per-request decode   9.4 t/s (min 9.3), TTFT max 1.51s, aggregate  36.7 t/s

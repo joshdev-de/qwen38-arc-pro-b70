@@ -290,3 +290,11 @@ default('xhigh') -> default('medium')). Prompt tokens: pi-style 11 = explicit me
 Delegation 681 s / 37k (C first attempt: broken tool call `<tool_call><function=</function></tool_call>` as text, 13 s;
 rerun 51 s pass). logstat 25/26 (escaped-quote UA), 18 own, 6 min, 28k. jobq 22/22, 22 own, 10 min, 32k.
 vs 27B medium: 944 s, 8 min, 24 min, same hidden results. 2 of 26 Flash-Next sessions ended on an unusable reply.
+
+## Flash-Next on vLLM / llama.cpp (2026-11-14, 00:10-00:55 UTC, production stopped)
+vLLM 0.33.0 XPU: Qwen4Exp registered but vllm/models/qwen4_exp raises NotImplementedError (CUDA/ROCm only); PR #57535.
+llama.cpp server-intel b12242: arch qwen4exp loads; container needs --security-opt label=disable (SELinux denied the
+read-only mount). Unsloth MTP shared-Q8_0 fails (token_embd.weight not found: no borrowing in stock build); self-contained
+mtp-Q8_0 works with --spec-type draft-mtp. Results in results/llamacpp-flashnext.txt: ISTA IQ3_XXS nodraft 23.8;
+UD-IQ4_XS MTP2 31.5 (98% acc), MTP4 22.1, MTP2 -lm none 31.6; UD-IQ3_XXS MTP2 31.8; np4 aggregate 36.7.
+Downloaded: ~/models/flashnext/unsloth/UD-IQ3_XXS (83.6 GB), MTP/{shared-Q8_0, Q8_0}. Production restored 00:5x.

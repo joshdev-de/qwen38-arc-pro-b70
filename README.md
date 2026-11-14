@@ -594,6 +594,30 @@ far below even running without a drafter (49 tokens/s on the 3-bit Swift file). 
 DFlash2 by itself for every Flash-Next file, so the Unsloth file is only usable with
 `"drafting": "mtp"` set in its config.
 
+*Other engines for Flash-Next (14 November).* vLLM 0.33.0 knows the architecture
+(`Qwen4ExpForConditionalGeneration`) but refuses it on Intel: "Qwen4Exp currently supports CUDA
+and ROCm only". The 125B model would not fit in 32 GB of VRAM anyway. llama.cpp
+(`server-intel` b12242, SYCL) loads the files, with `--fit` choosing which experts stay on the
+GPU and the n-gram table mapped lazily from disk (`-lm mmap --lazy-mode on`, as ISTA
+recommends). ISTA ships no drafter; Unsloth ships MTP heads. The `shared-` heads, which
+Unsloth recommends, need a llama.cpp fork (stock build: "token_embd.weight not found"); the
+self-contained `mtp-Qwen3.8-Flash-Next-Q8_0.gguf` works with `--spec-type draft-mtp`.
+
+| llama.cpp, 196k context, effort `medium` | Code / prose / JSON (tokens/s) | Mean |
+|---|---|---|
+| ISTA `IQ3_XXS`, no drafter | 23 / 24 / 24 | 23.8 |
+| Unsloth `UD-IQ4_XS` + MTP, 2 drafts (98% accepted) | 31 / 30 / 34 | 31.5 |
+| Same, 4 drafts (95% accepted) | 22 / 18 / 27 | 22.1 |
+| Same, 2 drafts, model loaded into RAM (`-lm none`) | 32 / 28 / 35 | 31.6 |
+| Unsloth `UD-IQ3_XXS` + MTP, 2 drafts | 31 / 28 / 36 | 31.8 |
+| Same, 4 slots: one client / four clients in total | – | 23.8 / 36.7 |
+
+llama.cpp reaches about half of Strata's speed for one client (Strata with MTP on the same
+Unsloth file: 66.6). Neither a smaller file nor loading into RAM helped, so the limit is how it
+splits each layer between GPU and CPU, not the file size. It does serve several requests at
+once, but four clients total only 36.7 tokens/s, against 76–87 for Strata with four slots and
+159 for vLLM with the 27B. Raw results: `results/llamacpp-flashnext.txt`.
+
 Limits: one run per job and model, and the 27B's time on the same job varied from 88 s to 417 s
 between two runs, so the timing differences are rough. The planning tasks are a few hundred to
 a few thousand lines, not multi-day projects.
