@@ -265,7 +265,7 @@ script, and its checksum matches theirs.
 
 - **Stock vLLM's DFlash2 doesn't work on this card.** It rejects every draft with both drafter
   sizes, both attention backends, both int4 backends, and with vision on or off. With nothing
-  accepted it only costs time: 21 tokens/s, against 49 with no drafter at all. Something in
+  accepted it only costs time: about 21 tokens/s, a third of production's 67. Something in
   their fork makes it work; which of its patches does was not established.
 - **It also leaves little room for context.** The 8-bit drafter leaves 4.8 GB for the context
   cache, against 8.2 GB in production: room for 83k tokens with vision on and 101k with it off.
