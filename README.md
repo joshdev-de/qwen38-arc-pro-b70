@@ -580,7 +580,8 @@ better, and its reliability is worse: two of the 26 Flash-Next agent sessions en
 unusable reply (one empty, one broken tool call); none of the 27B's 8 did. At `xhigh` it is more
 thorough but two to four times slower. Strata serves one request at a time, so for several
 agents at once vLLM with Qwen3.8-27B stays the recommendation. For a single agent at `medium`,
-Flash-Next on Strata is a reasonable alternative once the broken replies are understood.
+Flash-Next on Strata is faster, but about one session in five to ten ends on an unusable reply
+(see *Empty and broken replies* below), which rules it out for unattended agents for now.
 
 *Drafter on the Unsloth file.* Same file, same session, speed test plus one 768-token reply:
 
@@ -617,6 +618,35 @@ Unsloth file: 66.6). Neither a smaller file nor loading into RAM helped, so the 
 splits each layer between GPU and CPU, not the file size. It does serve several requests at
 once, but four clients total only 36.7 tokens/s, against 76–87 for Strata with four slots and
 159 for vLLM with the 27B. Raw results: `results/llamacpp-flashnext.txt`.
+
+*Expert placement (14 November).* Strata keeps a fixed set of experts in VRAM, ranked by
+routing frequency, and can learn that ranking from real use (`--expert-profile-save`, then
+`--expert-profile`; see [issue #5816](https://github.com/Niko1221/Strata/issues/5816)). The
+ISTA `IQ3_XXS` run with DFlash2 at `medium` recorded a ranking over all eight agent sessions,
+then ran again with it. llama.cpp has no ranking, but offers a dynamic GPU cache for the experts
+it keeps in RAM (`--moe-cache-mib`).
+
+| | Speed test (tokens/s) | Share of needed experts already in VRAM |
+|---|---|---|
+| Strata, shipped ranking | 77.0 (code 63, prose 67, JSON 101) | 97.2% speed test, 95.8% agent sessions |
+| Strata, ranking learned from the agent sessions | 85.4 (code 81, prose 70, JSON 105) | 97.0% speed test, 95.5% agent sessions |
+| llama.cpp, Unsloth `UD-IQ3_XXS` + MTP, no cache | 33.7 | – |
+| llama.cpp, same, `--moe-cache-mib 8192` | 31.5 | – |
+
+The learned ranking did not change how often the needed experts were in VRAM, so the 11%
+faster speed test is most likely run-to-run variance of the drafter, not the ranking. With this
+file Strata holds 13,559 of 24,576 experts (55%) in VRAM, and they already cover 96–97% of what
+agent work routes to; the issue's gains came from files with fewer experts resident. llama.cpp's
+cache made it slightly slower. Strata's profile is a binary file, so the individual experts
+were not listed.
+
+*Empty and broken replies.* The experiment's agent sessions confirmed the reliability problem.
+Of the 19 delegation sessions run at `medium` with ISTA `IQ3_XXS` and DFlash2, four ended early
+with nothing written: one broken tool call, and three replies that ended after a few hundred
+tokens or less (one after 8 output tokens). The planning sessions at `medium` (4 of 4) were
+fine, with the same results as before (25 of 26 and 22 of 22, in 5 and 10 minutes). Over all
+Flash-Next runs on Strata, 5 of about 45 agent sessions ended this way; none of the 27B's 8
+did. Whether Strata, the drafter or the model causes it was not established.
 
 Limits: one run per job and model, and the 27B's time on the same job varied from 88 s to 417 s
 between two runs, so the timing differences are rough. The planning tasks are a few hundred to

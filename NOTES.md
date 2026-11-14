@@ -298,3 +298,11 @@ read-only mount). Unsloth MTP shared-Q8_0 fails (token_embd.weight not found: no
 mtp-Q8_0 works with --spec-type draft-mtp. Results in results/llamacpp-flashnext.txt: ISTA IQ3_XXS nodraft 23.8;
 UD-IQ4_XS MTP2 31.5 (98% acc), MTP4 22.1, MTP2 -lm none 31.6; UD-IQ3_XXS MTP2 31.8; np4 aggregate 36.7.
 Downloaded: ~/models/flashnext/unsloth/UD-IQ3_XXS (83.6 GB), MTP/{shared-Q8_0, Q8_0}. Production restored 00:5x.
+
+## Expert placement experiment (2026-11-14, 00:57-01:47 UTC, production stopped)
+Script ~/bench/expert-chain.sh, raw results/expert-placement.txt. Strata ISTA IQ3_XXS + DFlash2, medium (tokenizer copy).
+Learn run (shipped profile, --expert-profile-save every 5 min) -> /data/Strata-data/profiles/agentic-iq3xxs.bin (196 KB).
+Speedbench 77.0 shipped vs 85.4 learned; hit rate 97.2 vs 97.0 (speed), 95.8 vs 95.5 (delegation) -> no real change.
+Cache 13,559 slots / 22 GiB with IQ3_XXS. llama.cpp UD-IQ3_XXS+MTP2: moe-cache 0 -> 33.7, 8192 MiB -> 31.5.
+Premature stops: learn A (32 s, 3 req), learn C (40 s), learned D-pi (3 s, 1 req, 8 out tokens); with medium run C:
+4 of 19 delegation sessions at medium. Planning learn run: M 25/26 (286 s), H 22/22 (594 s).
