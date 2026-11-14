@@ -1,0 +1,10 @@
+=== dv-w4a16-mtp3  11:04:31  MTP=3 BATCH=4096 SEQS=4 KVD=fp8 SPEC= ENVS=-e VLLM_XPU_INC_WNA16_BACKEND=w4a16 EXTRA=--mm-processor-kwargs {"max_pixels":1003520} MODEL=Qwen3.8-27B-devan-AutoRound
+KV cache size: 237,924 tokens
+dv-w4a16-mtp3    code  72.3  prose  59.6  json  81.8  | mean  71.3 t/s (spread 59.6-81.9)
+mann dv-w4a16-mtp3  count  83.2 (min 83.2 max 83.2, 502 tok in, TTFT 0.35s) | code  71.4 (min 71.4 max 71.4, 672 tok in, TTFT 0.46s) | prose  53.5 (min 53.5 max 53.5, 452 tok in, TTFT 0.30s)
+      1 (EngineCore pid=157) INFO 11-14 11:05:12 [core.py:139] Initializing a V1 LLM engine (v0.33.0) with config: model='/model', speculative_config=SpeculativeConfig(method='mtp', model='/model', num_spec_tokens=3), tokenizer='/model', skip_tokeniz
+      1 (EngineCore pid=157) INFO 11-14 11:05:16 [inc_ark_ops.py:25] Successfully imported auto_round_kernel.
+      1 (EngineCore pid=157) INFO 11-14 11:05:16 [inc_ark_ops.py:37] Successfully loaded auto_round_kernel backend library.
+p=4: per-request decode  42.8 t/s (min 39.3), TTFT max 0.47s, aggregate 147.3 t/s
+prompt 75064 tok, 87s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3
+Mean acceptance length: 2.21 Per-position acceptance rate: 0.669, 0.361, 0.180,  

@@ -1,0 +1,6 @@
+bdfaa5124be8cbe991b0061a2bcb697e9754402167d34ad7958496f3cde62952
+started exp; waiting for /health ...
+ready after 180s
+(EngineCore pid=157) INFO 11-14 11:17:44 [model_runner.py:428] Model loading took 19.33 GiB memory and 9.477613 seconds
+(EngineCore pid=157) INFO 11-14 11:19:28 [gpu_worker.py:787] CUDA graph memory profiling is enabled (default since v0.21.0). The current --gpu-memory-utilization=0.9300 is equivalent to --gpu-memory-utilization=0.9226 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9374. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.
+(EngineCore pid=157) INFO 11-14 11:19:28 [kv_cache_utils.py:1147] XPU KV cache size: 83,019 tokens, Maximum concurrency for 81,920 tokens per request: 1.01x

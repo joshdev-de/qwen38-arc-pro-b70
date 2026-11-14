@@ -1,0 +1,5 @@
+dv-df16-triton-32k code  20.9  prose  20.9  json  20.8  | mean  20.9 t/s (spread 20.8-20.9)
+Mean acceptance length: 1.00 Avg Draft acceptance rate: 0.0% 
+dv-df16-default-32k code  21.5  prose  21.4  json  21.4  | mean  21.4 t/s (spread 21.4-21.5)
+Mean acceptance length: 1.00 Avg Draft acceptance rate: 0.0% 
+SWEEP7 DONE 11:49:38 prod health 200

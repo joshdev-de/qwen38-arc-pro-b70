@@ -317,3 +317,16 @@ Free VRAM with -cmoe: 19,562 MiB -> cache 17,514 MiB for 47,962 MiB of host expe
 Release+MTP2: fit 34.1 (20 layers on GPU, 29 overflow) | allram 30.9 | cache 36.8 (91.0%, 388 GB uploaded) | cpu-share 0.9 32.7 (85.4%).
 PR nodraft: fit 25.6 | cache 30.0 (93.0%) | +profile 29.9 (93.2%) | hybrid fixed 17.1 (63.4%) | +adaptive 17.5 (77.5%).
 All experts on GPU would need ~62 GB VRAM (48 GB experts + ~13 GB rest; n-gram table stays in RAM).
+
+## devan-carlin AutoRound + DFlash2 on stock vLLM 0.33.0 (2026-11-14, 11:04-11:55 UTC, production stopped)
+From Lumnus/b70-flash-next @ 16a32ec (1-card 27B preset). Weights devan-carlin/Qwen3.8-27B-int4-AutoRound @ 5efb20f
+(~/models/alt/Qwen3.8-27B-devan-AutoRound, 18 GB, has MTP head). Drafter incoai/Qwen3.8-27B-DFlash2 @ 015e795
+(~/models/drafters/Qwen3.8-27B-DFlash2, 3.6 GB); W8A8 via their quantize_dflash2_w8a8.py in localhost/llmcompressor:0.15.0
+(CPU) -> ~/models/drafters/Qwen3.8-27B-DFlash2-w8a8, sha256 ff81cc3a... = theirs. Scripts sweep5.sh (stopped), sweep6.sh, sweep7.sh.
+exp.sh gained CHECKS=1 (stream_tools + concurrency) and LONG=1 (longctx in QUICK).
+dv w4a16 MTP3 vision on 196k: KV 237,924; speedbench 71.3 (72.3/59.6/81.8); mann 83.2/71.4/53.5; p4 147.3; 75k 87 s 3/3; acc len 2.21.
+DFlash2 K=7 (their spec config incl. probabilistic draft sampling, TRITON_ATTN): 0.0% acceptance in every variant:
+  w8a8 w4a16 81,920 (KV 83,019; 196k needs 9.11 GiB, 4.78 available): 20.9 | w8a8 w4a8 81,920: 19.5, p4 33.7, 75k 72 s |
+  bf16 32k triton 20.9 / default backend 21.4 (bf16 max 38,272 at 49k attempt) | w8a8 vision off (LMO) 81,920: KV 101,437, 20.9.
+Warning seen with vision on: drafter does not support external multimodal embeddings (text-only draft inputs); not the cause.
+Their fork: ~50 vLLM patches + kernels (wu1ff dflash2 patch is Flash-Next-specific). Cause of 0% on stock not found.

@@ -1,0 +1,34 @@
+db7892fef602118208d15515c7ad4375bfa4efeecc5a548865851c59f76647d4
+started exp; waiting for /health ...
+container exited
+(EngineCore pid=157) ERROR 11-14 11:16:09 [core.py:1584] Traceback (most recent call last):
+(EngineCore pid=157) ERROR 11-14 11:16:09 [core.py:1584]   File "/opt/venv/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 1555, in run_engine_core
+(EngineCore pid=157) ERROR 11-14 11:16:09 [core.py:1584]     engine_core = EngineCoreProc(*args, engine_index=dp_rank, **kwargs)
+(EngineCore pid=157) ERROR 11-14 11:16:09 [core.py:1584]                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=157) ERROR 11-14 11:16:09 [core.py:1584]   File "/opt/venv/lib/python3.12/site-packages/vllm/tracing/otel.py", line 175, in sync_wrapper
+(EngineCore pid=157) ERROR 11-14 11:16:09 [core.py:1584]     return func(*args, **kwargs)
+(EngineCore pid=157) ERROR 11-14 11:16:09 [core.py:1584]            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=157) ERROR 11-14 11:16:09 [core.py:1584]   File "/opt/venv/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 1232, in __init__
+(EngineCore pid=157) ERROR 11-14 11:16:09 [core.py:1584]     super().__init__(
+(EngineCore pid=157) ERROR 11-14 11:16:09 [core.py:1584]   File "/opt/venv/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 163, in __init__
+(EngineCore pid=157) ERROR 11-14 11:16:09 [core.py:1584]     kv_cache_config = self._initialize_kv_caches(vllm_config)
+(EngineCore pid=157) ERROR 11-14 11:16:09 [core.py:1584]                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=157) ERROR 11-14 11:16:09 [core.py:1584]   File "/opt/venv/lib/python3.12/site-packages/vllm/tracing/otel.py", line 175, in sync_wrapper
+(EngineCore pid=157) ERROR 11-14 11:16:09 [core.py:1584]     return func(*args, **kwargs)
+(EngineCore pid=157) ERROR 11-14 11:16:09 [core.py:1584]            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=157) ERROR 11-14 11:16:09 [core.py:1584]   File "/opt/venv/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 321, in _initialize_kv_caches
+(EngineCore pid=157) ERROR 11-14 11:16:09 [core.py:1584]     kv_cache_configs = get_kv_cache_configs(
+(EngineCore pid=157) ERROR 11-14 11:16:09 [core.py:1584]                        ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=157) ERROR 11-14 11:16:09 [core.py:1584]   File "/opt/venv/lib/python3.12/site-packages/vllm/v1/core/kv_cache_planning.py", line 1554, in get_kv_cache_configs
+(EngineCore pid=157) ERROR 11-14 11:16:09 [core.py:1584]     _check_enough_kv_cache_memory(
+(EngineCore pid=157) ERROR 11-14 11:16:09 [core.py:1584]   File "/opt/venv/lib/python3.12/site-packages/vllm/v1/core/kv_cache_planning.py", line 77, in _check_enough_kv_cache_memory
+(EngineCore pid=157) ERROR 11-14 11:16:09 [core.py:1584]     raise ValueError(
+(EngineCore pid=157) ERROR 11-14 11:16:09 [core.py:1584] ValueError: To serve at least one request with the model's max seq len (163840), (7.84 GiB KV cache is needed, which is larger than the available KV cache memory (4.78 GiB). Based on the available memory, the estimated maximum model length is 83200. Try increasing `gpu_memory_utilization` (which also controls CPU memory on the CPU backend) o
+Process EngineCore:
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/opt/venv/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 1588, in run_engine_core
+    raise e

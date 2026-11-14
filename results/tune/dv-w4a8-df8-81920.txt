@@ -1,0 +1,11 @@
+=== dv-w4a8-df8-81920  11:28:20  MTP=3 BATCH=4096 SEQS=4 KVD=fp8 SPEC={"method":"dflash","model":"/spec","num_speculative_tokens":7,"draft_tensor_parallel_size":1,"draft_sample_method":"probabilistic","rejection_sample_method":"standard","attention_backend":"TRITON_ATTN"} ENVS=-e VLLM_XPU_INC_WNA16_BACKEND=w4a8 EXTRA=--mm-processor-kwargs {"max_pixels":1003520} MODEL=Qwen3.8-27B-devan-AutoRound
+KV cache size: 82,744 tokens
+dv-w4a8-df8-81920 code  19.6  prose  19.6  json  19.5  | mean  19.5 t/s (spread 19.5-19.6)
+mann dv-w4a8-df8-81920 count  18.6 (min 18.6 max 18.6, 502 tok in, TTFT 0.22s) | code  18.1 (min 18.1 max 18.1, 672 tok in, TTFT 0.30s) | prose  18.7 (min 18.7 max 18.7, 452 tok in, TTFT 0.22s)
+      1 (EngineCore pid=157) INFO 11-14 11:29:01 [core.py:139] Initializing a V1 LLM engine (v0.33.0) with config: model='/model', speculative_config=SpeculativeConfig(method='dflash', model='/spec', num_spec_tokens=7), tokenizer='/model', skip_token
+      1 (EngineCore pid=157) INFO 11-14 11:29:04 [inc_ark_ops.py:25] Successfully imported auto_round_kernel.
+      1 (EngineCore pid=157) INFO 11-14 11:29:04 [inc_ark_ops.py:37] Successfully loaded auto_round_kernel backend library.
+      1 (EngineCore pid=157) INFO 11-14 11:29:10 [__init__.py:868] Selected TritonInt8ScaledMMLinearKernel for CompressedTensorsW8A8Int8
+p=4: per-request decode  15.0 t/s (min 15.0), TTFT max 17.32s, aggregate  33.7 t/s
+prompt 75064 tok, 72s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3
+Mean acceptance length: 1.00 Per-position acceptance rate: 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,  

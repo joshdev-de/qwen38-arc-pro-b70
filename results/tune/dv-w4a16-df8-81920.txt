@@ -1,0 +1,214 @@
+=== dv-w4a16-df8-81920  11:16:52  MTP=3 BATCH=4096 SEQS=4 KVD=fp8 SPEC={"method":"dflash","model":"/spec","num_speculative_tokens":7,"draft_tensor_parallel_size":1,"draft_sample_method":"probabilistic","rejection_sample_method":"standard","attention_backend":"TRITON_ATTN"} ENVS=-e VLLM_XPU_INC_WNA16_BACKEND=w4a16 EXTRA=--mm-processor-kwargs {"max_pixels":1003520} MODEL=Qwen3.8-27B-devan-AutoRound
+KV cache size: 83,019 tokens
+dv-w4a16-df8-81920 code  20.9  prose  20.9  json  20.9  | mean  20.9 t/s (spread 20.8-21.0)
+mann dv-w4a16-df8-81920 count  19.8 (min 19.8 max 19.8, 502 tok in, TTFT 0.30s) | code  19.3 (min 19.3 max 19.3, 672 tok in, TTFT 0.41s) | prose  20.0 (min 20.0 max 20.0, 452 tok in, TTFT 0.29s)
+      1 (EngineCore pid=157) INFO 11-14 11:17:33 [core.py:139] Initializing a V1 LLM engine (v0.33.0) with config: model='/model', speculative_config=SpeculativeConfig(method='dflash', model='/spec', num_spec_tokens=7), tokenizer='/model', skip_token
+      1 (EngineCore pid=157) INFO 11-14 11:17:37 [inc_ark_ops.py:25] Successfully imported auto_round_kernel.
+      1 (EngineCore pid=157) INFO 11-14 11:17:37 [inc_ark_ops.py:37] Successfully loaded auto_round_kernel backend library.
+      1 (EngineCore pid=157) INFO 11-14 11:17:42 [__init__.py:868] Selected TritonInt8ScaledMMLinearKernel for CompressedTensorsW8A8Int8
+Traceback (most recent call last):
+  File "/home/fedora/llm-b70-eval/parbench.py", line 54, in <module>
+    main()
+    ~~~~^^
+  File "/home/fedora/llm-b70-eval/parbench.py", line 46, in main
+    res = list(ex.map(lambda i: one(args, i), range(p)))
+  File "/usr/lib64/python3.15/concurrent/futures/_base.py", line 672, in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/usr/lib64/python3.15/concurrent/futures/_base.py", line 312, in _result_or_cancel
+    return fut.result(timeout)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/usr/lib64/python3.15/concurrent/futures/_base.py", line 447, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib64/python3.15/concurrent/futures/_base.py", line 396, in __get_result
+    raise self._exception
+  File "/usr/lib64/python3.15/concurrent/futures/thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "/usr/lib64/python3.15/concurrent/futures/thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "/home/fedora/llm-b70-eval/parbench.py", line 46, in <lambda>
+    res = list(ex.map(lambda i: one(args, i), range(p)))
+                                ~~~^^^^^^^^^
+  File "/home/fedora/llm-b70-eval/parbench.py", line 31, in one
+    return (n - 1) / (end - first), first - t0, end
+                      ~~~~^~~~~~~
+TypeError: unsupported operand type(s) for -: 'float' and 'NoneType'
+Traceback (most recent call last):
+  File "/usr/lib64/python3.15/urllib/request.py", line 1335, in do_open
+    h.request(req.get_method(), req.selector, req.data, headers,
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+              encode_chunked=req.has_header('Transfer-encoding'))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.15/http/client.py", line 1398, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.15/http/client.py", line 1444, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.15/http/client.py", line 1393, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.15/http/client.py", line 1153, in _send_output
+    self.send(msg)
+    ~~~~~~~~~^^^^^
+  File "/usr/lib64/python3.15/http/client.py", line 1097, in send
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "/usr/lib64/python3.15/http/client.py", line 1063, in connect
+    self.sock = self._create_connection(
+                ~~~~~~~~~~~~~~~~~~~~~~~^
+        (self.host,self.port), self.timeout, self.source_address)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.15/socket.py", line 883, in create_connection
+    raise exceptions[0]
+  File "/usr/lib64/python3.15/socket.py", line 868, in create_connection
+    sock.connect(sa)
+    ~~~~~~~~~~~~^^^^
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/fedora/llm-b70-eval/longctx.py", line 29, in <module>
+    out = json.load(urllib.request.urlopen(req, timeout=3600))
+                    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.15/urllib/request.py", line 187, in urlopen
+    return opener.open(url, data, timeout)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.15/urllib/request.py", line 489, in open
+    response = self._open(req, data)
+  File "/usr/lib64/python3.15/urllib/request.py", line 506, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+                              '_open', req)
+  File "/usr/lib64/python3.15/urllib/request.py", line 466, in _call_chain
+    result = func(*args)
+  File "/usr/lib64/python3.15/urllib/request.py", line 1364, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.15/urllib/request.py", line 1338, in do_open
+    raise URLError(err)
+urllib.error.URLError: <urlopen error [Errno 111] Connection refused>
+tune-dv-w4a16-df8-81920 think_off: 0/80  (0s, 0 completion tokens)
+tune-dv-w4a16-df8-81920 think_on: 0/80  (0s, 0 completion tokens)
+Traceback (most recent call last):
+  File "/usr/lib64/python3.15/urllib/request.py", line 1335, in do_open
+    h.request(req.get_method(), req.selector, req.data, headers,
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+              encode_chunked=req.has_header('Transfer-encoding'))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.15/http/client.py", line 1398, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.15/http/client.py", line 1444, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.15/http/client.py", line 1393, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.15/http/client.py", line 1153, in _send_output
+    self.send(msg)
+    ~~~~~~~~~^^^^^
+  File "/usr/lib64/python3.15/http/client.py", line 1097, in send
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "/usr/lib64/python3.15/http/client.py", line 1063, in connect
+    self.sock = self._create_connection(
+                ~~~~~~~~~~~~~~~~~~~~~~~^
+        (self.host,self.port), self.timeout, self.source_address)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.15/socket.py", line 883, in create_connection
+    raise exceptions[0]
+  File "/usr/lib64/python3.15/socket.py", line 868, in create_connection
+    sock.connect(sa)
+    ~~~~~~~~~~~~^^^^
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/fedora/llm-b70-eval/canary.py", line 36, in <module>
+    got = ask(args, expr, thinking); hit = got == want; ok += hit
+  File "/home/fedora/llm-b70-eval/canary.py", line 20, in ask
+    with urllib.request.urlopen(r, timeout=1200) as resp:
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.15/urllib/request.py", line 187, in urlopen
+    return opener.open(url, data, timeout)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.15/urllib/request.py", line 489, in open
+    response = self._open(req, data)
+  File "/usr/lib64/python3.15/urllib/request.py", line 506, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+                              '_open', req)
+  File "/usr/lib64/python3.15/urllib/request.py", line 466, in _call_chain
+    result = func(*args)
+  File "/usr/lib64/python3.15/urllib/request.py", line 1364, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.15/urllib/request.py", line 1338, in do_open
+    raise URLError(err)
+urllib.error.URLError: <urlopen error [Errno 111] Connection refused>
+Traceback (most recent call last):
+  File "/usr/lib64/python3.15/urllib/request.py", line 1335, in do_open
+    h.request(req.get_method(), req.selector, req.data, headers,
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+              encode_chunked=req.has_header('Transfer-encoding'))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.15/http/client.py", line 1398, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.15/http/client.py", line 1444, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.15/http/client.py", line 1393, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.15/http/client.py", line 1153, in _send_output
+    self.send(msg)
+    ~~~~~~~~~^^^^^
+  File "/usr/lib64/python3.15/http/client.py", line 1097, in send
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "/usr/lib64/python3.15/http/client.py", line 1063, in connect
+    self.sock = self._create_connection(
+                ~~~~~~~~~~~~~~~~~~~~~~~^
+        (self.host,self.port), self.timeout, self.source_address)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.15/socket.py", line 883, in create_connection
+    raise exceptions[0]
+  File "/usr/lib64/python3.15/socket.py", line 868, in create_connection
+    sock.connect(sa)
+    ~~~~~~~~~~~~^^^^
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/fedora/llm-b70-eval/stream_tools.py", line 93, in <module>
+    main()
+    ~~~~^^
+  File "/home/fedora/llm-b70-eval/stream_tools.py", line 66, in main
+    content, reasoning, calls, finish = stream(args, [{"role": "user", "content": prompt}], thinking)
+                                        ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/fedora/llm-b70-eval/stream_tools.py", line 33, in stream
+    with urllib.request.urlopen(req, timeout=600) as r:
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.15/urllib/request.py", line 187, in urlopen
+    return opener.open(url, data, timeout)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.15/urllib/request.py", line 489, in open
+    response = self._open(req, data)
+  File "/usr/lib64/python3.15/urllib/request.py", line 506, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+                              '_open', req)
+  File "/usr/lib64/python3.15/urllib/request.py", line 466, in _call_chain
+    result = func(*args)
+  File "/usr/lib64/python3.15/urllib/request.py", line 1364, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.15/urllib/request.py", line 1338, in do_open
+    raise URLError(err)
+urllib.error.URLError: <urlopen error [Errno 111] Connection refused>
+
+0/24 correct, 4 parallel, wall 0s, aggregate 0.0 completion tok/s
+

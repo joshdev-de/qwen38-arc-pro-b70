@@ -234,6 +234,7 @@ Same engine and settings, only the weights changed.
 | pearsonkyle GPTQ-W4A16 | 67.2 | 155 | 28 / 76 | 206,580 |
 | SergiioB GPTQ-Int4 (MTP in BF16) | 66.2–68.3 | 152–153 | 25–26 / 77–78 | 199,457 |
 | cyankiwi AWQ-INT4 (group 32, 21 GB) | 62.6 | 151 | 29 / 78 | 154,043 |
+| devan-carlin AutoRound + `w4a16` (vision on, 14 November) | 71.3 (code 72, prose 60, JSON 82) | 147 | not run | 237,924 (production: 227,951) |
 
 - The 19 GB builds are within 2% of each other in speed, and the accuracy differences are within
   noise at 80 questions.
@@ -243,8 +244,37 @@ Same engine and settings, only the weights changed.
   Streamed tool calls, prefix caching and 187k retrieval were not tested on this build.
 - GPTQ builds with unquantized MTP layers work on v0.33.0 without patches.
 - The DSpark speculator (`RedHatAI/Qwen3.8-27B-speculator.dspark`, 4 GB) loads but leaves room for
-  only about 48k tokens of context on one card. DFlash2 needs a vLLM change that was not merged
-  at the time.
+  only about 48k tokens of context on one card.
+
+*DFlash2 and the devan-carlin weights (14 November).* Lumnus's
+[b70-flash-next](https://github.com/Lumnus/b70-flash-next) runs the 27B on one B70 with
+`devan-carlin/Qwen3.8-27B-int4-AutoRound` and the `incoai/Qwen3.8-27B-DFlash2` drafter, which
+guesses 7 tokens ahead. Their fork converts the drafter to 8-bit (W8A8, 1.9 instead of 3.6 GB).
+They report 142–149 tokens/s on code and 56–62 on prose for one client. Their fork carries
+about 50 vLLM patches and its own kernels. vLLM 0.33.0, the production image, now includes
+DFlash2, so both were tried there unpatched. The 8-bit drafter was converted with their
+script, and its checksum matches theirs.
+
+| devan-carlin AutoRound, `w4a16` unless noted | One client (tokens/s) | Drafts accepted | Context that fits | 75k-token prompt |
+|---|---|---|---|---|
+| MTP 3 (the weights alone) | 71.3 | MTP: 2.21 tokens per step | 196k (237,924-token cache) | 87 s (production: 63 s) |
+| DFlash2 8-bit | 20.9 | 0% | 83k | – |
+| DFlash2 8-bit, `w4a8` | 19.5 | 0% | 83k | 72 s |
+| DFlash2 16-bit, 32k context, two attention backends | 20.9 / 21.4 | 0% | 38k | – |
+| DFlash2 8-bit, vision off | 20.9 | 0% | 101k | – |
+
+- **Stock vLLM's DFlash2 doesn't work on this card.** It rejects every draft with both drafter
+  sizes, both attention backends, both int4 backends, and with vision on or off. With nothing
+  accepted it only costs time: 21 tokens/s, against 49 with no drafter at all. Something in
+  their fork makes it work; which of its patches does was not established.
+- **It also leaves little room for context.** The 8-bit drafter leaves 4.8 GB for the context
+  cache, against 8.2 GB in production: room for 83k tokens with vision on and 101k with it off.
+  Their fork reaches 147k with an 8-bit output layer and 97% instead of 93% of GPU memory.
+- **The devan-carlin weights alone are faster for one client but worse for agents.** They decode
+  6% faster than production for one client. But four clients get 15% less in total (147 against
+  174), and a 75k-token prompt takes 38% longer (87 against 63 s). Their fork's faster prompt
+  reading comes from its own int8 kernels; stock `w4a8` (72 s) is still slower than production.
+  Production stays as it is.
 
 ### GGUF quants on llama.cpp
 

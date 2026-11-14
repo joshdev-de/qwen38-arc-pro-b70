@@ -14,6 +14,7 @@ OUT=results/tune/$TAG.txt
   podman logs exp 2>&1 | grep -iE "inc|ark|wna16|w4a8" | grep -iE "backend|scheme|kernel" | sort | uniq -c | head -5 | cut -c1-250
   if [ -n "${QUICK:-}" ]; then
     python3 parbench.py -p 4 --tokens 256 | tail -1
+    [ -n "${LONG:-}" ] && python3 longctx.py --tokens 60000
     podman logs exp 2>&1 | grep "SpecDecoding metrics" | tail -1 | grep -oE "Mean acceptance length: [0-9.]+|Per-position acceptance rate: [0-9., ]+" | tr '\n' ' '; echo
     podman rm -f exp >/dev/null 2>&1; exit 0
   fi
@@ -21,6 +22,10 @@ OUT=results/tune/$TAG.txt
   python3 longctx.py --tokens 60000
   python3 evalset.py --tag "tune-$TAG" -p 4
   python3 canary.py --mode on --key "$(cat ~/.config/vllm/api-key)" | grep score
+  if [ -n "${CHECKS:-}" ]; then   # streamed tool calls and parallel correctness (burst of 4)
+    python3 stream_tools.py --repeat 2 | tail -1
+    python3 concurrency.py -n 24 -p 4 | tail -2
+  fi
   podman logs exp 2>&1 | grep "SpecDecoding metrics" | tail -1 | grep -oE "Mean acceptance length: [0-9.]+|Per-position acceptance rate: [0-9., ]+" | tr '\n' ' '; echo
 } 2>&1 | tee $OUT
 podman rm -f exp >/dev/null 2>&1
