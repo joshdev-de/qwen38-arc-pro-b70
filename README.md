@@ -666,8 +666,8 @@ load the ranking learned from the agent sessions above (it is in the PR's format
 | PR, no drafter: same, swapping in hot experts as it goes (`--moe-cache-adaptive`) | 17.5 | 77.5% |
 
 Per-expert placement beats per-layer by 8% with the drafter and 17% without, but only as a cache
-that uploads its misses. That costs PCIe traffic: about 360–390 GB per run, against 9–10 GB of
-generated-token work. Starting from the learned ranking changed nothing, because the cache
+that uploads its misses. That costs PCIe traffic: 355–390 GB uploaded per run, warm-up and speed
+test together. Starting from the learned ranking changed nothing, because the cache
 learns the same experts during the warm-up. A fixed set is much worse. The ranking from agent
 sessions covers only 63% of the speed test's lookups, and on this machine computing the rest
 on the CPU is far slower than uploading them. Even the best llama.cpp result stays under half
