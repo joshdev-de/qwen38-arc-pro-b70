@@ -614,8 +614,8 @@ self-contained `mtp-Qwen3.8-Flash-Next-Q8_0.gguf` works with `--spec-type draft-
 | Same, 4 slots: one client / four clients in total | – | 23.8 / 36.7 |
 
 llama.cpp reaches about half of Strata's speed for one client (Strata with MTP on the same
-Unsloth file: 66.6). Neither a smaller file nor loading into RAM helped, so the limit is how it
-splits each layer between GPU and CPU, not the file size. It does serve several requests at
+Unsloth file: 66.6). Neither a smaller file nor loading into RAM helped, so file size is not the
+limit; whether it is the GPU/CPU split or the SYCL kernels was not measured. It does serve several requests at
 once, but four clients total only 36.7 tokens/s, against 76–87 for Strata with four slots and
 159 for vLLM with the 27B. Raw results: `results/llamacpp-flashnext.txt`.
 
@@ -623,8 +623,12 @@ once, but four clients total only 36.7 tokens/s, against 76–87 for Strata with
 routing frequency, and can learn that ranking from real use (`--expert-profile-save`, then
 `--expert-profile`; see [issue #5816](https://github.com/Niko1221/Strata/issues/5816)). The
 ISTA `IQ3_XXS` run with DFlash2 at `medium` recorded a ranking over all eight agent sessions,
-then ran again with it. llama.cpp has no ranking, but offers a dynamic GPU cache for the experts
-it keeps in RAM (`--moe-cache-mib`).
+then ran again with it. llama.cpp's fixed placement (`--fit`, `--n-cpu-moe`, `-ot`) works per
+layer, because each layer stores its 512 experts in one tensor. On top of that it offers a
+per-expert GPU cache for the experts of the layers kept in RAM (`--moe-cache-mib`). The cache
+starts empty and learns from recent use; it cannot load a ranking (open PR
+[#30594](https://github.com/ggml-org/llama.cpp/pull/30594) adds that and reads Strata's profile
+format).
 
 | | Speed test (tokens/s) | Share of needed experts already in VRAM |
 |---|---|---|
