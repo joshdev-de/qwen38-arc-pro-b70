@@ -1,0 +1,156 @@
+=== llama.cpp expert placement 2026-11-14 09:34:48
+--- rel-allram: -fit off -ngl all -cmoe -md /models/MTP/mtp-Qwen3.8-Flash-Next-Q8_0.gguf --spec-type draft-mtp --spec-draft-n-max 2
+rel-allram       code  30.4  prose  28.6  json  33.6  | mean  30.9 t/s (spread 28.5-34.7)
+2.43.999.017 I slot print_timing: id  0 | task 0 | draft acceptance = 0.78135 (  243 accepted /   311 generated), mean len =  2.56
+2.57.798.682 I slot print_timing: id  0 | task 159 | draft acceptance = 0.86301 (  252 accepted /   292 generated), mean len =  2.73
+3.11.541.648 I slot print_timing: id  0 | task 309 | draft acceptance = 0.76752 (  241 accepted /   314 generated), mean len =  2.54
+3.24.599.973 I slot print_timing: id  0 | task 470 | draft acceptance = 0.98141 (  264 accepted /   269 generated), mean len =  2.96
+3.38.464.772 I slot print_timing: id  0 | task 608 | draft acceptance = 0.76752 (  241 accepted /   314 generated), mean len =  2.54
+3.52.405.979 I slot print_timing: id  0 | task 769 | draft acceptance = 0.85374 (  251 accepted /   294 generated), mean len =  2.71
+4.05.717.305 I slot print_timing: id  0 | task 920 | draft acceptance = 0.85374 (  251 accepted /   294 generated), mean len =  2.71
+4.19.081.572 I slot print_timing: id  0 | task 1070 | draft acceptance = 0.85374 (  251 accepted /   294 generated), mean len =  2.71
+4.33.830.890 I slot print_timing: id  0 | task 1220 | draft acceptance = 0.76752 (  241 accepted /   314 generated), mean len =  2.54
+4.48.005.348 I slot print_timing: id  0 | task 1381 | draft acceptance = 0.76752 (  241 accepted /   314 generated), mean len =  2.54
+5.02.193.169 I slot print_timing: id  0 | task 1541 | draft acceptance = 0.76752 (  241 accepted /   314 generated), mean len =  2.54
+5.15.188.013 I slot print_timing: id  0 | task 1701 | draft acceptance = 0.98141 (  264 accepted /   269 generated), mean len =  2.96
+5.27.479.154 I slot print_timing: id  0 | task 1839 | draft acceptance = 0.98141 (  264 accepted /   269 generated), mean len =  2.96
+5.39.172.803 I slot print_timing: id  0 | task 1976 | draft acceptance = 0.98141 (  264 accepted /   269 generated), mean len =  2.96
+no free VRAM figure, stopping
+done 09:42:00 prod health 200
+=== llama.cpp expert placement 2026-11-14 09:42:57
+--- probe: -fit off -ngl all -cmoe (load only)
+fdinfo vram of the server: 13067 MiB
+4.05.884.972 I slot print_timing: id  0 | task 0 | draft acceptance = 0.75000 (   18 accepted /    24 generated), mean len =  2.50
+4.06.075.576 I common_memory_breakdown_print: | memory breakdown [MiB]                        | total    free     self   model   context   compute    unaccounted |
+4.06.075.815 I common_memory_breakdown_print: |   - SYCL0 (Intel(R) Arc(TM) Pro B70 Graphics) | 32656 = 19562 + ( 8398 =  3816 +    3403 +    1178) +        4695 |
+4.06.075.948 I common_memory_breakdown_print: |   - Host                                      |                  76001 = 75925 +       0 +      75                |
+free VRAM with all experts in RAM: 19562 MiB -> cache 17514 MiB
+--- rel-layer: -md /models/MTP/mtp-Qwen3.8-Flash-Next-Q8_0.gguf --spec-type draft-mtp --spec-draft-n-max 2
+rel-layer        code  34.5  prose  30.3  json  37.6  | mean  34.1 t/s (spread 30.0-39.0)
+3.22.762.488 I slot print_timing: id  0 | task 481 | draft acceptance = 0.98141 (  264 accepted /   269 generated), mean len =  2.96
+3.35.676.828 I slot print_timing: id  0 | task 619 | draft acceptance = 0.72393 (  236 accepted /   326 generated), mean len =  2.45
+3.47.562.011 I slot print_timing: id  0 | task 785 | draft acceptance = 0.85085 (  251 accepted /   295 generated), mean len =  2.70
+3.59.809.372 I slot print_timing: id  0 | task 936 | draft acceptance = 0.85085 (  251 accepted /   295 generated), mean len =  2.70
+4.11.387.940 I slot print_timing: id  0 | task 1086 | draft acceptance = 0.85085 (  251 accepted /   295 generated), mean len =  2.70
+4.24.946.966 I slot print_timing: id  0 | task 1236 | draft acceptance = 0.72393 (  236 accepted /   326 generated), mean len =  2.45
+4.38.446.697 I slot print_timing: id  0 | task 1402 | draft acceptance = 0.72393 (  236 accepted /   326 generated), mean len =  2.45
+4.51.947.174 I slot print_timing: id  0 | task 1567 | draft acceptance = 0.72393 (  236 accepted /   326 generated), mean len =  2.45
+5.03.765.324 I slot print_timing: id  0 | task 1732 | draft acceptance = 0.98141 (  264 accepted /   269 generated), mean len =  2.96
+5.14.172.068 I slot print_timing: id  0 | task 1870 | draft acceptance = 0.98141 (  264 accepted /   269 generated), mean len =  2.96
+5.24.888.457 I slot print_timing: id  0 | task 2007 | draft acceptance = 0.98141 (  264 accepted /   269 generated), mean len =  2.96
+5.25.009.156 I common_memory_breakdown_print: | memory breakdown [MiB]                        | total   free     self   model   context   compute    unaccounted |
+5.25.009.164 I common_memory_breakdown_print: |   - SYCL0 (Intel(R) Arc(TM) Pro B70 Graphics) | 32656 =  682 + (27247 = 22781 +    3403 +    1061) +        4725 |
+5.25.009.164 I common_memory_breakdown_print: |   - Host                                      |                 57035 = 56960 +       0 +      75                |
+--- rel-expert: -fit off -ngl all -cmoe --moe-cache-mib 17514 -md /models/MTP/mtp-Qwen3.8-Flash-Next-Q8_0.gguf --spec-type draft-mtp --spec-draft-n-max 2
+rel-expert       code  37.2  prose  33.5  json  39.7  | mean  36.8 t/s (spread 32.9-40.5)
+4.41.322.166 I slot print_timing: id  0 | task 784 | draft acceptance = 0.85666 (  251 accepted /   293 generated), mean len =  2.71
+4.52.233.703 I slot print_timing: id  0 | task 935 | draft acceptance = 0.85666 (  251 accepted /   293 generated), mean len =  2.71
+5.03.029.762 I slot print_timing: id  0 | task 1085 | draft acceptance = 0.85666 (  251 accepted /   293 generated), mean len =  2.71
+5.15.930.427 I slot print_timing: id  0 | task 1235 | draft acceptance = 0.70909 (  234 accepted /   330 generated), mean len =  2.42
+5.27.957.813 I slot print_timing: id  0 | task 1403 | draft acceptance = 0.70909 (  234 accepted /   330 generated), mean len =  2.42
+5.39.884.796 I slot print_timing: id  0 | task 1570 | draft acceptance = 0.70909 (  234 accepted /   330 generated), mean len =  2.42
+5.51.210.383 I slot print_timing: id  0 | task 1737 | draft acceptance = 0.98141 (  264 accepted /   269 generated), mean len =  2.96
+6.01.254.371 I slot print_timing: id  0 | task 1875 | draft acceptance = 0.98141 (  264 accepted /   269 generated), mean len =  2.96
+6.11.294.756 I slot print_timing: id  0 | task 2012 | draft acceptance = 0.98141 (  264 accepted /   269 generated), mean len =  2.96
+6.11.370.584 I common_memory_breakdown_print: | memory breakdown [MiB]                        | total   free     self   model   context   compute    unaccounted |
+6.11.370.590 I common_memory_breakdown_print: |   - SYCL0 (Intel(R) Arc(TM) Pro B70 Graphics) | 32656 = 2021 + (25907 =  3816 +   20913 +    1178) +        4726 |
+6.11.370.590 I common_memory_breakdown_print: |   - Host                                      |                 76001 = 75925 +       0 +      75                |
+6.11.435.160 I llama_moe_cache: ubatch <= 8: hits = 2027564, misses = 200939 (0 on the CPU), hit rate = 90.98%, uploaded = 388124.58 MiB
+6.11.435.167 I llama_moe_cache: large batches: 63702 experts copied from the cache, 41673.61 MiB
+--- rel-expert-cpu: -fit off -ngl all -cmoe --moe-cache-mib 17514 --moe-cache-cpu-share 0.9 -md /models/MTP/mtp-Qwen3.8-Flash-Next-Q8_0.gguf --spec-type draft-mtp --spec-draft-n-max 2
+rel-expert-cpu   code  33.5  prose  29.0  json  35.5  | mean  32.7 t/s (spread 28.9-37.2)
+3.37.938.883 I slot print_timing: id  0 | task 780 | draft acceptance = 0.86007 (  252 accepted /   293 generated), mean len =  2.71
+3.49.289.644 I slot print_timing: id  0 | task 930 | draft acceptance = 0.85714 (  252 accepted /   294 generated), mean len =  2.71
+4.01.942.133 I slot print_timing: id  0 | task 1079 | draft acceptance = 0.85666 (  251 accepted /   293 generated), mean len =  2.71
+4.16.536.039 I slot print_timing: id  0 | task 1229 | draft acceptance = 0.70393 (  233 accepted /   331 generated), mean len =  2.40
+4.30.580.771 I slot print_timing: id  0 | task 1398 | draft acceptance = 0.71560 (  234 accepted /   327 generated), mean len =  2.43
+4.44.564.320 I slot print_timing: id  0 | task 1565 | draft acceptance = 0.74375 (  238 accepted /   320 generated), mean len =  2.49
+4.56.204.440 I slot print_timing: id  0 | task 1728 | draft acceptance = 0.98141 (  264 accepted /   269 generated), mean len =  2.96
+5.07.983.132 I slot print_timing: id  0 | task 1866 | draft acceptance = 0.98141 (  264 accepted /   269 generated), mean len =  2.96
+5.19.649.402 I slot print_timing: id  0 | task 2003 | draft acceptance = 0.98141 (  264 accepted /   269 generated), mean len =  2.96
+5.19.743.557 I common_memory_breakdown_print: | memory breakdown [MiB]                        | total   free     self   model   context   compute    unaccounted |
+5.19.743.763 I common_memory_breakdown_print: |   - SYCL0 (Intel(R) Arc(TM) Pro B70 Graphics) | 32656 = 2021 + (25907 =  3816 +   20913 +    1178) +        4726 |
+5.19.743.900 I common_memory_breakdown_print: |   - Host                                      |                 76001 = 75925 +       0 +      75                |
+5.19.831.501 I llama_moe_cache: ubatch <= 8: hits = 1895732, misses = 325241 (284655 on the CPU), hit rate = 85.36%, uploaded = 78510.84 MiB
+5.19.831.517 I llama_moe_cache: large batches: 69438 experts copied from the cache, 45397.83 MiB
+--- pr-layer: 
+pr-layer         code  26.2  prose  25.6  json  24.9  | mean  25.6 t/s (spread 24.3-26.4)
+0.03.638.288 I common_memory_breakdown_print: |   - Host                                      |                  52728 = 52652 +       0 +      76                |
+0.03.674.072 I common_params_fit_impl: memory for test allocation by device:
+0.03.674.084 I common_params_fit_impl: id=0, n_layer=49, n_part=25, overflow_type=2, mem= 31324 MiB
+0.03.674.090 I common_params_fit_impl: set ngl_per_device[0].(n_layer, n_part, overflow_type)=(49, 25, UP), id_dense_start=0
+0.03.674.091 I common_params_fit_impl: trying to fit one extra layer with overflow_type=LAYER_FRACTION_GATE
+0.03.943.247 I common_memory_breakdown_print: | memory breakdown [MiB]                        | total    free     self   model   context   compute    unaccounted |
+0.03.943.256 I common_memory_breakdown_print: |   - SYCL0 (Intel(R) Arc(TM) Pro B70 Graphics) | 32656 = 32416 + (31586 = 27352 +    3172 +    1062) +      -31347 |
+0.03.943.256 I common_memory_breakdown_print: |   - Host                                      |                  52466 = 52389 +       0 +      76                |
+0.03.975.950 I common_params_fit_impl: memory for test allocation by device:
+0.03.975.961 I common_params_fit_impl: id=0, n_layer=49, n_part=25, overflow_type=3, mem= 31586 MiB
+0.03.975.964 I common_params_fit_impl:   - SYCL0 (Intel(R) Arc(TM) Pro B70 Graphics): 49 layers (25 overflowing),  31324 MiB used,   1092 MiB free
+5.48.726.865 I common_memory_breakdown_print: | memory breakdown [MiB]                        | total   free     self   model   context   compute    unaccounted |
+5.48.727.166 I common_memory_breakdown_print: |   - SYCL0 (Intel(R) Arc(TM) Pro B70 Graphics) | 32656 = 1050 + (31324 = 27089 +    3172 +    1062) +         281 |
+5.48.727.344 I common_memory_breakdown_print: |   - Host                                      |                 52728 = 52652 +       0 +      76                |
+--- pr-expert: -fit off -ngl all -cmoe --moe-cache-mib 17514 --moe-cache-audit /out/pr-expert.jsonl
+pr-expert        code  29.7  prose  30.3  json  29.8  | mean  30.0 t/s (spread 29.5-30.6)
+3.46.823.284 I slot print_timing: id  0 | task 2412 |   MoE cache hits =    92.62 % (178237 hit, 0 from the profile, 14202 uploaded: 27345.0 MiB, 1.96 GiB/s)
+4.00.481.786 I slot print_timing: id  0 | task 2813 |   MoE cache hits =    92.62 % (178238 hit, 0 from the profile, 14201 uploaded: 27343.0 MiB, 1.96 GiB/s)
+4.14.578.182 I slot print_timing: id  0 | task 3214 |   MoE cache hits =    93.28 % (179542 hit, 0 from the profile, 12936 uploaded: 24891.3 MiB, 1.72 GiB/s)
+4.27.836.389 I slot print_timing: id  0 | task 3616 |   MoE cache hits =    95.14 % (183114 hit, 0 from the profile, 9364 uploaded: 17915.5 MiB, 1.32 GiB/s)
+4.41.090.262 I slot print_timing: id  0 | task 4017 |   MoE cache hits =    95.13 % (183112 hit, 0 from the profile, 9366 uploaded: 17919.5 MiB, 1.32 GiB/s)
+4.55.502.079 I slot print_timing: id  0 | task 4418 |   MoE cache hits =    91.55 % (176166 hit, 0 from the profile, 16254 uploaded: 31418.8 MiB, 2.13 GiB/s)
+5.08.980.046 I slot print_timing: id  0 | task 4820 |   MoE cache hits =    93.52 % (179943 hit, 0 from the profile, 12477 uploaded: 24012.1 MiB, 1.74 GiB/s)
+5.22.470.886 I slot print_timing: id  0 | task 5221 |   MoE cache hits =    93.52 % (179943 hit, 0 from the profile, 12477 uploaded: 24012.1 MiB, 1.74 GiB/s)
+5.22.547.688 I common_memory_breakdown_print: | memory breakdown [MiB]                        | total   free     self   model   context   compute    unaccounted |
+5.22.547.694 I common_memory_breakdown_print: |   - SYCL0 (Intel(R) Arc(TM) Pro B70 Graphics) | 32656 = 6697 + (25676 =  3816 +   20682 +    1178) +         281 |
+5.22.547.694 I common_memory_breakdown_print: |   - Host                                      |                 76002 = 75925 +       0 +      76                |
+5.22.555.092 I llama_moe_cache: ubatch <= 8: hits = 2507923, misses = 188039, hit rate = 93.03%, uploaded = 362207.54 MiB
+5.22.555.097 I llama_moe_cache: large batches: 58545 experts copied from the cache, 38042.90 MiB
+5.22.555.100 I llama_moe_cache: per layer: hit rate from 89.03% (layer 0) to 96.18% (layer 31)
+--- pr-expert-profile: -fit off -ngl all -cmoe --moe-cache-mib 17514 --moe-cache-profile /prof/Strata-data/profiles/agentic-iq3xxs.bin --moe-cache-audit /out/pr-expert-profile.jsonl
+pr-expert-profile code  29.7  prose  30.4  json  29.7  | mean  29.9 t/s (spread 29.3-30.6)
+3.45.917.500 I slot print_timing: id  0 | task 2412 |   MoE cache hits =    92.62 % (178237 hit, 4975 from the profile, 14202 uploaded: 27345.0 MiB, 1.96 GiB/s)
+3.59.511.705 I slot print_timing: id  0 | task 2813 |   MoE cache hits =    92.62 % (178238 hit, 4975 from the profile, 14201 uploaded: 27343.0 MiB, 1.96 GiB/s)
+4.13.594.562 I slot print_timing: id  0 | task 3214 |   MoE cache hits =    93.28 % (179542 hit, 6217 from the profile, 12936 uploaded: 24891.3 MiB, 1.73 GiB/s)
+4.26.846.772 I slot print_timing: id  0 | task 3616 |   MoE cache hits =    95.14 % (183114 hit, 6207 from the profile, 9364 uploaded: 17915.5 MiB, 1.32 GiB/s)
+4.40.093.370 I slot print_timing: id  0 | task 4017 |   MoE cache hits =    95.13 % (183112 hit, 6207 from the profile, 9366 uploaded: 17919.5 MiB, 1.32 GiB/s)
+4.54.561.859 I slot print_timing: id  0 | task 4418 |   MoE cache hits =    91.55 % (176166 hit, 7559 from the profile, 16254 uploaded: 31418.8 MiB, 2.12 GiB/s)
+5.08.082.045 I slot print_timing: id  0 | task 4820 |   MoE cache hits =    93.52 % (179943 hit, 7539 from the profile, 12477 uploaded: 24012.1 MiB, 1.73 GiB/s)
+5.21.612.557 I slot print_timing: id  0 | task 5221 |   MoE cache hits =    93.52 % (179943 hit, 7539 from the profile, 12477 uploaded: 24012.1 MiB, 1.73 GiB/s)
+5.21.681.673 I common_memory_breakdown_print: | memory breakdown [MiB]                        | total   free     self   model   context   compute    unaccounted |
+5.21.681.680 I common_memory_breakdown_print: |   - SYCL0 (Intel(R) Arc(TM) Pro B70 Graphics) | 32656 = 6697 + (25676 =  3816 +   20682 +    1178) +         281 |
+5.21.681.680 I common_memory_breakdown_print: |   - Host                                      |                 76002 = 75925 +       0 +      76                |
+5.21.689.093 I llama_moe_cache: ubatch <= 8: hits = 2511559 (253005 from the profile, 9.38% of lookups), misses = 184403, hit rate = 93.16%, uploaded = 355056.88 MiB
+5.21.689.099 I llama_moe_cache: large batches: 66726 experts copied from the cache, 43342.09 MiB
+5.21.689.101 I llama_moe_cache: per layer: hit rate from 89.21% (layer 0) to 96.26% (layer 31)
+--- pr-expert-fixed: -fit off -ngl all -cmoe --moe-cache-mib 17514 --moe-cache-profile /prof/Strata-data/profiles/agentic-iq3xxs.bin --moe-cache-hybrid --moe-cache-audit /out/pr-expert-fixed.jsonl
+pr-expert-fixed  code  16.6  prose  18.0  json  16.8  | mean  17.1 t/s (spread 16.0-20.0)
+4.53.202.998 I slot print_timing: id  0 | task 2412 |   MoE cache hits =    58.34 % (hybrid: 112272 on the GPU, 80166 on the CPU, which read 155499.9 MiB)
+5.17.958.185 I slot print_timing: id  0 | task 2813 |   MoE cache hits =    58.34 % (hybrid: 112272 on the GPU, 80166 on the CPU, which read 155499.9 MiB)
+5.38.612.148 I slot print_timing: id  0 | task 3214 |   MoE cache hits =    77.79 % (hybrid: 149743 on the GPU, 42746 on the CPU, which read 82061.4 MiB)
+6.02.367.938 I slot print_timing: id  0 | task 3616 |   MoE cache hits =    77.79 % (hybrid: 149743 on the GPU, 42746 on the CPU, which read 82061.4 MiB)
+6.26.123.801 I slot print_timing: id  0 | task 4017 |   MoE cache hits =    77.79 % (hybrid: 149743 on the GPU, 42746 on the CPU, which read 82061.4 MiB)
+6.51.568.034 I slot print_timing: id  0 | task 4418 |   MoE cache hits =    46.82 % (hybrid: 90094 on the GPU, 102330 on the CPU, which read 198007.5 MiB)
+7.16.656.629 I slot print_timing: id  0 | task 4820 |   MoE cache hits =    46.82 % (hybrid: 90094 on the GPU, 102330 on the CPU, which read 198007.5 MiB)
+7.38.730.263 I slot print_timing: id  0 | task 5221 |   MoE cache hits =    46.82 % (hybrid: 90094 on the GPU, 102330 on the CPU, which read 198007.5 MiB)
+7.38.816.671 I common_memory_breakdown_print: | memory breakdown [MiB]                        | total   free     self   model   context   compute    unaccounted |
+7.38.816.682 I common_memory_breakdown_print: |   - SYCL0 (Intel(R) Arc(TM) Pro B70 Graphics) | 32656 = 6697 + (25676 =  3816 +   20682 +    1178) +         281 |
+7.38.816.683 I common_memory_breakdown_print: |   - Host                                      |                 76002 = 75925 +       0 +      76                |
+7.38.826.004 I llama_moe_cache: ubatch <= 8: hybrid: hits = 1708344, computed on the CPU = 987699, hit rate = 63.36%, CPU read 1908807.57 MiB
+7.38.826.012 I llama_moe_cache: large batches: 79344 experts copied from the cache, 51431.25 MiB
+7.38.826.014 I llama_moe_cache: per layer: hit rate from 49.77% (layer 10) to 78.91% (layer 47)
+--- pr-expert-adapt: -fit off -ngl all -cmoe --moe-cache-mib 17514 --moe-cache-profile /prof/Strata-data/profiles/agentic-iq3xxs.bin --moe-cache-hybrid --moe-cache-adaptive --moe-cache-audit /out/pr-expert-adapt.jsonl
+pr-expert-adapt  code  17.7  prose  17.3  json  17.5  | mean  17.5 t/s (spread 16.1-19.2)
+5.12.029.984 I slot print_timing: id  0 | task 2813 |   MoE cache hits =    91.57 % (hybrid: 176220 on the GPU, 16219 on the CPU, which read 32001.8 MiB)
+5.36.119.806 I slot print_timing: id  0 | task 3214 |   MoE cache hits =    84.91 % (hybrid: 163430 on the GPU, 29048 on the CPU, which read 55688.3 MiB)
+5.59.247.717 I slot print_timing: id  0 | task 3616 |   MoE cache hits =    91.19 % (hybrid: 175526 on the GPU, 16954 on the CPU, which read 32833.7 MiB)
+6.22.361.871 I slot print_timing: id  0 | task 4017 |   MoE cache hits =    92.58 % (hybrid: 178207 on the GPU, 14276 on the CPU, which read 27681.5 MiB)
+6.48.116.553 I slot print_timing: id  0 | task 4418 |   MoE cache hits =    52.05 % (hybrid: 100148 on the GPU, 92276 on the CPU, which read 179683.7 MiB)
+7.11.713.574 I slot print_timing: id  0 | task 4820 |   MoE cache hits =    63.26 % (hybrid: 121734 on the GPU, 70689 on the CPU, which read 139115.0 MiB)
+7.32.644.430 I slot print_timing: id  0 | task 5221 |   MoE cache hits =    68.87 % (hybrid: 132530 on the GPU, 59893 on the CPU, which read 120198.6 MiB)
+7.32.727.790 I common_memory_breakdown_print: | memory breakdown [MiB]                        | total   free     self   model   context   compute    unaccounted |
+7.32.727.858 I common_memory_breakdown_print: |   - SYCL0 (Intel(R) Arc(TM) Pro B70 Graphics) | 32656 = 6697 + (25676 =  3816 +   20682 +    1178) +         281 |
+7.32.727.858 I common_memory_breakdown_print: |   - Host                                      |                 76002 = 75925 +       0 +      76                |
+7.32.738.259 I llama_moe_cache: ubatch <= 8: hybrid: hits = 2090220, computed on the CPU = 605784, hit rate = 77.53%, CPU read 1185428.34 MiB
+7.32.738.541 I llama_moe_cache: adaptive: 11177 experts swapped in
+7.32.738.718 I llama_moe_cache: large batches: 80610 experts copied from the cache, 52239.84 MiB
+7.32.738.909 I llama_moe_cache: per layer: hit rate from 65.44% (layer 10) to 88.37% (layer 44)
+done 10:37:28 prod health 200

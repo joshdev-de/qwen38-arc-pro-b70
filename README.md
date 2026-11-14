@@ -640,9 +640,40 @@ format).
 The learned ranking did not change how often the needed experts were in VRAM, so the 11%
 faster speed test is most likely run-to-run variance of the drafter, not the ranking. With this
 file Strata holds 13,559 of 24,576 experts (55%) in VRAM, and they already cover 96–97% of what
-agent work routes to; the issue's gains came from files with fewer experts resident. llama.cpp's
-cache made it slightly slower. Strata's profile is a binary file, so the individual experts
-were not listed.
+agent work routes to; the issue's gains came from files with fewer experts resident. In this
+first try llama.cpp's cache made it slightly slower, but it sat on top of the per-layer split and
+read the experts from a memory-mapped file; the follow-up below fixes both. Strata's profile is a
+binary file, so the individual experts were not listed.
+
+*Per-expert placement on llama.cpp (14 November, follow-up).* To compare per-expert with
+per-layer placement on the same engine, every expert went to RAM (`-cmoe`) and the free VRAM
+became a per-expert cache: 17.5 GB, or 36% of the file's 48 GB of experts. All runs load the
+model into RAM (`-lm none`, so cache uploads run at full PCIe speed), run one warm-up pass, then
+the speed test. The release (b12242) runs use the MTP drafter. PR #30594 is a month older and
+has no MTP support, so its runs are without a drafter and compare only with each other. They
+load the ranking learned from the agent sessions above (it is in the PR's format).
+
+| llama.cpp, Unsloth `UD-IQ3_XXS` | Tokens/s | Experts found in VRAM |
+|---|---|---|
+| Release + MTP: per layer (`--fit`: 20 layers' experts on the GPU, 29 in RAM) | 34.1 | – |
+| Release + MTP: all experts in RAM, no cache | 30.9 | 0% |
+| Release + MTP: **all in RAM + per-expert cache, misses uploaded** | **36.8** | 91.0% |
+| Release + MTP: same, CPU computes 90% of the misses (`--moe-cache-cpu-share 0.9`) | 32.7 | 85.4% |
+| PR, no drafter: per layer | 25.6 | – |
+| PR, no drafter: **per-expert cache, starts empty** | **30.0** | 93.0% |
+| PR, no drafter: per-expert cache, filled from the learned ranking | 29.9 | 93.2% |
+| PR, no drafter: learned ranking kept fixed, CPU computes the rest (`--moe-cache-hybrid`) | 17.1 | 63.4% |
+| PR, no drafter: same, swapping in hot experts as it goes (`--moe-cache-adaptive`) | 17.5 | 77.5% |
+
+Per-expert placement beats per-layer by 8% with the drafter and 17% without, but only as a cache
+that uploads its misses. That costs PCIe traffic: about 360–390 GB per run, against 9–10 GB of
+generated-token work. Starting from the learned ranking changed nothing, because the cache
+learns the same experts during the warm-up. A fixed set is much worse. The ranking from agent
+sessions covers only 63% of the speed test's lookups, and on this machine computing the rest
+on the CPU is far slower than uploading them. Even the best llama.cpp result stays under half
+of Strata's (77–85 tokens/s with 55% of the experts in VRAM). Holding every expert of this file
+on the GPU would take about 62 GB of VRAM: 48 GB of experts plus 13 GB for the rest. Raw
+results: `results/expert-placement-llamacpp.txt`.
 
 *Empty and broken replies.* The experiment's agent sessions confirmed the reliability problem.
 Of the 19 delegation sessions run at `medium` with ISTA `IQ3_XXS` and DFlash2, four ended early

@@ -306,3 +306,14 @@ Speedbench 77.0 shipped vs 85.4 learned; hit rate 97.2 vs 97.0 (speed), 95.8 vs 
 Cache 13,559 slots / 22 GiB with IQ3_XXS. llama.cpp UD-IQ3_XXS+MTP2: moe-cache 0 -> 33.7, 8192 MiB -> 31.5.
 Premature stops: learn A (32 s, 3 req), learn C (40 s), learned D-pi (3 s, 1 req, 8 out tokens); with medium run C:
 4 of 19 delegation sessions at medium. Planning learn run: M 25/26 (286 s), H 22/22 (594 s).
+
+## llama.cpp per-expert vs per-layer (2026-11-14, 09:3x-10:37 UTC, production stopped twice)
+Script ~/bench/expert-llama.sh, raw results/expert-placement-llamacpp.txt, server logs ~/bench/llama-logs/.
+First pass stopped after rel-allram: llama INFO logs (memory breakdown, cache stats) need -lv 4. Rerun with -lv 4.
+All -lm none (pinned host experts), warm-up pass, Unsloth UD-IQ3_XXS, 196k ctx q8_0.
+PR #30594 built from ggml-org/llama.cpp pull/30594/head (9177f0389, Oct 24, no draft-mtp) as localhost/llama-pr30594:sycl
+(.devops/intel.Dockerfile --target server). Merging it into b12242 conflicts in the whole moe-cache rewrite: not done.
+Free VRAM with -cmoe: 19,562 MiB -> cache 17,514 MiB for 47,962 MiB of host experts (36%).
+Release+MTP2: fit 34.1 (20 layers on GPU, 29 overflow) | allram 30.9 | cache 36.8 (91.0%, 388 GB uploaded) | cpu-share 0.9 32.7 (85.4%).
+PR nodraft: fit 25.6 | cache 30.0 (93.0%) | +profile 29.9 (93.2%) | hybrid fixed 17.1 (63.4%) | +adaptive 17.5 (77.5%).
+All experts on GPU would need ~62 GB VRAM (48 GB experts + ~13 GB rest; n-gram table stays in RAM).
