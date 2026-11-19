@@ -5,7 +5,17 @@ Qwen3.8-27B on one Intel Arc Pro B70 (32 GB), aimed at agent use (Hermes Agent, 
 with a few occasional extra users. Everything here was measured in one Proxmox virtual machine on
 10–12 November 2026; the scripts to repeat it are in this repository.
 
-**Short version:** upstream vLLM (XPU image v0.33.0) with `RedHatAI/Qwen3.8-27B-INT4` and
+**Update, 19 November 2026:** production now runs the
+[riceharvest b70-vllm](https://github.com/riceharvest/b70-qwen38-cookbook) image (patched vLLM 0.32 with
+its own kernels, MTP 4) and `darioooooo0o/Qwen3.8-27B-Uncensored-GPTQ-Int4-asym`, started by
+`start-qwen38.sh`. At 312 W, on the same suite, it decodes at 88 against 50 tokens/s for stock vLLM 0.34,
+serves 223 against 149 tokens/s across four clients, reads a 75k-token prompt in 50 against 84 s and holds a
+323k-token context cache (262k per request), with clean tool calls, a working prefix cache and 80/80 with
+thinking on. It is a third-party fork and an abliterated model (no refusals). The sections below still describe
+the stock vLLM setup, which `start-qwen38-vllm.sh` restores. Details and the TurboQuant and SGLang tests from the
+same days are in `NOTES.md`.
+
+**Previous short version:** upstream vLLM (XPU image v0.33.0) with `RedHatAI/Qwen3.8-27B-INT4` and
 3-token MTP speculative decoding gives about 67 tokens/s for one client, about 165–175 tokens/s
 across four clients, a 196k-token context, working prefix caching and clean streamed tool calls.
 No other engine tested matched that combination.

@@ -1,0 +1,10 @@
+=== sglang0523-mtp3-20261118 (2026-11-18T18:08:57Z)
+median decode 23.58 t/s (min 22.29, max 26.57), median TTFT 0.387s, median e2e 5.773s
+p=1: per-request decode  22.0 t/s (min 22.0), TTFT max 0.09s, aggregate  21.9 t/s
+p=2: per-request decode  22.4 t/s (min 21.5), TTFT max 0.18s, aggregate  42.8 t/s
+p=4: per-request decode  23.0 t/s (min 23.0), TTFT max 0.22s, aggregate  90.4 t/s
+sglang0523-mtp3-20261118 think_off: 30/80  (10s, 251 completion tokens)
+sglang0523-mtp3-20261118 think_on: 79/80  (121s, 14671 completion tokens)
+score 12/12
+8/8 streamed cases clean
+prompt 75064 tok, 1272s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3

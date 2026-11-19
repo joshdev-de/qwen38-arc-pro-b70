@@ -1,0 +1,1198 @@
+W1119 16:33:10.742000 1 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W1119 16:33:10.742000 1 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W1119 16:33:10.742000 1 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+(APIServer pid=1) INFO 11-19 16:33:22 [api_utils.py:347] 
+(APIServer pid=1) INFO 11-19 16:33:22 [api_utils.py:347]        █     █     █▄   ▄█
+(APIServer pid=1) INFO 11-19 16:33:22 [api_utils.py:347]  ▄▄ ▄█ █     █     █ ▀▄▀ █  version 0.32.0
+(APIServer pid=1) INFO 11-19 16:33:22 [api_utils.py:347]   █▄█▀ █     █     █     █  model   /model
+(APIServer pid=1) INFO 11-19 16:33:22 [api_utils.py:347]    ▀▀  ▀▀▀▀▀ ▀▀▀▀▀ ▀     ▀
+(APIServer pid=1) INFO 11-19 16:33:22 [api_utils.py:347] 
+(APIServer pid=1) INFO 11-19 16:33:22 [api_utils.py:286] non-default args: {'model_tag': '/model', 'chat_template': '/tmp/chat_template_b70.jinja', 'enable_auto_tool_choice': True, 'tool_call_parser': 'qwen3_xml', 'enable_prompt_tokens_details': True, 'model': '/model', 'dtype': 'float16', 'max_model_len': 262144, 'quantization': 'gptq', 'served_model_name': ['qwen3.8-27b'], 'reasoning_parser': 'qwen3', 'distributed_executor_backend': 'mp', 'gpu_memory_utilization': 0.93, 'kv_cache_dtype': 'fp8', 'cpu_offload_gb': 4.0, 'cpu_offload_params': ['embed_tokens', 'visual'], 'max_num_batched_tokens': 8192, 'max_num_seqs': 8, 'speculative_config': {'method': 'mtp', 'num_speculative_tokens': 4, 'draft_sample_method': 'probabilistic'}, 'compilation_config': {'mode': None, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': [], 'ir_enable_torch_wrap': None, 'splitting_ops': None, 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'cudagraph_decoder_replay': True, 'decoder_replay_cudagraph_capture_sizes': [], 'decoder_replay_trim_threshold': 768, 'compile_sizes': None, 'compile_ranges_endpoints': None, 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': None, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [1, 2, 4, 5, 8, 10, 15, 20, 25, 30, 35, 40], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': None, 'pass_config': {}, 'max_cudagraph_capture_size': None, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': None, 'static_all_moe_layers': []}}
+(APIServer pid=1) WARNING 11-19 16:33:22 [interface.py:1457] Unknown vLLM environment variable detected: VLLM_XPU_ENABLE_XPU_GRAPH
+(APIServer pid=1) INFO 11-19 16:33:41 [model.py:733] Resolved architecture: Qwen3_5ForConditionalGeneration
+(APIServer pid=1) WARNING 11-19 16:33:41 [model.py:2498] Casting torch.bfloat16 to torch.float16.
+(APIServer pid=1) INFO 11-19 16:33:41 [model.py:2152] Using max model len 262144
+(APIServer pid=1) INFO 11-19 16:33:43 [cache.py:361] Using fp8 data type to store kv cache. It reduces the GPU memory footprint and boosts the performance. Meanwhile, it may cause accuracy drop without a proper scaling factor
+(APIServer pid=1) INFO 11-19 16:33:54 [model.py:733] Resolved architecture: Qwen3_5MTP
+(APIServer pid=1) WARNING 11-19 16:33:54 [model.py:2498] Casting torch.bfloat16 to torch.float16.
+(APIServer pid=1) INFO 11-19 16:33:54 [model.py:2152] Using max model len 262144
+(APIServer pid=1) INFO 11-19 16:33:54 [model.py:1008] Disabled mm_prefix attention mode because multimodal inputs are configuration-disabled. Attention backends without mm_prefix support may now be selected.
+(APIServer pid=1) WARNING 11-19 16:33:54 [speculative.py:1381] Enabling num_speculative_tokens > 1 will run multiple times of forward on same MTP layer,which may result in lower acceptance rate
+(APIServer pid=1) INFO 11-19 16:33:54 [scheduler.py:307] Chunked prefill is enabled with max_num_batched_tokens=8192.
+(APIServer pid=1) INFO 11-19 16:33:54 [config.py:688] Mamba cache mode is set to 'align' for Qwen3_5ForConditionalGeneration by default when prefix caching is enabled
+(APIServer pid=1) INFO 11-19 16:33:54 [kernel.py:467] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(APIServer pid=1) INFO 11-19 16:33:54 [xpu.py:418] Disabling Inductor's static Triton launcher because UVA weight offloading is enabled.
+(APIServer pid=1) INFO 11-19 16:33:54 [xpu.py:447] XPU platform: set server shutdown_timeout=5.
+W1119 16:34:05.201000 365 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W1119 16:34:05.202000 365 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W1119 16:34:05.202000 365 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+(EngineCore pid=365) INFO 11-19 16:34:13 [core.py:133] Initializing a V1 LLM engine (v0.32.0) with config: model='/model', speculative_config=SpeculativeConfig(method='mtp', model='/model', num_spec_tokens=4), tokenizer='/model', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.float16, max_seq_len=262144, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=True, quantization=auto_gptq, quantization_config=None, enforce_eager=False, aux_output_config=AuxOutputConfig(enable_return_routed_experts=False, max_bytes=None), kv_cache_dtype=fp8, device_config=xpu, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='qwen3', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, per_request_spec_decode_metrics='none', kv_cache_metrics=False, kv_cache_metrics_sample=0.01, custom_histogram_buckets=None, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False, jit_monitor_mode='warn', jit_monitor_verbose=False), seed=0, served_model_name=qwen3.8-27b, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': <CompilationMode.VLLM_COMPILE: 3>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['none'], 'ir_enable_torch_wrap': True, 'splitting_ops': ['vllm::unified_attention_with_output', 'vllm::unified_mla_attention_with_output', 'vllm::mamba_mixer2', 'vllm::mamba_mixer', 'vllm::short_conv', 'vllm::qwen4_exp_ple_short_conv', 'vllm::qwen4_exp_qsa_with_output', 'vllm::qwen4_exp_qsa_prepare_with_output', 'vllm::linear_attention', 'vllm::qwen_gdn_attention_core', 'vllm::qwen_gdn_attention_core_fused_norm_packed', 'vllm::gdn_attention_core_xpu', 'vllm::olmo_hybrid_gdn_full_forward', 'vllm::sparse_attn_indexer', 'vllm::rocm_aiter_sparse_attn_indexer', 'vllm::deepseek_v4_attention', 'vllm::hpc_rope_norm_forward', 'vllm::unified_kv_cache_update', 'vllm::unified_mla_kv_cache_update'], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'cudagraph_decoder_replay': True, 'decoder_replay_cudagraph_capture_sizes': [], 'decoder_replay_trim_threshold': 768, 'compile_sizes': [], 'compile_ranges_endpoints': [8192], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True, 'use_static_cuda_launcher': False}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.FULL_AND_PIECEWISE: (2, 1)>, 'cudagraph_num_of_warmups': 1, 'cudagraph_capture_sizes': [1, 2, 4, 5, 8, 10, 15, 20, 25, 30, 35, 40], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': False, 'fuse_act_quant': False, 'fuse_attn_quant': False, 'fuse_allreduce_rms': False, 'enable_qk_norm_rope_fusion': False, 'fuse_rope_kvcache_cat_mla': False, 'fuse_act_padding': False, 'fuse_qk_norm_rope_kvcache': False}, 'max_cudagraph_capture_size': 40, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native']), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)
+(EngineCore pid=365) INFO 11-19 16:34:13 [multiproc_executor.py:153] DP group leader: node_rank=0, node_rank_within_dp=0, master_addr=127.0.0.1, mq_connect_ip=10.96.77.117 (local), world_size=1, local_world_size=1
+W1119 16:34:14.875000 501 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W1119 16:34:14.876000 501 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W1119 16:34:14.877000 501 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+[transformers] Qwen3VL video processing does not apply the per-frame pixel cap the reference implementation (qwen-vl-utils) applies, so some videos cost far more tokens than they would there. In v5.22 the capped behavior will become the default and `cap_pixels_per_frame` will be removed. Pass `cap_pixels_per_frame=True` to adopt the reference behavior now, or `False` to keep the current behavior and silence this warning.
+(APIServer pid=1) INFO 11-19 16:34:19 [base.py:280] Multi-modal warmup completed in 15.836s
+(Worker pid=501) INFO 11-19 16:34:24 [parallel_state.py:1906] world_size=1 rank=0 local_rank=0 distributed_init_method=file:///tmp/vllm_dist_993e959656d744b4a9b0cdb78b2f035e backend=xccl
+(Worker pid=501) INFO 11-19 16:34:24 [parallel_state.py:2350] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, ETP rank 0, EP rank N/A, EPLB rank N/A
+(Worker pid=501) INFO 11-19 16:34:24 [xpu_worker.py:198] Using V2 Model Runner
+(Worker pid=501) INFO 11-19 16:34:25 [base.py:139] Offloader set to UVAOffloader
+(Worker pid=501) INFO 11-19 16:34:25 [model_runner.py:395] Loading model from scratch...
+(Worker pid=501) INFO 11-19 16:34:26 [xpu.py:281] Using backend AttentionBackendEnum.FLASH_ATTN for vit attention
+(Worker pid=501) INFO 11-19 16:34:26 [mm_encoder_attention.py:372] Using AttentionBackendEnum.FLASH_ATTN for MMEncoderAttention.
+(Worker pid=501) INFO 11-19 16:34:26 [uva.py:68] Total CPU offloaded parameters: 0.86
+(Worker pid=501) INFO 11-19 16:34:28 [uva.py:68] Total CPU offloaded parameters: 3.23
+(Worker pid=501) INFO 11-19 16:34:28 [__init__.py:923] Using XPUwNa16LinearKernel for mixed-precision linear
+(Worker pid=501) INFO 11-19 16:34:28 [auto_gptq.py:354] Using XPUwNa16LinearKernel for AutoGPTQLinearMethod
+(Worker pid=501) INFO 11-19 16:34:28 [qwen_gdn_linear_attn.py:620] GDN spec decode kernel: XPU
+(Worker pid=501) INFO 11-19 16:34:28 [xpu.py:247] Using Flash Attention backend.
+(Worker pid=501) INFO 11-19 16:34:28 [flash_attn.py:1117] Using FlashAttention version 2
+(Worker pid=501) INFO 11-19 16:34:29 [uva.py:68] Total CPU offloaded parameters: 3.23
+(Worker pid=501) INFO 11-19 16:34:29 [base_loader.py:82] Initializing model took 4.214635 seconds
+(Worker pid=501) INFO 11-19 16:34:29 [weight_utils.py:1108] Filesystem type for checkpoints: BTRFS. Checkpoint size: 18.21 GiB. Available RAM: 133.05 GiB.
+(Worker pid=501) INFO 11-19 16:34:29 [weight_utils.py:1131] Auto-prefetch is disabled because the filesystem (BTRFS) is not a recognized network FS (NFS/Lustre). If you want to force prefetching, start vLLM with --safetensors-load-strategy=prefetch.
+Loading safetensors checkpoint shards:   0% Completed | 0/66 [00:00<?, ?it/s]
+(Worker pid=501) WARNING 11-19 16:34:29 [utils.py:333] Attempted to load weight lm_head.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:30 [utils.py:333] Attempted to load weight embed_tokens.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+Loading safetensors checkpoint shards:   2% Completed | 1/66 [00:01<01:21,  1.26s/it]
+(Worker pid=501) WARNING 11-19 16:34:30 [utils.py:333] Attempted to load weight norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+[B70] draft int4 head prebuilt (65536 rows)
+[B70] target lm_head fp8: 248320x5120, fp16 freed
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.0.attn.proj.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.0.attn.proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.0.mlp.linear_fc1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.0.mlp.linear_fc1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.0.mlp.linear_fc2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.0.mlp.linear_fc2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.0.norm1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.0.norm1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.0.norm2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.0.norm2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.1.attn.proj.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.1.attn.proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.1.mlp.linear_fc1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.1.mlp.linear_fc1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.1.mlp.linear_fc2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.1.mlp.linear_fc2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.1.norm1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.1.norm1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.1.norm2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.1.norm2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.10.attn.proj.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.10.attn.proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.10.mlp.linear_fc1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.10.mlp.linear_fc1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.10.mlp.linear_fc2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.10.mlp.linear_fc2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.10.norm1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.10.norm1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.10.norm2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.10.norm2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.11.attn.proj.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.11.attn.proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.11.mlp.linear_fc1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.11.mlp.linear_fc1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.11.mlp.linear_fc2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.11.mlp.linear_fc2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.11.norm1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.11.norm1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.11.norm2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.11.norm2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.12.attn.proj.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.12.attn.proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.12.mlp.linear_fc1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.12.mlp.linear_fc1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.12.mlp.linear_fc2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.12.mlp.linear_fc2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.12.norm1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.12.norm1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.12.norm2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.12.norm2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.13.attn.proj.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.13.attn.proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.13.mlp.linear_fc1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.13.mlp.linear_fc1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.13.mlp.linear_fc2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.13.mlp.linear_fc2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.13.norm1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.13.norm1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.13.norm2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.13.norm2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.14.attn.proj.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.14.attn.proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.14.mlp.linear_fc1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.14.mlp.linear_fc1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.14.mlp.linear_fc2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.14.mlp.linear_fc2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.14.norm1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.14.norm1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.14.norm2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.14.norm2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.15.attn.proj.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.15.attn.proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.15.mlp.linear_fc1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.15.mlp.linear_fc1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.15.mlp.linear_fc2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.15.mlp.linear_fc2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.15.norm1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.15.norm1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.15.norm2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.15.norm2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.16.attn.proj.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.16.attn.proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.16.mlp.linear_fc1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.16.mlp.linear_fc1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.16.mlp.linear_fc2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.16.mlp.linear_fc2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.16.norm1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.16.norm1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.16.norm2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.16.norm2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.17.attn.proj.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.17.attn.proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.17.mlp.linear_fc1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.17.mlp.linear_fc1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.17.mlp.linear_fc2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.17.mlp.linear_fc2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.17.norm1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.17.norm1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.17.norm2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.17.norm2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.18.attn.proj.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.18.attn.proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.18.mlp.linear_fc1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.18.mlp.linear_fc1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.18.mlp.linear_fc2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.18.mlp.linear_fc2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.18.norm1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.18.norm1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.18.norm2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.18.norm2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.19.attn.proj.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.19.attn.proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.19.mlp.linear_fc1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.19.mlp.linear_fc1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.19.mlp.linear_fc2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.19.mlp.linear_fc2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.19.norm1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.19.norm1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.19.norm2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.19.norm2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.2.attn.proj.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.2.attn.proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.2.mlp.linear_fc1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.2.mlp.linear_fc1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.2.mlp.linear_fc2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.2.mlp.linear_fc2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.2.norm1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.2.norm1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.2.norm2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.2.norm2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.20.attn.proj.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.20.attn.proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.20.mlp.linear_fc1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.20.mlp.linear_fc1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.20.mlp.linear_fc2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.20.mlp.linear_fc2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.20.norm1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.20.norm1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.20.norm2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.20.norm2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.21.attn.proj.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.21.attn.proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.21.mlp.linear_fc1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.21.mlp.linear_fc1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.21.mlp.linear_fc2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.21.mlp.linear_fc2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.21.norm1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.21.norm1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.21.norm2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.21.norm2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.22.attn.proj.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.22.attn.proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.22.mlp.linear_fc1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.22.mlp.linear_fc1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.22.mlp.linear_fc2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.22.mlp.linear_fc2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.22.norm1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.22.norm1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.22.norm2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.22.norm2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.23.attn.proj.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.23.attn.proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.23.mlp.linear_fc1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.23.mlp.linear_fc1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.23.mlp.linear_fc2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.23.mlp.linear_fc2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.23.norm1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.23.norm1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.23.norm2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.23.norm2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.24.attn.proj.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.24.attn.proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.24.mlp.linear_fc1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.24.mlp.linear_fc1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.24.mlp.linear_fc2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.24.mlp.linear_fc2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.24.norm1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.24.norm1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.24.norm2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.24.norm2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.25.attn.proj.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.25.attn.proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.25.mlp.linear_fc1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.25.mlp.linear_fc1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.25.mlp.linear_fc2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.25.mlp.linear_fc2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.25.norm1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.25.norm1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.25.norm2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.25.norm2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.26.attn.proj.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.26.attn.proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.26.mlp.linear_fc1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.26.mlp.linear_fc1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.26.mlp.linear_fc2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.26.mlp.linear_fc2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.26.norm1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.26.norm1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.26.norm2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.26.norm2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.3.attn.proj.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.3.attn.proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.3.mlp.linear_fc1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.3.mlp.linear_fc1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.3.mlp.linear_fc2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.3.mlp.linear_fc2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.3.norm1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.3.norm1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.3.norm2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.3.norm2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.4.attn.proj.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.4.attn.proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.4.mlp.linear_fc1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.4.mlp.linear_fc1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.4.mlp.linear_fc2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.4.mlp.linear_fc2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.4.norm1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.4.norm1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.4.norm2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.4.norm2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.5.attn.proj.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.5.attn.proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.5.mlp.linear_fc1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.5.mlp.linear_fc1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.5.mlp.linear_fc2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.5.mlp.linear_fc2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.5.norm1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.5.norm1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.5.norm2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.5.norm2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.6.attn.proj.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.6.attn.proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.6.mlp.linear_fc1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.6.mlp.linear_fc1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.6.mlp.linear_fc2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.6.mlp.linear_fc2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.6.norm1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.6.norm1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.6.norm2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.6.norm2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.7.attn.proj.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:31 [utils.py:333] Attempted to load weight blocks.7.attn.proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight blocks.7.mlp.linear_fc1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight blocks.7.mlp.linear_fc1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight blocks.7.mlp.linear_fc2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight blocks.7.mlp.linear_fc2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight blocks.7.norm1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight blocks.7.norm1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight blocks.7.norm2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight blocks.7.norm2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight blocks.8.attn.proj.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight blocks.8.attn.proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight blocks.8.mlp.linear_fc1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight blocks.8.mlp.linear_fc1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight blocks.8.mlp.linear_fc2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight blocks.8.mlp.linear_fc2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight blocks.8.norm1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight blocks.8.norm1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight blocks.8.norm2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight blocks.8.norm2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight blocks.9.attn.proj.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight blocks.9.attn.proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight blocks.9.mlp.linear_fc1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight blocks.9.mlp.linear_fc1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight blocks.9.mlp.linear_fc2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight blocks.9.mlp.linear_fc2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight blocks.9.norm1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight blocks.9.norm1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight blocks.9.norm2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight blocks.9.norm2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight merger.linear_fc1.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight merger.linear_fc1.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight merger.linear_fc2.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight merger.linear_fc2.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight merger.norm.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight merger.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight patch_embed.proj.bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight patch_embed.proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight pos_embed.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+Loading safetensors checkpoint shards:   3% Completed | 2/66 [00:02<01:17,  1.21s/it]
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.0.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.0.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.0.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.0.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.0.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.1.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.1.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.1.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.1.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.1.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.2.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.2.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.2.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.2.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.2.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+Loading safetensors checkpoint shards:   8% Completed | 5/66 [00:02<00:22,  2.69it/s]
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.3.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.3.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.3.self_attn.k_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.3.self_attn.q_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.4.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.4.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.4.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.4.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.4.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.5.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.5.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.5.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.5.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.5.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.6.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.6.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.6.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.6.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.6.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+Loading safetensors checkpoint shards:  14% Completed | 9/66 [00:02<00:09,  5.76it/s]
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.7.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.7.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.7.self_attn.k_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.7.self_attn.q_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.8.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.8.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.8.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.8.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.8.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.9.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.9.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.9.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.9.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.9.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.10.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.10.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.10.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.10.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.10.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+Loading safetensors checkpoint shards:  20% Completed | 13/66 [00:02<00:05,  9.13it/s]
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.11.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.11.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.11.self_attn.k_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.11.self_attn.q_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.12.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.12.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.12.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.12.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.12.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.13.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.13.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.13.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.13.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.13.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.14.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.14.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.14.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.14.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.14.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+Loading safetensors checkpoint shards:  26% Completed | 17/66 [00:02<00:03, 12.91it/s]
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.15.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.15.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.15.self_attn.k_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.15.self_attn.q_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.16.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.16.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.16.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.16.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.16.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.17.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.17.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.17.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.17.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.17.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.18.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.18.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.18.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.18.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.18.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+Loading safetensors checkpoint shards:  32% Completed | 21/66 [00:03<00:02, 16.56it/s]
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.19.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.19.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.19.self_attn.k_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.19.self_attn.q_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.20.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.20.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.20.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.20.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.20.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.21.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.21.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.21.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.21.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.21.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.22.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.22.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.22.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.22.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.22.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+Loading safetensors checkpoint shards:  38% Completed | 25/66 [00:03<00:02, 20.47it/s]
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.23.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.23.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.23.self_attn.k_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.23.self_attn.q_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.24.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.24.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.24.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.24.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.24.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.25.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.25.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.25.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.25.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.25.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.26.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.26.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.26.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.26.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.26.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.27.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.27.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.27.self_attn.k_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.27.self_attn.q_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+Loading safetensors checkpoint shards:  45% Completed | 30/66 [00:03<00:01, 25.34it/s]
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.28.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.28.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.28.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.28.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.28.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.29.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.29.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.29.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.29.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.29.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.30.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.30.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.30.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.30.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.30.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.31.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.31.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.31.self_attn.k_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.31.self_attn.q_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.32.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.32.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.32.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.32.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.32.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+Loading safetensors checkpoint shards:  53% Completed | 35/66 [00:03<00:01, 29.12it/s]
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.33.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.33.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.33.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:32 [utils.py:333] Attempted to load weight layers.33.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.33.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.34.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.34.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.34.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.34.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.34.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.35.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.35.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.35.self_attn.k_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.35.self_attn.q_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.36.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.36.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.36.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.36.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.36.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.37.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.37.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.37.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.37.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.37.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+Loading safetensors checkpoint shards:  61% Completed | 40/66 [00:03<00:00, 32.16it/s]
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.38.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.38.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.38.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.38.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.38.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.39.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.39.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.39.self_attn.k_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.39.self_attn.q_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.40.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.40.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.40.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.40.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.40.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.41.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.41.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.41.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.41.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.41.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+Loading safetensors checkpoint shards:  67% Completed | 44/66 [00:03<00:00, 33.97it/s]
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.42.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.42.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.42.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.42.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.42.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.43.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.43.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.43.self_attn.k_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.43.self_attn.q_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.44.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.44.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.44.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.44.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.44.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.45.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.45.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.45.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.45.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.45.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+Loading safetensors checkpoint shards:  73% Completed | 48/66 [00:03<00:00, 35.17it/s]
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.46.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.46.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.46.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.46.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.46.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.47.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.47.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.47.self_attn.k_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.47.self_attn.q_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.48.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.48.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.48.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.48.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.48.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.49.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.49.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.49.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.49.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.49.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+Loading safetensors checkpoint shards:  79% Completed | 52/66 [00:03<00:00, 36.27it/s]
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.50.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.50.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.50.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.50.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.50.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.51.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.51.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.51.self_attn.k_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.51.self_attn.q_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.52.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.52.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.52.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.52.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.52.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.53.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.53.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.53.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.53.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.53.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+Loading safetensors checkpoint shards:  85% Completed | 56/66 [00:03<00:00, 36.89it/s]
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.54.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.54.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.54.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.54.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.54.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.55.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.55.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.55.self_attn.k_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.55.self_attn.q_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.56.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.56.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.56.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.56.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.56.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.57.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.57.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.57.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.57.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.57.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+Loading safetensors checkpoint shards:  91% Completed | 60/66 [00:04<00:00, 37.58it/s]
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.58.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.58.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.58.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.58.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.58.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.59.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.59.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.59.self_attn.k_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.59.self_attn.q_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.60.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.60.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.60.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.60.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.60.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.61.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.61.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.61.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.61.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.61.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.62.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.62.linear_attn.conv1d.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.62.linear_attn.dt_bias with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.62.linear_attn.norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.62.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+Loading safetensors checkpoint shards:  98% Completed | 65/66 [00:04<00:00, 38.64it/s]
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.63.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.63.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.63.self_attn.k_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:33 [utils.py:333] Attempted to load weight layers.63.self_attn.q_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+Loading safetensors checkpoint shards: 100% Completed | 66/66 [00:04<00:00, 15.90it/s]
+
+(Worker pid=501) INFO 11-19 16:34:33 [default_loader.py:501] Loading weights took 4.15 seconds
+(Worker pid=501) INFO 11-19 16:34:36 [uva.py:68] Total CPU offloaded parameters: 5.59
+[B70] MTP draft: forcing unquantized build (env B70_MTP_BF16_DRAFT=1)
+(Worker pid=501) INFO 11-19 16:34:36 [base_loader.py:82] Initializing model took 2.386287 seconds
+(Worker pid=501) INFO 11-19 16:34:36 [weight_utils.py:825] Skipped 64/66 safetensors shard(s) holding no weights the model loads
+(Worker pid=501) INFO 11-19 16:34:36 [weight_utils.py:1108] Filesystem type for checkpoints: BTRFS. Checkpoint size: 6.39 GiB. Available RAM: 126.96 GiB.
+Loading safetensors checkpoint shards:   0% Completed | 0/2 [00:00<?, ?it/s]
+(Worker pid=501) WARNING 11-19 16:34:36 [utils.py:333] Attempted to load weight lm_head.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:37 [utils.py:333] Attempted to load weight embed_tokens.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+Loading safetensors checkpoint shards:  50% Completed | 1/2 [00:01<00:01,  1.24s/it]
+(Worker pid=501) WARNING 11-19 16:34:38 [utils.py:333] Attempted to load weight fc.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:38 [utils.py:333] Attempted to load weight layers.0.input_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:38 [utils.py:333] Attempted to load weight layers.0.mlp.down_proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:38 [utils.py:333] Attempted to load weight layers.0.post_attention_layernorm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:38 [utils.py:333] Attempted to load weight layers.0.self_attn.k_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:38 [utils.py:333] Attempted to load weight layers.0.self_attn.o_proj.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:38 [utils.py:333] Attempted to load weight layers.0.self_attn.q_norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:38 [utils.py:333] Attempted to load weight norm.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:38 [utils.py:333] Attempted to load weight pre_fc_norm_embedding.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+(Worker pid=501) WARNING 11-19 16:34:38 [utils.py:333] Attempted to load weight pre_fc_norm_hidden.weight with dtype torch.bfloat16 into parameter with dtype torch.float16
+Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:01<00:00,  1.50it/s]
+Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:01<00:00,  1.33it/s]
+
+[B70] draft MTP INT4: cuantizando 5 linears del MTP -> INT4 g128 sym (one-time)
+[B70] draft MTP INT4: fc (5120, 10240) 105 MB -> 27 MB (fp16 liberado)
+[B70] draft MTP INT4: layers.0.self_attn.qkv_proj (14336, 5120) 147 MB -> 38 MB (fp16 liberado)
+[B70] draft MTP INT4: layers.0.self_attn.o_proj (5120, 6144) 63 MB -> 16 MB (fp16 liberado)
+[B70] draft MTP INT4: layers.0.mlp.gate_up_proj (34816, 5120) 357 MB -> 92 MB (fp16 liberado)
+[B70] draft MTP INT4: layers.0.mlp.down_proj (5120, 17408) 178 MB -> 46 MB (fp16 liberado)
+[B70] draft MTP INT4: listo. 0.85 GB BF16 -> 0.22 GB INT4 (ahorro 630 MB/lectura)
+(Worker pid=501) INFO 11-19 16:34:38 [default_loader.py:501] Loading weights took 1.61 seconds
+(Worker pid=501) INFO 11-19 16:34:39 [model_runner.py:427] Model loading took 13.48 GiB memory and 14.893677 seconds
+(Worker pid=501) INFO 11-19 16:34:40 [topk_topp_sampler.py:157] Using the fused XPU kernel for top-p & top-k sampling.
+(Worker pid=501) INFO 11-19 16:34:40 [torch_utils.py:295] Reducing Torch threads from 32 to 1 for serving. Set OMP_NUM_THREADS in the external environment to override.
+(Worker pid=501) INFO 11-19 16:34:40 [interface.py:776] Setting kv cache block size to 64 for FLASH_ATTN backend(s).
+(Worker pid=501) INFO 11-19 16:34:40 [interface.py:1096] Setting attention block size to 1664 tokens to ensure that attention page size is >= mamba page size.
+(Worker pid=501) INFO 11-19 16:34:40 [interface.py:1120] Padding mamba page size by 3.61% to ensure that mamba page size and attention page size are exactly equal.
+(EngineCore pid=365) INFO 11-19 16:34:40 [torch_utils.py:295] Reducing Torch threads from 32 to 1 for serving. Set OMP_NUM_THREADS in the external environment to override.
+(EngineCore pid=365) INFO 11-19 16:34:40 [utils.py:347] Using LBNHC KV cache layout.
+(Worker pid=501) INFO 11-19 16:34:45 [encoder_runner.py:131] Encoder cache will be initialized with a budget of 16384 tokens, and profiled with 1 image items of the maximum feature size.
+(Worker pid=501) INFO 11-19 16:34:48 [monitor.py:40] [backbone] Starting torch.compile
+(Worker pid=501) INFO 11-19 16:34:57 [backends.py:1104] [backbone] Using cache directory: /root/.cache/vllm/torch_compile_cache/4fe2954bda/rank_0_0/backbone for vLLM's torch.compile
+(Worker pid=501) INFO 11-19 16:34:57 [backends.py:1166] [backbone] Dynamo bytecode transform time: 9.48 s
+(EngineCore pid=365) INFO 11-19 16:35:41 [shm_broadcast.py:871] No available shared memory broadcast block found in 60 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation, weight/kv cache quantization).
+(Worker pid=501) INFO 11-19 16:35:45 [backends.py:398] [backbone] Compiling a graph for compile range (1, 8192) takes 47.18 s
+(Worker pid=501) INFO 11-19 16:35:51 [backends.py:927] collected artifacts: 65 entries, 21 artifacts, 32256449 bytes total
+(Worker pid=501) INFO 11-19 16:35:51 [decorators.py:743] [backbone] saved AOT compiled function to /root/.cache/vllm/torch_compile_cache/torch_aot_compile/9bd191001c2f7a92824fa9b609e48aed9d9ebd4c8d18dbfce642e24e1b1815f7/rank_0_0/model
+(Worker pid=501) INFO 11-19 16:35:51 [monitor.py:62] [backbone] torch.compile took 63.48 s in total
+(Worker pid=501) INFO 11-19 16:35:51 [monitor.py:91] [backbone] Initial profiling/warmup run took 0.20 s
+(Worker pid=501) INFO 11-19 16:35:52 [monitor.py:40] [eagle_head] Starting torch.compile
+(Worker pid=501) INFO 11-19 16:35:52 [backends.py:1104] [eagle_head] Using cache directory: /root/.cache/vllm/torch_compile_cache/4fe2954bda/rank_0_0/eagle_head for vLLM's torch.compile
+(Worker pid=501) INFO 11-19 16:35:52 [backends.py:1166] [eagle_head] Dynamo bytecode transform time: 0.37 s
+(Worker pid=501) INFO 11-19 16:35:58 [backends.py:398] [eagle_head] Compiling a graph for compile range (1, 8192) takes 6.33 s
+(Worker pid=501) INFO 11-19 16:35:58 [backends.py:927] collected artifacts: 2 entries, 2 artifacts, 2360689 bytes total
+(Worker pid=501) INFO 11-19 16:35:58 [decorators.py:743] [eagle_head] saved AOT compiled function to /root/.cache/vllm/torch_compile_cache/torch_aot_compile/e452528d0f262309fb7973922ae7017239b5542470de2f4f280c8f96e49aa461/rank_0_0/model
+(Worker pid=501) INFO 11-19 16:35:58 [monitor.py:62] [eagle_head] torch.compile took 6.92 s in total
+(Worker pid=501) INFO 11-19 16:35:59 [monitor.py:91] [eagle_head] Initial profiling/warmup run took 0.14 s
+[B70] draft LM head INT4: using prebuilt head
+(Worker pid=501) WARNING 11-19 16:36:01 [kv_cache_utils.py:1483] Add 3 padding layers, may waste at most 6.25% KV cache memory
+Capturing CUDA graphs (PIECEWISE):   0%|          | 0/12 [00:00<?, ?it/s]Capturing CUDA graphs (PIECEWISE):   8%|▊         | 1/12 [00:00<00:03,  2.95it/s]Capturing CUDA graphs (PIECEWISE):  17%|█▋        | 2/12 [00:00<00:03,  3.21it/s]Capturing CUDA graphs (PIECEWISE):  25%|██▌       | 3/12 [00:00<00:02,  3.70it/s]Capturing CUDA graphs (PIECEWISE):  33%|███▎      | 4/12 [00:01<00:01,  4.47it/s]Capturing CUDA graphs (PIECEWISE):  42%|████▏     | 5/12 [00:01<00:01,  4.65it/s]Capturing CUDA graphs (PIECEWISE):  50%|█████     | 6/12 [00:01<00:01,  4.97it/s]Capturing CUDA graphs (PIECEWISE):  58%|█████▊    | 7/12 [00:01<00:00,  5.43it/s]Capturing CUDA graphs (PIECEWISE):  67%|██████▋   | 8/12 [00:01<00:00,  5.65it/s]Capturing CUDA graphs (PIECEWISE):  75%|███████▌  | 9/12 [00:01<00:00,  5.92it/s]Capturing CUDA graphs (PIECEWISE):  83%|████████▎ | 10/12 [00:01<00:00,  6.08it/s]Capturing CUDA graphs (PIECEWISE):  92%|█████████▏| 11/12 [00:02<00:00,  6.20it/s]Capturing CUDA graphs (PIECEWISE): 100%|██████████| 12/12 [00:02<00:00,  6.39it/s]Capturing CUDA graphs (PIECEWISE): 100%|██████████| 12/12 [00:02<00:00,  5.23it/s]
+Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]Capturing CUDA graphs (FULL): 100%|██████████| 2/2 [00:00<00:00, 10.41it/s]Capturing CUDA graphs (FULL): 100%|██████████| 2/2 [00:00<00:00, 10.40it/s]
+(Worker pid=501) INFO 11-19 16:36:04 [speculator.py:110] Capturing model for speculator...
+Capturing prefill CUDA graphs (PIECEWISE):   0%|          | 0/12 [00:00<?, ?it/s]Capturing prefill CUDA graphs (PIECEWISE):  25%|██▌       | 3/12 [00:00<00:00, 22.93it/s]Capturing prefill CUDA graphs (PIECEWISE):  58%|█████▊    | 7/12 [00:00<00:00, 30.84it/s]Capturing prefill CUDA graphs (PIECEWISE): 100%|██████████| 12/12 [00:00<00:00, 43.15it/s]
+Capturing prefill CUDA graphs (FULL):   0%|          | 0/8 [00:00<?, ?it/s]Capturing prefill CUDA graphs (FULL): 100%|██████████| 8/8 [00:00<00:00, 93.27it/s]
+Capturing decode CUDA graphs (FULL):   0%|          | 0/5 [00:00<?, ?it/s]Capturing decode CUDA graphs (FULL):  20%|██        | 1/5 [00:00<00:01,  3.00it/s]Capturing decode CUDA graphs (FULL): 100%|██████████| 5/5 [00:00<00:00, 13.10it/s]
+(Worker pid=501) INFO 11-19 16:36:06 [model_runner.py:1130] Graph capturing finished in 4 secs, took 0.24 GiB
+(Worker pid=501) INFO 11-19 16:36:06 [gpu_worker.py:759] Available KV cache memory: 11.72 GiB
+(Worker pid=501) INFO 11-19 16:36:06 [gpu_worker.py:774] CUDA graph memory profiling is enabled (default since v0.21.0). The current --gpu-memory-utilization=0.9300 is equivalent to --gpu-memory-utilization=0.9213 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9387. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.
+(EngineCore pid=365) WARNING 11-19 16:36:06 [kv_cache_utils.py:1483] Add 3 padding layers, may waste at most 6.25% KV cache memory
+(EngineCore pid=365) INFO 11-19 16:36:06 [kv_cache_utils.py:2327] XPU KV cache size: 323,211 tokens, Maximum concurrency for 262,144 tokens per request: 1.23x
+(EngineCore pid=365) INFO 11-19 16:36:06 [kv_cache_utils.py:853] kv cache group sizes (1664, 1664, 1664, 1664)
+(EngineCore pid=365) INFO 11-19 16:36:06 [kv_cache_utils.py:854] kv lcm block sizes 1664
+(Worker pid=501) INFO 11-19 16:36:06 [kernel_warmup.py:176] JIT kernel warmup starting.
+(Worker pid=501) INFO 11-19 16:36:06 [kernel_warmup.py:189] JIT kernel warmup finished in 0.00s.
+(Worker pid=501) INFO 11-19 16:36:06 [qwen_triton_warmup.py:296] Warming up Qwen GDN Triton kernels for model_type=qwen3_5_text.
+(Worker pid=501) INFO 11-19 16:36:09 [qwen_vl_triton_warmup.py:57] Warmed position embedding and vision rotary kernels on grids=[(1, 16, 16), (1, 16, 2), (1, 2, 16), (1, 2, 2)].
+Capturing CUDA graphs (PIECEWISE):   0%|          | 0/12 [00:00<?, ?it/s]Capturing CUDA graphs (PIECEWISE):   8%|▊         | 1/12 [00:00<00:01,  7.47it/s]Capturing CUDA graphs (PIECEWISE):  17%|█▋        | 2/12 [00:00<00:01,  8.05it/s]Capturing CUDA graphs (PIECEWISE):  25%|██▌       | 3/12 [00:00<00:01,  8.05it/s]Capturing CUDA graphs (PIECEWISE):  33%|███▎      | 4/12 [00:00<00:00,  8.10it/s]Capturing CUDA graphs (PIECEWISE):  42%|████▏     | 5/12 [00:00<00:00,  8.18it/s]Capturing CUDA graphs (PIECEWISE):  50%|█████     | 6/12 [00:00<00:00,  8.43it/s]Capturing CUDA graphs (PIECEWISE):  58%|█████▊    | 7/12 [00:00<00:00,  8.56it/s]Capturing CUDA graphs (PIECEWISE):  67%|██████▋   | 8/12 [00:00<00:00,  8.73it/s]Capturing CUDA graphs (PIECEWISE):  75%|███████▌  | 9/12 [00:01<00:00,  8.90it/s]Capturing CUDA graphs (PIECEWISE):  83%|████████▎ | 10/12 [00:01<00:00,  9.04it/s]Capturing CUDA graphs (PIECEWISE):  92%|█████████▏| 11/12 [00:01<00:00,  9.13it/s]Capturing CUDA graphs (PIECEWISE): 100%|██████████| 12/12 [00:01<00:00,  9.22it/s]Capturing CUDA graphs (PIECEWISE): 100%|██████████| 12/12 [00:01<00:00,  8.70it/s]
+Capturing CUDA graphs (FULL):   0%|          | 0/8 [00:00<?, ?it/s]Capturing CUDA graphs (FULL):  25%|██▌       | 2/8 [00:00<00:00, 10.08it/s]Capturing CUDA graphs (FULL):  50%|█████     | 4/8 [00:00<00:00,  9.90it/s]Capturing CUDA graphs (FULL):  75%|███████▌  | 6/8 [00:00<00:00,  9.97it/s]Capturing CUDA graphs (FULL): 100%|██████████| 8/8 [00:00<00:00, 10.03it/s]Capturing CUDA graphs (FULL): 100%|██████████| 8/8 [00:00<00:00, 10.00it/s]
+(Worker pid=501) INFO 11-19 16:36:32 [speculator.py:110] Capturing model for speculator...
+Capturing prefill CUDA graphs (PIECEWISE):   0%|          | 0/12 [00:00<?, ?it/s]Capturing prefill CUDA graphs (PIECEWISE): 100%|██████████| 12/12 [00:00<00:00, 132.65it/s]
+Capturing prefill CUDA graphs (FULL):   0%|          | 0/8 [00:00<?, ?it/s]Capturing prefill CUDA graphs (FULL): 100%|██████████| 8/8 [00:00<00:00, 97.80it/s]
+Capturing decode CUDA graphs (FULL):   0%|          | 0/5 [00:00<?, ?it/s]Capturing decode CUDA graphs (FULL): 100%|██████████| 5/5 [00:00<00:00, 81.28it/s]
+(Worker pid=501) INFO 11-19 16:36:32 [model_runner.py:1130] Graph capturing finished in 3 secs, took 0.05 GiB
+(Worker pid=501) INFO 11-19 16:36:32 [gpu_worker.py:971] CUDA graph pool memory: 0.05 GiB (actual), 0.26 GiB (estimated), difference: 0.22 GiB (476.6%).
+(Worker pid=501) INFO 11-19 16:36:32 [gpu_worker.py:1034] Free memory on device (29.93/30.3 GiB) on startup. Desired GPU memory utilization is (0.93, 28.18 GiB). Actual usage is 14.4 GiB for consumed memory (weights + non-torch), 2.05 GiB for peak activation, and 0.05 GiB for CUDAGraph memory. Replace gpu_memory_utilization config with `--kv-cache-memory=12382257746` (11.53 GiB) to fit into requested memory, or `--kv-cache-memory=14265556480` (13.29 GiB) to fully utilize gpu memory. Current kv cache memory in use is 11.72 GiB.
+(Worker pid=501) INFO 11-19 16:36:32 [jit_monitor.py:84] Kernel JIT monitor activated; monitored JIT compilations during inference will use mode=warn.
+(EngineCore pid=365) INFO 11-19 16:36:33 [core.py:395] init engine (profile, create kv cache, warmup model) took 113.26 s (compilation: 70.40 s)
+(EngineCore pid=365) INFO 11-19 16:36:39 [kernel.py:467] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(EngineCore pid=365) INFO 11-19 16:36:39 [xpu.py:418] Disabling Inductor's static Triton launcher because UVA weight offloading is enabled.
+(APIServer pid=1) INFO 11-19 16:36:39 [entry.py:136] Supported tasks: ['generate']
+(APIServer pid=1) INFO 11-19 16:36:40 [factories.py:89] Scale-out endpoints are disabled. Restart vllm serve with --enable-scale-out to enable them.
+(APIServer pid=1) INFO 11-19 16:36:40 [parser_manager.py:38] "auto" tool choice has been enabled.
+(APIServer pid=1) INFO 11-19 16:36:40 [hf.py:648] Detected the chat template content format to be 'openai'. You can set `--chat-template-content-format` to override this.
+(APIServer pid=1) WARNING 11-19 16:36:40 [model.py:1893] Default vLLM sampling parameters have been overridden by the model's `generation_config.json`: `{'temperature': 1.0, 'top_k': 20, 'top_p': 0.95}`. If this is not intended, please relaunch vLLM instance with `--generation-config vllm`.
+(APIServer pid=1) INFO 11-19 16:36:40 [entry.py:140] Starting vLLM server on http://0.0.0.0:8000
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:186] Available routes are:
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /openapi.json, Methods: HEAD, GET
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /docs, Methods: HEAD, GET
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /docs/oauth2-redirect, Methods: HEAD, GET
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /redoc, Methods: HEAD, GET
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /load, Methods: GET
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /version, Methods: GET
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /kv_event_sources, Methods: GET
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /health, Methods: GET
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /metrics, Methods: GET
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /tokenize, Methods: POST
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /detokenize, Methods: POST
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /v1/models, Methods: GET
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /v1/systemone, Methods: POST
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /ping, Methods: GET
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /ping, Methods: POST
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /invocations, Methods: POST
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /v1/chat/completions, Methods: POST
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /v1/chat/completions/batch, Methods: POST
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /v1/responses, Methods: POST
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /v1/responses/{response_id}, Methods: GET
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /v1/responses/{response_id}/cancel, Methods: POST
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /v1/completions, Methods: POST
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /v1/messages, Methods: POST
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /v1/messages/count_tokens, Methods: POST
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /generative_scoring, Methods: POST
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /scale_elastic_ep, Methods: POST
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /is_scaling_elastic_ep, Methods: POST
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /v1/chat/completions/render, Methods: POST
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /v1/messages/render, Methods: POST
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /v1/completions/render, Methods: POST
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /v1/responses/render, Methods: POST
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /v1/chat/completions/derender, Methods: POST
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /v1/completions/derender, Methods: POST
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /inference/v1/generate, Methods: POST
+(APIServer pid=1) INFO 11-19 16:36:40 [launcher.py:195] Route: /inference/v1/abort_requests, Methods: POST
+INFO:     Started server process [1]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:45544 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45558 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45570 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45586 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45590 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45604 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45616 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45632 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+(Worker pid=501) INFO 11-19 16:36:49 [_xpu_ops.py:329] [B70] GDN mixed split prefill=1 decode=0 spec=1 n_ns=39 n_sp=5
+INFO:     127.0.0.1:45648 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45656 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45658 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45672 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45686 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45700 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45706 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 11-19 16:36:51 [loggers.py:335] Engine 000: Avg prompt throughput: 33.0 tokens/s, Avg generation throughput: 44.5 tokens/s, Running: 4 reqs, Waiting: 0 reqs, XPU KV cache usage: 29.6%, Prefix cache hit rate: 0.0%
+(APIServer pid=1) INFO 11-19 16:36:51 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.95, Accepted throughput: 29.81 tokens/s, Drafted throughput: 61.07 tokens/s, Accepted: 330 tokens, Drafted: 676 tokens, Per-position acceptance rate: 0.864, 0.533, 0.325, 0.231, Avg Draft acceptance rate: 48.8%
+INFO:     127.0.0.1:50220 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(Worker pid=501) WARNING 11-19 16:36:52 [jit_monitor.py:140] Triton kernel JIT compilation during inference: _gumbel_sample_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+INFO:     127.0.0.1:50226 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50234 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50250 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50256 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 11-19 16:37:01 [loggers.py:335] Engine 000: Avg prompt throughput: 244.6 tokens/s, Avg generation throughput: 79.8 tokens/s, Running: 1 reqs, Waiting: 0 reqs, XPU KV cache usage: 7.4%, Prefix cache hit rate: 0.0%
+(APIServer pid=1) INFO 11-19 16:37:01 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.82, Accepted throughput: 51.20 tokens/s, Drafted throughput: 112.40 tokens/s, Accepted: 512 tokens, Drafted: 1124 tokens, Per-position acceptance rate: 0.754, 0.530, 0.356, 0.181, Avg Draft acceptance rate: 45.6%
+INFO:     127.0.0.1:50270 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49920 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49926 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49942 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49954 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 11-19 16:37:11 [loggers.py:335] Engine 000: Avg prompt throughput: 61.4 tokens/s, Avg generation throughput: 83.1 tokens/s, Running: 2 reqs, Waiting: 0 reqs, XPU KV cache usage: 14.8%, Prefix cache hit rate: 0.0%
+(APIServer pid=1) INFO 11-19 16:37:11 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.67, Accepted throughput: 51.70 tokens/s, Drafted throughput: 124.00 tokens/s, Accepted: 517 tokens, Drafted: 1240 tokens, Per-position acceptance rate: 0.755, 0.465, 0.277, 0.171, Avg Draft acceptance rate: 41.7%
+INFO:     127.0.0.1:38544 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38554 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38570 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38582 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38594 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38590 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38616 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(Worker pid=501) WARNING 11-19 16:37:18 [jit_monitor.py:140] Triton kernel JIT compilation during inference: _gather_draft_sampled_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+INFO:     127.0.0.1:38610 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38618 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38626 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38642 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38654 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38660 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38674 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38684 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38690 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38696 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38704 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38720 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38698 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38732 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38744 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38752 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38766 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 11-19 16:37:21 [loggers.py:335] Engine 000: Avg prompt throughput: 148.9 tokens/s, Avg generation throughput: 144.9 tokens/s, Running: 3 reqs, Waiting: 0 reqs, XPU KV cache usage: 22.2%, Prefix cache hit rate: 0.0%
+(APIServer pid=1) INFO 11-19 16:37:21 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.80, Accepted throughput: 95.30 tokens/s, Drafted throughput: 211.99 tokens/s, Accepted: 953 tokens, Drafted: 2120 tokens, Per-position acceptance rate: 0.777, 0.521, 0.311, 0.189, Avg Draft acceptance rate: 45.0%
+INFO:     127.0.0.1:38778 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38792 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38796 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38794 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38830 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38804 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38814 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38840 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38852 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57392 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57406 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57410 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57428 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57434 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57446 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57420 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57458 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57474 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57484 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57500 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57508 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57510 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57512 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57528 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57532 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57538 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57540 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57542 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57552 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57556 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57566 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57572 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57574 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57580 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57596 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57612 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57614 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57632 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57622 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57634 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57650 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57660 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57670 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57676 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57684 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57696 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57708 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57718 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57730 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57736 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57738 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57746 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57748 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57764 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57778 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57792 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57786 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57800 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57802 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57818 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57852 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57822 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57842 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57832 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57878 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57890 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 11-19 16:37:31 [loggers.py:335] Engine 000: Avg prompt throughput: 441.2 tokens/s, Avg generation throughput: 144.7 tokens/s, Running: 4 reqs, Waiting: 0 reqs, XPU KV cache usage: 29.6%, Prefix cache hit rate: 0.0%
+(APIServer pid=1) INFO 11-19 16:37:31 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 3.98, Accepted throughput: 117.90 tokens/s, Drafted throughput: 158.00 tokens/s, Accepted: 1179 tokens, Drafted: 1580 tokens, Per-position acceptance rate: 0.889, 0.782, 0.699, 0.615, Avg Draft acceptance rate: 74.6%
+INFO:     127.0.0.1:57856 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57864 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57906 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57938 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57936 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57922 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51024 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51038 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51046 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51058 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51040 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51072 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51092 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51088 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51106 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51100 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51128 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51120 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 11-19 16:37:41 [loggers.py:335] Engine 000: Avg prompt throughput: 176.9 tokens/s, Avg generation throughput: 286.6 tokens/s, Running: 4 reqs, Waiting: 0 reqs, XPU KV cache usage: 29.6%, Prefix cache hit rate: 0.0%
+(APIServer pid=1) INFO 11-19 16:37:41 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 4.12, Accepted throughput: 219.28 tokens/s, Drafted throughput: 280.77 tokens/s, Accepted: 2193 tokens, Drafted: 2808 tokens, Per-position acceptance rate: 0.936, 0.849, 0.726, 0.613, Avg Draft acceptance rate: 78.1%
+INFO:     127.0.0.1:51146 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51138 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51164 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51150 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33866 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33876 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51182 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51172 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33886 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33894 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33900 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33904 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33910 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33936 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33914 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33952 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33966 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33928 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33974 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33988 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 11-19 16:37:51 [loggers.py:335] Engine 000: Avg prompt throughput: 180.1 tokens/s, Avg generation throughput: 286.9 tokens/s, Running: 4 reqs, Waiting: 0 reqs, XPU KV cache usage: 29.6%, Prefix cache hit rate: 0.0%
+(APIServer pid=1) INFO 11-19 16:37:51 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 4.17, Accepted throughput: 219.70 tokens/s, Drafted throughput: 276.80 tokens/s, Accepted: 2197 tokens, Drafted: 2768 tokens, Per-position acceptance rate: 0.949, 0.829, 0.740, 0.656, Avg Draft acceptance rate: 79.4%
+INFO:     127.0.0.1:33964 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34006 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33994 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34038 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53474 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53480 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53472 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53482 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53484 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34022 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53500 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53514 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53528 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53524 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53546 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53534 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53558 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53564 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 11-19 16:38:01 [loggers.py:335] Engine 000: Avg prompt throughput: 157.4 tokens/s, Avg generation throughput: 297.8 tokens/s, Running: 4 reqs, Waiting: 0 reqs, XPU KV cache usage: 29.6%, Prefix cache hit rate: 0.0%
+(APIServer pid=1) INFO 11-19 16:38:01 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 4.17, Accepted throughput: 227.48 tokens/s, Drafted throughput: 287.18 tokens/s, Accepted: 2275 tokens, Drafted: 2872 tokens, Per-position acceptance rate: 0.955, 0.851, 0.735, 0.627, Avg Draft acceptance rate: 79.2%
+INFO:     127.0.0.1:53596 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53582 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53566 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53602 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54616 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53556 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54604 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54646 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54618 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54634 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54662 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54656 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54640 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54666 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54684 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54682 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54696 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54698 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 11-19 16:38:11 [loggers.py:335] Engine 000: Avg prompt throughput: 133.1 tokens/s, Avg generation throughput: 257.8 tokens/s, Running: 1 reqs, Waiting: 0 reqs, XPU KV cache usage: 7.4%, Prefix cache hit rate: 0.0%
+(APIServer pid=1) INFO 11-19 16:38:11 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 4.33, Accepted throughput: 199.59 tokens/s, Drafted throughput: 239.59 tokens/s, Accepted: 1996 tokens, Drafted: 2396 tokens, Per-position acceptance rate: 0.952, 0.890, 0.795, 0.696, Avg Draft acceptance rate: 83.3%
+INFO:     127.0.0.1:54704 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54720 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59994 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60002 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60010 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60026 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60040 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60050 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60064 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60080 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60084 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60100 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60116 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60118 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 11-19 16:38:21 [loggers.py:335] Engine 000: Avg prompt throughput: 224.5 tokens/s, Avg generation throughput: 89.1 tokens/s, Running: 1 reqs, Waiting: 0 reqs, XPU KV cache usage: 7.4%, Prefix cache hit rate: 0.0%
+(APIServer pid=1) INFO 11-19 16:38:21 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 3.90, Accepted throughput: 66.99 tokens/s, Drafted throughput: 92.39 tokens/s, Accepted: 670 tokens, Drafted: 924 tokens, Per-position acceptance rate: 0.913, 0.810, 0.636, 0.541, Avg Draft acceptance rate: 72.5%
+INFO:     127.0.0.1:60126 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46368 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46378 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46388 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46400 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 11-19 16:38:31 [loggers.py:335] Engine 000: Avg prompt throughput: 218.1 tokens/s, Avg generation throughput: 32.5 tokens/s, Running: 1 reqs, Waiting: 0 reqs, XPU KV cache usage: 12.5%, Prefix cache hit rate: 0.0%
+(APIServer pid=1) INFO 11-19 16:38:31 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 4.91, Accepted throughput: 26.20 tokens/s, Drafted throughput: 26.80 tokens/s, Accepted: 262 tokens, Drafted: 268 tokens, Per-position acceptance rate: 0.985, 0.985, 0.985, 0.955, Avg Draft acceptance rate: 97.8%
+(APIServer pid=1) INFO 11-19 16:38:41 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, XPU KV cache usage: 19.4%, Prefix cache hit rate: 0.0%
+INFO:     127.0.0.1:46410 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 11-19 16:39:21 [loggers.py:335] Engine 000: Avg prompt throughput: 7506.7 tokens/s, Avg generation throughput: 2.3 tokens/s, Running: 1 reqs, Waiting: 0 reqs, XPU KV cache usage: 12.0%, Prefix cache hit rate: 0.0%
+(APIServer pid=1) INFO 11-19 16:39:21 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 3.71, Accepted throughput: 0.38 tokens/s, Drafted throughput: 0.56 tokens/s, Accepted: 19 tokens, Drafted: 28 tokens, Per-position acceptance rate: 0.857, 0.714, 0.571, 0.571, Avg Draft acceptance rate: 67.9%
+(APIServer pid=1) INFO 11-19 16:39:31 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, XPU KV cache usage: 19.0%, Prefix cache hit rate: 0.0%
+INFO:     127.0.0.1:35056 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39170 - "GET /metrics HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 11-19 16:42:21 [loggers.py:335] Engine 000: Avg prompt throughput: 18735.4 tokens/s, Avg generation throughput: 2.3 tokens/s, Running: 0 reqs, Waiting: 0 reqs, XPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+(APIServer pid=1) INFO 11-19 16:42:21 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 3.71, Accepted throughput: 0.11 tokens/s, Drafted throughput: 0.16 tokens/s, Accepted: 19 tokens, Drafted: 28 tokens, Per-position acceptance rate: 0.857, 0.714, 0.571, 0.571, Avg Draft acceptance rate: 67.9%
+INFO:     127.0.0.1:39174 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42832 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42834 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42836 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42840 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42856 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 11-19 16:42:31 [loggers.py:335] Engine 000: Avg prompt throughput: 2120.2 tokens/s, Avg generation throughput: 4.2 tokens/s, Running: 1 reqs, Waiting: 0 reqs, XPU KV cache usage: 11.1%, Prefix cache hit rate: 11.5%
+(APIServer pid=1) INFO 11-19 16:42:31 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 5.00, Accepted throughput: 4.80 tokens/s, Drafted throughput: 4.80 tokens/s, Accepted: 48 tokens, Drafted: 48 tokens, Per-position acceptance rate: 1.000, 1.000, 1.000, 1.000, Avg Draft acceptance rate: 100.0%
+INFO:     127.0.0.1:42872 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35888 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35898 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35912 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35924 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35936 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35944 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 11-19 16:42:41 [loggers.py:335] Engine 000: Avg prompt throughput: 1939.3 tokens/s, Avg generation throughput: 5.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, XPU KV cache usage: 11.1%, Prefix cache hit rate: 21.1%
+(APIServer pid=1) INFO 11-19 16:42:41 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 5.00, Accepted throughput: 5.60 tokens/s, Drafted throughput: 5.60 tokens/s, Accepted: 56 tokens, Drafted: 56 tokens, Per-position acceptance rate: 1.000, 1.000, 1.000, 1.000, Avg Draft acceptance rate: 100.0%
+INFO:     127.0.0.1:35956 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35958 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57934 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57944 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57946 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57958 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57968 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57978 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 11-19 16:42:51 [loggers.py:335] Engine 000: Avg prompt throughput: 1697.0 tokens/s, Avg generation throughput: 5.5 tokens/s, Running: 1 reqs, Waiting: 0 reqs, XPU KV cache usage: 11.1%, Prefix cache hit rate: 29.0%
+(APIServer pid=1) INFO 11-19 16:42:51 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 5.00, Accepted throughput: 6.40 tokens/s, Drafted throughput: 6.40 tokens/s, Accepted: 64 tokens, Drafted: 64 tokens, Per-position acceptance rate: 1.000, 1.000, 1.000, 1.000, Avg Draft acceptance rate: 100.0%
+INFO:     127.0.0.1:57982 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57984 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43024 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43030 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43046 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43060 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43062 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43070 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43078 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43080 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 11-19 16:43:01 [loggers.py:335] Engine 000: Avg prompt throughput: 1738.5 tokens/s, Avg generation throughput: 20.3 tokens/s, Running: 1 reqs, Waiting: 0 reqs, XPU KV cache usage: 7.4%, Prefix cache hit rate: 33.4%
+(APIServer pid=1) INFO 11-19 16:43:01 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 4.62, Accepted throughput: 17.00 tokens/s, Drafted throughput: 18.80 tokens/s, Accepted: 170 tokens, Drafted: 188 tokens, Per-position acceptance rate: 0.979, 0.915, 0.915, 0.809, Avg Draft acceptance rate: 90.4%
+INFO:     127.0.0.1:43082 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34406 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34408 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34414 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34420 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34422 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34434 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34440 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34448 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34460 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34474 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 11-19 16:43:11 [loggers.py:335] Engine 000: Avg prompt throughput: 539.9 tokens/s, Avg generation throughput: 93.1 tokens/s, Running: 1 reqs, Waiting: 0 reqs, XPU KV cache usage: 7.4%, Prefix cache hit rate: 33.1%
+(APIServer pid=1) INFO 11-19 16:43:11 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 4.63, Accepted throughput: 73.69 tokens/s, Drafted throughput: 81.19 tokens/s, Accepted: 737 tokens, Drafted: 812 tokens, Per-position acceptance rate: 0.970, 0.926, 0.897, 0.837, Avg Draft acceptance rate: 90.8%
+INFO:     127.0.0.1:34490 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41532 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41542 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41552 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41578 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41562 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 11-19 16:43:21 [loggers.py:335] Engine 000: Avg prompt throughput: 1385.4 tokens/s, Avg generation throughput: 53.0 tokens/s, Running: 4 reqs, Waiting: 0 reqs, XPU KV cache usage: 32.9%, Prefix cache hit rate: 32.3%
+(APIServer pid=1) INFO 11-19 16:43:21 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 4.01, Accepted throughput: 39.40 tokens/s, Drafted throughput: 52.39 tokens/s, Accepted: 394 tokens, Drafted: 524 tokens, Per-position acceptance rate: 0.916, 0.817, 0.672, 0.603, Avg Draft acceptance rate: 75.2%
+INFO:     127.0.0.1:41604 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41580 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41588 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41622 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35916 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 11-19 16:43:31 [loggers.py:335] Engine 000: Avg prompt throughput: 1234.3 tokens/s, Avg generation throughput: 45.0 tokens/s, Running: 4 reqs, Waiting: 0 reqs, XPU KV cache usage: 38.0%, Prefix cache hit rate: 30.9%
+(APIServer pid=1) INFO 11-19 16:43:31 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 3.42, Accepted throughput: 32.00 tokens/s, Drafted throughput: 52.80 tokens/s, Accepted: 320 tokens, Drafted: 528 tokens, Per-position acceptance rate: 0.818, 0.682, 0.530, 0.394, Avg Draft acceptance rate: 60.6%
+INFO:     127.0.0.1:35932 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37852 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37856 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41618 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 11-19 16:43:41 [loggers.py:335] Engine 000: Avg prompt throughput: 1231.8 tokens/s, Avg generation throughput: 56.3 tokens/s, Running: 4 reqs, Waiting: 0 reqs, XPU KV cache usage: 38.0%, Prefix cache hit rate: 30.3%
+(APIServer pid=1) INFO 11-19 16:43:41 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 3.25, Accepted throughput: 39.10 tokens/s, Drafted throughput: 69.60 tokens/s, Accepted: 391 tokens, Drafted: 696 tokens, Per-position acceptance rate: 0.816, 0.626, 0.454, 0.351, Avg Draft acceptance rate: 56.2%
+INFO:     127.0.0.1:35940 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37864 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53108 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53110 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 11-19 16:43:51 [loggers.py:335] Engine 000: Avg prompt throughput: 1232.0 tokens/s, Avg generation throughput: 34.1 tokens/s, Running: 4 reqs, Waiting: 0 reqs, XPU KV cache usage: 42.1%, Prefix cache hit rate: 29.7%
+(APIServer pid=1) INFO 11-19 16:43:51 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 3.05, Accepted throughput: 23.00 tokens/s, Drafted throughput: 44.80 tokens/s, Accepted: 230 tokens, Drafted: 448 tokens, Per-position acceptance rate: 0.732, 0.562, 0.438, 0.321, Avg Draft acceptance rate: 51.3%
+INFO:     127.0.0.1:53122 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51628 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53128 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41564 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51648 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51644 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 11-19 16:44:01 [loggers.py:335] Engine 000: Avg prompt throughput: 2441.9 tokens/s, Avg generation throughput: 64.4 tokens/s, Running: 2 reqs, Waiting: 0 reqs, XPU KV cache usage: 21.3%, Prefix cache hit rate: 29.1%
+(APIServer pid=1) INFO 11-19 16:44:01 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 3.20, Accepted throughput: 44.70 tokens/s, Drafted throughput: 81.20 tokens/s, Accepted: 447 tokens, Drafted: 812 tokens, Per-position acceptance rate: 0.823, 0.631, 0.433, 0.315, Avg Draft acceptance rate: 55.0%
+INFO:     127.0.0.1:51658 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+(APIServer pid=1) INFO 11-19 16:44:11 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 78.2 tokens/s, Running: 1 reqs, Waiting: 0 reqs, XPU KV cache usage: 10.6%, Prefix cache hit rate: 29.1%
+(APIServer pid=1) INFO 11-19 16:44:11 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.30, Accepted throughput: 44.50 tokens/s, Drafted throughput: 136.39 tokens/s, Accepted: 445 tokens, Drafted: 1364 tokens, Per-position acceptance rate: 0.651, 0.390, 0.179, 0.085, Avg Draft acceptance rate: 32.6%
+(APIServer pid=1) INFO 11-19 16:44:21 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 62.3 tokens/s, Running: 1 reqs, Waiting: 0 reqs, XPU KV cache usage: 11.1%, Prefix cache hit rate: 29.1%
+(APIServer pid=1) INFO 11-19 16:44:21 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.18, Accepted throughput: 33.70 tokens/s, Drafted throughput: 114.39 tokens/s, Accepted: 337 tokens, Drafted: 1144 tokens, Per-position acceptance rate: 0.657, 0.350, 0.133, 0.038, Avg Draft acceptance rate: 29.5%
+(APIServer pid=1) INFO 11-19 16:44:31 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 65.8 tokens/s, Running: 1 reqs, Waiting: 0 reqs, XPU KV cache usage: 11.1%, Prefix cache hit rate: 29.1%
+(APIServer pid=1) INFO 11-19 16:44:31 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.30, Accepted throughput: 37.20 tokens/s, Drafted throughput: 114.39 tokens/s, Accepted: 372 tokens, Drafted: 1144 tokens, Per-position acceptance rate: 0.685, 0.395, 0.178, 0.042, Avg Draft acceptance rate: 32.5%
+(APIServer pid=1) INFO 11-19 16:44:41 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 62.8 tokens/s, Running: 1 reqs, Waiting: 0 reqs, XPU KV cache usage: 11.1%, Prefix cache hit rate: 29.1%
+(APIServer pid=1) INFO 11-19 16:44:41 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.20, Accepted throughput: 34.30 tokens/s, Drafted throughput: 113.99 tokens/s, Accepted: 343 tokens, Drafted: 1140 tokens, Per-position acceptance rate: 0.635, 0.372, 0.161, 0.035, Avg Draft acceptance rate: 30.1%
+(APIServer pid=1) INFO 11-19 16:44:51 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 62.3 tokens/s, Running: 1 reqs, Waiting: 0 reqs, XPU KV cache usage: 11.6%, Prefix cache hit rate: 29.1%
+(APIServer pid=1) INFO 11-19 16:44:51 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.19, Accepted throughput: 33.80 tokens/s, Drafted throughput: 114.00 tokens/s, Accepted: 338 tokens, Drafted: 1140 tokens, Per-position acceptance rate: 0.635, 0.372, 0.140, 0.039, Avg Draft acceptance rate: 29.6%
+(APIServer pid=1) INFO 11-19 16:45:01 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 63.5 tokens/s, Running: 1 reqs, Waiting: 0 reqs, XPU KV cache usage: 11.6%, Prefix cache hit rate: 29.1%
+(APIServer pid=1) INFO 11-19 16:45:01 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.24, Accepted throughput: 35.10 tokens/s, Drafted throughput: 113.59 tokens/s, Accepted: 351 tokens, Drafted: 1136 tokens, Per-position acceptance rate: 0.694, 0.391, 0.113, 0.039, Avg Draft acceptance rate: 30.9%
+(APIServer pid=1) INFO 11-19 16:45:11 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 60.6 tokens/s, Running: 1 reqs, Waiting: 0 reqs, XPU KV cache usage: 13.4%, Prefix cache hit rate: 29.1%
+(APIServer pid=1) INFO 11-19 16:45:11 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.14, Accepted throughput: 32.30 tokens/s, Drafted throughput: 113.19 tokens/s, Accepted: 323 tokens, Drafted: 1132 tokens, Per-position acceptance rate: 0.633, 0.343, 0.117, 0.049, Avg Draft acceptance rate: 28.5%
+(APIServer pid=1) INFO 11-19 16:45:21 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 64.4 tokens/s, Running: 1 reqs, Waiting: 0 reqs, XPU KV cache usage: 12.0%, Prefix cache hit rate: 29.1%
+(APIServer pid=1) INFO 11-19 16:45:21 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.28, Accepted throughput: 36.10 tokens/s, Drafted throughput: 113.19 tokens/s, Accepted: 361 tokens, Drafted: 1132 tokens, Per-position acceptance rate: 0.668, 0.396, 0.177, 0.035, Avg Draft acceptance rate: 31.9%
+(APIServer pid=1) INFO 11-19 16:45:31 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 61.2 tokens/s, Running: 1 reqs, Waiting: 0 reqs, XPU KV cache usage: 12.0%, Prefix cache hit rate: 29.1%
+(APIServer pid=1) INFO 11-19 16:45:31 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.16, Accepted throughput: 32.90 tokens/s, Drafted throughput: 113.19 tokens/s, Accepted: 329 tokens, Drafted: 1132 tokens, Per-position acceptance rate: 0.675, 0.336, 0.131, 0.021, Avg Draft acceptance rate: 29.1%
+(APIServer pid=1) INFO 11-19 16:45:41 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 65.1 tokens/s, Running: 1 reqs, Waiting: 0 reqs, XPU KV cache usage: 12.5%, Prefix cache hit rate: 29.1%
+(APIServer pid=1) INFO 11-19 16:45:41 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.32, Accepted throughput: 37.00 tokens/s, Drafted throughput: 112.40 tokens/s, Accepted: 370 tokens, Drafted: 1124 tokens, Per-position acceptance rate: 0.676, 0.399, 0.199, 0.043, Avg Draft acceptance rate: 32.9%
+(APIServer pid=1) INFO 11-19 16:45:51 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 61.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, XPU KV cache usage: 12.5%, Prefix cache hit rate: 29.1%
+(APIServer pid=1) INFO 11-19 16:45:51 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.17, Accepted throughput: 32.90 tokens/s, Drafted throughput: 112.40 tokens/s, Accepted: 329 tokens, Drafted: 1124 tokens, Per-position acceptance rate: 0.648, 0.338, 0.149, 0.036, Avg Draft acceptance rate: 29.3%
+(APIServer pid=1) INFO 11-19 16:46:01 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 62.1 tokens/s, Running: 1 reqs, Waiting: 0 reqs, XPU KV cache usage: 12.5%, Prefix cache hit rate: 29.1%
+(APIServer pid=1) INFO 11-19 16:46:01 [metrics.py:120] SpecDecoding metrics: Mean acceptance length: 2.21, Accepted throughput: 34.00 tokens/s, Drafted throughput: 112.39 tokens/s, Accepted: 340 tokens, Drafted: 1124 tokens, Per-position acceptance rate: 0.698, 0.377, 0.114, 0.021, Avg Draft acceptance rate: 30.2%
+INFO:     127.0.0.1:37878 - "POST /v1/chat/completions HTTP/1.1" 200 OK

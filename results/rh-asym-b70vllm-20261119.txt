@@ -1,0 +1,20 @@
+=== rh-asym-b70vllm-20261119 (2026-11-19T16:05:25Z)
+median decode 87.58 t/s (min 77.15, max 91.72), median TTFT 0.286s, median e2e 1.736s
+p=1: per-request decode  80.0 t/s (min 80.0), TTFT max 0.10s, aggregate  77.8 t/s
+p=2: per-request decode  68.4 t/s (min 67.5), TTFT max 0.13s, aggregate 130.8 t/s
+p=4: per-request decode  61.1 t/s (min 59.3), TTFT max 0.15s, aggregate 230.5 t/s
+rh-asym-b70vllm-20261119 think_off: 25/80  (9s, 265 completion tokens)
+rh-asym-b70vllm-20261119 think_on: 77/80  (44s, 12749 completion tokens)
+score 12/12
+8/8 streamed cases clean
+prompt 75064 tok, 50s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3
+--- extra checks
+prompt 187349 tok, 184s, got 'Rotterdam=3978, Quito=1056, Osaka=4911', want {'Rotterdam': '3978', 'Quito': '1056', 'Osaka': '4911'}, 3/3
+OK   Eli G. Dahl  want 43271 network    got '43271 network'  prompt=9080 cached=6656
+
+retrieval 24/24; repeated question identical across 4 runs: True
+prefix cache hit rate during test: 70.7%
+16/16 streamed cases clean
+
+23/24 correct, 4 parallel, wall 170s, aggregate 58.3 completion tok/s
+Mean acceptance length: 2.23

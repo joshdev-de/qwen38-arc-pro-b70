@@ -330,3 +330,29 @@ DFlash2 K=7 (their spec config incl. probabilistic draft sampling, TRITON_ATTN):
   bf16 32k triton 20.9 / default backend 21.4 (bf16 max 38,272 at 49k attempt) | w8a8 vision off (LMO) 81,920: KV 101,437, 20.9.
 Warning seen with vision on: drafter does not support external multimodal embeddings (text-only draft inputs); not the cause.
 Their fork: ~50 vLLM patches + kernels (wu1ff dflash2 patch is Flash-Next-specific). Cause of 0% on stock not found.
+
+## TurboQuant KV, SGLang, riceharvest stack; new production (2026-11-18/19)
+All at 312 W unless noted; baseline = prod on vLLM 0.34 (results/prod-vllm034-20261117.txt, KV 225,101).
+- TurboQuant KV (vLLM 0.34, ~/bench/tq-kv.sh, tq-probe.sh): k8v4 KV 286,795 / 373,555 (MTP 3 / off), 4bit_nc 398,257 / 542,076.
+  With MTP 3 both loop (`** ** **`, `( ( (`, 100% draft acceptance); without MTP clean, canary 12/12. fp8+MTP3 control clean.
+  TQ backend sets supports_spec_as_decode=False: verify steps go through its continuation-prefill path -> likely any
+  spec method breaks (ngram not tested). Speed/retrieval without MTP not measured. Not usable with MTP.
+- SGLang 0.5.23-xpu (run_sglang.sh, RedHat INT4, MTP 3/EAGLE, vision on: --language-model-only unsupported for Qwen3.8):
+  needs MEM=0.97 + --mamba-ssm-dtype bfloat16 --max-mamba-cache-size 16 for 4 seqs; KV 160,810 (MTP draft holds ~5.5 GB).
+  decode 23.6, p4 90.4, 75k 1272 s, evalset 30/79, canary 12/12, tools 8/8, accept len 3.4-3.5. Triton attention. Not usable.
+- riceharvest ghcr.io/riceharvest/b70-vllm (patched vLLM 0.32, MTP 4 probabilistic, fp8 lm_head/linears, embed+vision in
+  host RAM, 8 seqs, 262k) with darioooooo0o asym GPTQ g128 (~/bench/rh-asym.sh). KV 323,211 for both builds.
+  | | prod 0.34 | stock asym | uncensored asym |
+  | decode median | 49.6 | 87.6 | 87.7 |
+  | p1 / p2 / p4 aggregate | 49.2 / 92.8 / 148.8 | 77.8 / 130.8 / 230.5 | 84.5 / 133.5 / 222.6 |
+  | evalset off / on | 30 / 76 | 25 / 77 | 30 / 80 |
+  | 75k / 187k cold | 84 s / - | 50 s / 184 s | 50 s / 184 s |
+  canary 12/12, tools 8/8 + 16/16, prefix_check 24/24 (70.7% hits), concurrency 23/24 (no prod baseline) for both.
+  Think-off 25: 47/80 answers identical to prod, flips both ways (9 vs 4); RedHat weights score 30-31 on every engine,
+  all other builds 25-29 -> guessing variance, not capability. No refusals in any of 7,320 saved evalset answers.
+- 2026-11-19 16:52 UTC: production switched to riceharvest image (pinned sha256:1aafc546...) + Uncensored asym GPTQ
+  (start-qwen38.sh). Old container renamed qwen38-vllm (stopped, restart=no); rollback: podman stop qwen38; ./start-qwen38-vllm.sh.
+  Verified: canary 12/12, stream_tools 16/16, 401 without key, image request OK. Cap back at 180 W (new stack not yet measured there).
+- New production at 180 W (live, no outside requests, ~/bench/prod-180.sh, results/rh-unc-prod-180w-20261119.txt):
+  decode 83.7, p1/p2/p4 72.5/122.5/206.0, evalset 30/80 (48 s), canary 12/12, tools 8/8, 75k 71 s, 187k 254 s 3/3.
+  vs 312 W: decode -5%, p1 -14%, p4 -7%, prefill ~+40% time. Still ahead of old prod at 312 W on every figure.

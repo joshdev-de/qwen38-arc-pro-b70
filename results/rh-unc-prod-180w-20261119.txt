@@ -1,0 +1,14 @@
+=== rh-unc-prod-180w-20261119 (2026-11-19T16:56:38Z)
+median decode 83.69 t/s (min 81.88, max 85.69), median TTFT 0.326s, median e2e 1.845s
+p=1: per-request decode  74.0 t/s (min 74.0), TTFT max 0.08s, aggregate  72.5 t/s
+p=2: per-request decode  64.1 t/s (min 63.3), TTFT max 0.15s, aggregate 122.5 t/s
+p=4: per-request decode  53.7 t/s (min 53.1), TTFT max 0.17s, aggregate 206.0 t/s
+rh-unc-prod-180w-20261119 think_off: 30/80  (10s, 269 completion tokens)
+rh-unc-prod-180w-20261119 think_on: 80/80  (48s, 12570 completion tokens)
+score 12/12
+8/8 streamed cases clean
+prompt 75064 tok, 71s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3
+--- extra checks
+prompt 187349 tok, 254s, got 'Rotterdam=3978, Quito=1056, Osaka=4911', want {'Rotterdam': '3978', 'Quito': '1056', 'Osaka': '4911'}, 3/3
+outside requests during run: 0
+cap at end 180000000
