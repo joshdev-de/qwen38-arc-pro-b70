@@ -1,0 +1,4 @@
+=== rh-unc-180W cap=180000000 17:13:46
+speed         57s  card avg 180.2 W (peak5s 182.0)  pkg avg 102.4 W  pkg max 58 C  vram max 70 C  fan max 1961 rpm | rh-unc-180W      code 112.7  prose  89.8  json 136.8  | mean 113.1 t/s (spread 89.8-136.9)
+par4          24s  card avg 179.8 W (peak5s 180.7)  pkg avg 102.3 W  pkg max 59 C  vram max 72 C  fan max 2080 rpm | p=4: per-request decode  55.4 t/s (min 51.0), TTFT max 0.16s, aggregate 202.2 t/s
+prefill       71s  card avg 180.0 W (peak5s 181.7)  pkg avg 116.1 W  pkg max 60 C  vram max 74 C  fan max 2320 rpm | prompt 74964 tok, 71s, got 'Rotterdam=9634, Quito=2507, Osaka=9214', want {'Rotterdam': '9634', 'Quito': '2507', 'Osaka': '9214'}, 3/3

@@ -356,3 +356,6 @@ All at 312 W unless noted; baseline = prod on vLLM 0.34 (results/prod-vllm034-20
 - New production at 180 W (live, no outside requests, ~/bench/prod-180.sh, results/rh-unc-prod-180w-20261119.txt):
   decode 83.7, p1/p2/p4 72.5/122.5/206.0, evalset 30/80 (48 s), canary 12/12, tools 8/8, 75k 71 s, 187k 254 s 3/3.
   vs 312 W: decode -5%, p1 -14%, p4 -7%, prefill ~+40% time. Still ahead of old prod at 312 W on every figure.
+- powerbench.sh at 180 W (results/power/rh-unc-180W.txt) vs cap-180W (v0.33 RedHat, 2026-11-11): speedbench mean 113.1 vs 66.7
+  (code 112.7/66.3, prose 89.8/57.1, json 136.8/76.7), par4x768 202.2 vs 158.7, 75k 71 vs 86 s; card 180 W both;
+  VRAM max 70-74 vs 78 C. Tokens per Wh: decode 2,259 vs 1,331, 4 clients 4,049 vs 3,172; 75k prompt 3.6 vs 4.3 Wh.
