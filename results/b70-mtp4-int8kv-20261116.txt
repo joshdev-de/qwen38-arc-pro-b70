@@ -1,0 +1,10 @@
+=== b70-mtp4-int8kv-20261116 (2026-11-16T18:29:27Z)
+median decode 62.10 t/s (min 59.63, max 67.98), median TTFT 0.483s, median e2e 2.531s
+p=1: per-request decode  55.2 t/s (min 55.2), TTFT max 0.14s, aggregate  53.8 t/s
+p=2: per-request decode  46.7 t/s (min 46.3), TTFT max 0.31s, aggregate  88.1 t/s
+p=4: per-request decode  38.2 t/s (min 37.2), TTFT max 0.61s, aggregate 140.0 t/s
+b70-mtp4-int8kv-20261116 think_off: 31/80  (15s, 178 completion tokens)
+b70-mtp4-int8kv-20261116 think_on: 80/80  (96s, 14702 completion tokens)
+score 12/12
+8/8 streamed cases clean
+prompt 75064 tok, 70s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3

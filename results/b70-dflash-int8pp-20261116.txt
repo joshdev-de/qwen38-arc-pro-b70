@@ -1,0 +1,6 @@
+=== b70-dflash-int8pp-20261116 (2026-11-16T18:34:44Z)
+median decode 97.08 t/s (min 97.03, max 100.04), median TTFT 0.496s, median e2e 1.802s
+p=1: per-request decode  79.7 t/s (min 79.7), TTFT max 0.31s, aggregate  72.9 t/s
+score 12/12
+8/8 streamed cases clean
+prompt 75064 tok, 62s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3

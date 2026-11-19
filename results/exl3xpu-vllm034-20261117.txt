@@ -1,0 +1,10 @@
+=== exl3xpu-vllm034-20261117 (2026-11-17T21:20:06Z)
+median decode 57.18 t/s (min 52.05, max 62.32), median TTFT 0.294s, median e2e 2.553s
+p=1: per-request decode  52.2 t/s (min 52.2), TTFT max 0.15s, aggregate  50.8 t/s
+p=2: per-request decode  49.5 t/s (min 48.6), TTFT max 0.22s, aggregate  93.8 t/s
+p=4: per-request decode  44.4 t/s (min 42.8), TTFT max 0.37s, aggregate 161.6 t/s
+exl3xpu-vllm034-20261117 think_off: 28/80  (11s, 266 completion tokens)
+exl3xpu-vllm034-20261117 think_on: 78/80  (64s, 12919 completion tokens)
+score 12/12
+8/8 streamed cases clean
+prompt 75064 tok, 48s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3

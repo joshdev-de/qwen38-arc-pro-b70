@@ -1,0 +1,9 @@
+=== prod-vllm034-int4pth-20261117 (2026-11-17T22:44:34Z)
+median decode 44.50 t/s (min 42.82, max 48.26), median TTFT 0.400s, median e2e 3.254s
+p=1: per-request decode  44.9 t/s (min 44.9), TTFT max 0.15s, aggregate  43.9 t/s
+p=2: per-request decode  44.1 t/s (min 43.2), TTFT max 0.17s, aggregate  84.3 t/s
+p=4: per-request decode  39.6 t/s (min 37.6), TTFT max 0.25s, aggregate 145.8 t/s
+prod-vllm034-int4pth-20261117 think_off: 31/80  (11s, 252 completion tokens)
+prod-vllm034-int4pth-20261117 think_on: 78/80  (69s, 12525 completion tokens)
+score 12/12
+8/8 streamed cases clean

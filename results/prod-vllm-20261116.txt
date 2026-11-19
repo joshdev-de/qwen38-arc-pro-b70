@@ -1,0 +1,10 @@
+=== prod-vllm-20261116 (2026-11-16T18:23:41Z)
+median decode 54.17 t/s (min 50.98, max 56.52), median TTFT 0.298s, median e2e 2.645s
+p=1: per-request decode  53.7 t/s (min 53.7), TTFT max 0.08s, aggregate  53.0 t/s
+p=2: per-request decode  49.6 t/s (min 48.6), TTFT max 0.17s, aggregate  94.6 t/s
+p=4: per-request decode  45.6 t/s (min 44.0), TTFT max 0.48s, aggregate 163.2 t/s
+prod-vllm-20261116 think_off: 30/80  (9s, 252 completion tokens)
+prod-vllm-20261116 think_on: 76/80  (59s, 12311 completion tokens)
+score 12/12
+8/8 streamed cases clean
+prompt 75064 tok, 64s, got 'Rotterdam=7302, Quito=5717, Osaka=5929', want {'Rotterdam': '7302', 'Quito': '5717', 'Osaka': '5929'}, 3/3

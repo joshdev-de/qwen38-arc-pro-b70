@@ -3,7 +3,7 @@
 #   NAME=qwen38-test MAXLEN=196608 UTIL=0.93 SEQS=2 BATCH=4096 MTP=3 ./run_vllm.sh
 set -euo pipefail
 NAME=${NAME:-qwen38-test}
-IMAGE=${IMAGE:-docker.io/vllm/vllm-openai-xpu:v0.33.0}
+IMAGE=${IMAGE:-docker.io/vllm/vllm-openai-xpu:v0.34.0}
 MODEL=${MODEL:-$HOME/models/Qwen3.8-27B-RedHat-INT4}
 MAXLEN=${MAXLEN:-131072}
 UTIL=${UTIL:-0.88}
